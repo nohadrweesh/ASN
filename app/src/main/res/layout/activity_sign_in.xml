@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    tools:context="com.example.a.myapplication.SignIn">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/cars2"
+         />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dip"
+        android:layout_alignParentTop="true"
+        android:id="@+id/relativeLayout">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="197dp"
+            android:layout_height="197dp"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@drawable/cloud" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:textColor="#424242"
+            android:textSize="23sp"
+            android:fontFamily="@font/strslml"
+            android:text="Log In"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="#11000000"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/ic_action_email" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText"
+        android:layout_below="@+id/editText"
+        android:layout_marginTop="30dp"
+        android:drawableLeft="@drawable/ic_action_name"
+        android:background="#11000000"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="#80424242"
+        android:text="Log in"
+        android:textAllCaps="false"
+        android:fontFamily="@font/strslml"
+        android:textSize="20dp"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="30dp"
+        android:layout_alignLeft="@+id/editText2"/>
+
+    <TextView
+        android:id="@+id/txt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forget your password?"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/login"
+        android:layout_marginTop="15dp"
+        android:textColor="#000000"
+        />
+
+
+</RelativeLayout>
