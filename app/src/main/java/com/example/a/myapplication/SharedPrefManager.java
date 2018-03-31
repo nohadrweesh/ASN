@@ -7,10 +7,6 @@ package com.example.a.myapplication;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-
 /**
  * Created by Belal on 26/11/16.
  */
@@ -24,6 +20,7 @@ public class SharedPrefManager {
     private static final String KEY_USERNAME = "username";
     private static final String KEY_USER_EMAIL = "useremail";
     private static final String KEY_USER_ID = "userid";
+    private static final String KEY_CAR_ID = "carid";
 
 
     private SharedPrefManager(Context context) {
@@ -37,13 +34,23 @@ public class SharedPrefManager {
         }
         return mInstance;
     }
+    public  boolean setUserInfo(int userID,int carID){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-    public boolean userLogin(int id, String username, String email){
+        editor.putInt(KEY_CAR_ID,carID);
+        editor.putInt(KEY_USER_ID,userID);
+        editor.apply();
+        return true;
+
+    }
+
+    public boolean userLogin( String username, String email){
 
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt(KEY_USER_ID, id);
+        //editor.putInt(KEY_USER_ID, id);
         editor.putString(KEY_USER_EMAIL, email);
         editor.putString(KEY_USERNAME, username);
 
@@ -77,5 +84,16 @@ public class SharedPrefManager {
     public String getUserEmail(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_USER_EMAIL, null);
+    }
+
+
+    public int getUserId(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(KEY_USER_ID,0);
+    }
+
+    public int getCarId(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(KEY_CAR_ID,0);
     }
 }

@@ -4,7 +4,6 @@ package com.example.a.myapplication;
  * Created by Speed on 22/03/2018.
  */
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -53,7 +52,7 @@ class LocationManipulating {
 
         int hasLocationPermission= ContextCompat.checkSelfPermission(mContext,ACCESS_COARSE_LOCATION);
         if(hasLocationPermission== PackageManager.PERMISSION_GRANTED){
-            mFusedLocationProviderClient.getLastLocation().addOnSuccessListener((Activity) mContext, new OnSuccessListener<Location>() {
+            mFusedLocationProviderClient.getLastLocation().addOnSuccessListener( new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
                     if(location != null) {

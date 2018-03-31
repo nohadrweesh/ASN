@@ -13,6 +13,7 @@ public class Constants {
     public static final String URL_REGISTER = ROOT_URL+"RegisterUser.php";
     public static final String URL_LOGIN = ROOT_URL+"UserLogin.php";
     public static final String LOCATION_SET = ROOT_URL+"location.php";
+    public static final String URL_NEIGBOURS = ROOT_URL+"Neighbours.php";
 
 
 }

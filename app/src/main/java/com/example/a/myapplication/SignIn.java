@@ -76,7 +76,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                             if(!obj.getBoolean("error")){
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(
-                                                obj.getInt("ID"),
+
                                                 obj.getString("email"),
                                                 obj.getString("password")
                                         );

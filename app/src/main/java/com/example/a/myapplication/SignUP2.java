@@ -1,9 +1,7 @@
 package com.example.a.myapplication;
 
 
-
-
-
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,10 +79,26 @@ public class SignUP2 extends AppCompatActivity implements View.OnClickListener {
                         progressDialog.dismiss();
 
                         try {
-                            JSONObject jsonObject = new JSONObject(response);
+                            JSONObject obj = new JSONObject(response);
+                            if(!obj.getBoolean("error")){
+                                SharedPrefManager.getInstance(getApplicationContext())
+                                        .setUserInfo(
+                                                obj.getInt("userID"),
+                                                obj.getInt("carID")
+                                        );
+                                startActivity(new Intent(getApplicationContext(), SignIn.class));
+                                finish();
+                            }else{
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        obj.getString("message"),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
+
                             Log.d("Main Activity", "onResponse: "+response);
 
-                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
