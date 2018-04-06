@@ -22,20 +22,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
 
     private TextView textViewUsername,textViewLongitude,textViewLatitude,textViewAltitude,
-                        textViewUserId,textViewCarId,textViewNeighbours;
+                        textViewUserId,textViewUserEmail,textViewCarId,textViewNeighbours;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private static LocationObject retObject=new LocationObject();
 
     private ProgressDialog progressDialog;
 
     private static final String TAG = "ProfileActivity";
+
+    String username;
+    String userEmail;
+    int userID;
+    int carID;
+    List<Car> neighbourCars=new ArrayList<>();
+    private static LocationObject driverPosition =new LocationObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,39 +55,42 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(new Intent(this, SignIn.class));
         }
 
-        textViewUsername = (TextView) findViewById(R.id.textViewUsername);
-        //textViewUserEmail = (TextView) findViewById(R.id.textViewUseremail);
+        LocationManipulating locationManipulating=new LocationManipulating(getApplicationContext());
 
 
+        driverPosition =locationManipulating.getLocation();
+        //TODO:- username returns email ....userEmail returns password
+        username =SharedPrefManager.getInstance(this).getUsername();
+        userEmail =SharedPrefManager.getInstance(this).getUserEmail();
+        userID =SharedPrefManager.getInstance(this).getUserId();
+        carID =SharedPrefManager.getInstance(this).getCarId();
 
-        //textViewUserEmail.setText(SharedPrefManager.getInstance(this).getUserEmail());
-        textViewUsername.setText(SharedPrefManager.getInstance(this).getUsername());
+        textViewUsername = (TextView) findViewById(R.id.tv_username);
+        textViewUserEmail = (TextView) findViewById(R.id.tv_useremail);
 
 
         textViewLongitude=(TextView)findViewById(R.id.longitude_tv);
         textViewLatitude=(TextView)findViewById(R.id.latitude_tv);
         textViewAltitude=(TextView)findViewById(R.id.altitude_tv);
-
         textViewNeighbours=(TextView)findViewById(R.id.tv_neigbours);
-
         textViewUserId=(TextView)findViewById(R.id.tv_userID);
         textViewCarId=(TextView)findViewById(R.id.tv_carID);
-        textViewUserId.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserId()));
-        textViewCarId.setText(String.valueOf(SharedPrefManager.getInstance(this).getCarId()));
+
+
+
+        Log.d("ProfileActivity: ","user ID "+userID+" username "+username+" user email "+userEmail+ " car ID "+carID+
+                                        " longitude "+driverPosition.getLongitude()+" latitude "+driverPosition.getLatitude()+
+                                        " altitude "+driverPosition.getAltitude());
+        textViewUserEmail.setText(userEmail);
+        textViewUsername.setText(username);
+        textViewUserId.setText(String.valueOf(userID));
+        textViewCarId.setText(String.valueOf(carID));
+        textViewLongitude.setText(String.valueOf(driverPosition.getLongitude()));
+        textViewLatitude.setText(String.valueOf(driverPosition.getLatitude()));
+        textViewAltitude.setText(String.valueOf(driverPosition.getAltitude()));
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
-
-
-
-       LocationManipulating locationManipulating=new LocationManipulating(getApplicationContext());
-         retObject=locationManipulating.getLocation();
-
-
-        textViewLongitude.setText(String.valueOf(retObject.getLongitude()));
-        textViewLatitude.setText(String.valueOf(retObject.getLatitude()));
-        textViewAltitude.setText(String.valueOf(retObject.getAltitude()));
-
 
     }
 
@@ -104,8 +115,12 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return true;
     }
-    public void AddLocation(View view){
-        setLocation(retObject);
+    public void AddLocation(View view)
+    {
+        Log.d("ProfileActivity: "," add location clicked user ID "+userID+" username "+username+" user email "+userEmail+ " car ID "+carID+
+                " longitude "+driverPosition.getLongitude()+" latitude "+driverPosition.getLatitude()+
+                " altitude "+driverPosition.getAltitude());
+        setLocation(driverPosition);
     }
     
     private void setLocation(final LocationObject locationObject){
@@ -124,20 +139,16 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.d(TAG, "onResponse: starts with response "+response);
                         progressDialog.dismiss();
-                        try {
+                        try
+                        {
                             JSONObject obj = new JSONObject(response);
                             Log.d(TAG, "onResponse: "+response);
-                            if(!obj.getBoolean("error")){
-                                Toast.makeText(getApplicationContext(),"location set ",Toast.LENGTH_LONG).show();
-                                finish();
-                            }else{
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        obj.getString("message"),
-                                        Toast.LENGTH_LONG
-                                ).show();
-                            }
-                        } catch (JSONException e) {
+                            if(!obj.getBoolean("error"))
+                                {Toast.makeText(getApplicationContext(),"location set ",Toast.LENGTH_LONG).show();}
+                            else
+                                {Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();}
+                        } catch (JSONException e)
+                        {
                             Log.d(TAG, "onResponse: error"+response);
                             e.printStackTrace();
                         }
@@ -148,12 +159,7 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "onErrorResponse: starts");
                         progressDialog.dismiss();
-
-                        Toast.makeText(
-                                getApplicationContext(),
-                                "unknown error  error is  "+error.toString(),
-                                Toast.LENGTH_LONG
-                        ).show();
+                        Toast.makeText(getApplicationContext(), "unknown error  error is  "+error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }
         ){
@@ -179,45 +185,48 @@ public class ProfileActivity extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    public List<Car> getNeighbours()  //this function is called from MapsActivity
+    {
+        return neighbourCars;
+    }
 
     public void getNeighbours(View view){
-        int userID=SharedPrefManager.getInstance(this).getUserId();
-        //int carID=SharedPrefManager.getInstance(this).getCarId();
+//        userID=SharedPrefManager.getInstance(this).getUserId();
+//        int carID=SharedPrefManager.getInstance(this).getCarId();
         LocationManipulating locationManipulating=new LocationManipulating(getApplicationContext());
         LocationObject currentLocation=locationManipulating.getLocation();
         setLocation(currentLocation);
+        Log.d("ProfileActivity:"," get neighbours clicked");
         getNeighboursFromDb(userID,currentLocation);
+        Log.d("ProfileActivity:"," get neighbours from database finished");
     }
-    public void getNeighboursFromDb(int userID, final LocationObject curr){
-        progressDialog.show();
-        //final JSONObject retJSON;
 
+    public void getNeighboursFromDb(final int userID, final LocationObject curr){
+        progressDialog.show();
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_NEIGBOURS,
+                //TODO: there are no neighbours retrieved with error msg= {"error":true,"message":"Required fields are missing"}
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(String response)
+                    {
                         Log.d(TAG, "onResponse: starts with response "+response);
                         textViewNeighbours.setText(response);
 
                         progressDialog.dismiss();
-                        try {
+                        try
+                        {
                             JSONObject obj = new JSONObject(response);
                             //retJSON=new JSONObject(response);
                             Log.d(TAG, "onResponse: "+response);
-                            if(!obj.getBoolean("error")){
-                                Toast.makeText(getApplicationContext(),"Retreived neighbours are  "+response,Toast.LENGTH_LONG).show();
-
-                               // finish();
-                            }else{
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        obj.getString("message"),
-                                        Toast.LENGTH_LONG
-                                ).show();
-                            }
-                        } catch (JSONException e) {
+                            if(!obj.getBoolean("error"))
+                                {Toast.makeText(getApplicationContext(),"Retreived neighbours are  "+response,Toast.LENGTH_LONG).show();}
+                            else
+                                {Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();}
+                        }
+                        catch (JSONException e)
+                        {
                             Log.d(TAG, "onResponse: error"+response);
                             e.printStackTrace();
                         }
@@ -228,12 +237,7 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "onErrorResponse: starts");
                         progressDialog.dismiss();
-
-                        Toast.makeText(
-                                getApplicationContext(),
-                                "unknown error  error is  "+error.toString(),
-                                Toast.LENGTH_LONG
-                        ).show();
+                        Toast.makeText(getApplicationContext(), "unknown error  error is  "+error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }
         ){
@@ -251,11 +255,19 @@ public class ProfileActivity extends AppCompatActivity {
                 //params.put("carID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getCarId()));
                 //params.put("locationTime", timeStamp);
 
+
                 return params;
             }
 
         };
 
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    public void gotoGoogleMaps(View view)
+    {
+        Intent i=new Intent(ProfileActivity.this,MapsActivity.class);
+        i.putExtra("userID",userID);
+        startActivity(i);
     }
 }
