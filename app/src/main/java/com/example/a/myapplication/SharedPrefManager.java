@@ -18,7 +18,7 @@ public class SharedPrefManager {
 
     private static final String SHARED_PREF_NAME = "mysharedpref12";
     private static final String KEY_USERNAME = "username";
-    private static final String KEY_USER_EMAIL = "useremail";
+    private static final String KEY_USER_EMAIL = "userEmail";
     private static final String KEY_USER_ID = "userid";
     private static final String KEY_CAR_ID = "carid";
 

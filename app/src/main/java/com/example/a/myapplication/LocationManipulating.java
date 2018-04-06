@@ -24,7 +24,8 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
  * Created by Speed on 13/10/2017.
  */
 
-class LocationManipulating {
+class LocationManipulating
+{
     private static final String TAG = "LocationManipulating";
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -37,24 +38,23 @@ class LocationManipulating {
     public LocationManipulating(Context context) {
         mContext = context;
     }
-    public LocationObject getLocation(){
-
-
+    public LocationObject getLocation()
+    {
         mFusedLocationProviderClient=new FusedLocationProviderClient(mContext);
         if(mFusedLocationProviderClient==null)
             Log.d(TAG, "getLocation: is null");
         else
             Log.d(TAG, "getLocation: not null");
 
-
         int hasLocationPermission= ContextCompat.checkSelfPermission(mContext,ACCESS_COARSE_LOCATION);
-        if(hasLocationPermission== PackageManager.PERMISSION_GRANTED){
+        if(hasLocationPermission== PackageManager.PERMISSION_GRANTED)
+        {
             mFusedLocationProviderClient.getLastLocation().addOnSuccessListener( new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-                    if(location != null) {
+                    if(location != null)
+                    {
                         Toast.makeText(mContext.getApplicationContext(), "your location is set to "+location.toString(), Toast.LENGTH_LONG).show();
-
                         double latitude=location.getLatitude();
                         double longitude=location.getLongitude();
                         double altitude=location.getAltitude();
@@ -62,17 +62,13 @@ class LocationManipulating {
                         retObject.setLatitude(latitude);
                         retObject.setAltitude(altitude);
                         Log.d(TAG, "addItem:before return place long @ "+retObject.getLongitude()+" lat @"+retObject.getLatitude());
-
                     }
-
                 }
             });
             Log.d(TAG, "addItem:before else place long @ "+retObject.getLongitude()+" lat @"+retObject.getLatitude());
-
-        }else{
-            Toast.makeText(mContext,"Accept Permission",Toast.LENGTH_LONG).show();
-
         }
+        else
+            {Toast.makeText(mContext,"Accept Permission",Toast.LENGTH_LONG).show();}
         Log.d(TAG, "addItem:return place long @ "+retObject.getLongitude()+" lat @"+retObject.getLatitude());
 
         return  retObject;

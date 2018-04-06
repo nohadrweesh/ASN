@@ -55,6 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LocationManipulating lm = new LocationManipulating(getApplicationContext());
         LocationObject driverPosition=lm.getLocation();
+
         Log.d("MapsActivity: ","driver position is "+driverPosition.getLatitude()+" "+driverPosition.getLongitude());
         LatLng driverxyPosition = new LatLng(driverPosition.getLatitude(),driverPosition.getLongitude());
         mMap.addMarker(new MarkerOptions().position(driverxyPosition));

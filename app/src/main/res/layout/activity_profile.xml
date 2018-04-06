@@ -12,12 +12,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/tv_userID"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="userID"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="userID" />
         <TextView
             android:id="@+id/tv_carID"
             android:layout_weight="1"
@@ -40,12 +41,12 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:id="@+id/textViewUsername"
+            android:id="@+id/tv_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="USER NAME"
             android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
 
         <TextView
@@ -55,10 +56,10 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/textViewUseremail"
+            android:id="@+id/tv_useremail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="USER NAME"
+            android:text="USER EMAIL"
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
