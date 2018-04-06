@@ -1,7 +1,6 @@
 package com.example.a.myapplication;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,12 +44,12 @@ public class SignUP2 extends AppCompatActivity implements View.OnClickListener {
             return;
         }
 
-        editTextEmail = (EditText) findViewById(R.id.editText);
-        editTextUsername = (EditText) findViewById(R.id.editText2);
-        editTextPassword = (EditText) findViewById(R.id.editText3);
-        editTextPhone = (EditText) findViewById(R.id.editText5);
-        editTextCarID = (EditText) findViewById(R.id.editTextcarid);
-        editTextCarSerial = (EditText) findViewById(R.id.editTextcarserial);
+        editTextEmail = (EditText) findViewById(R.id.editeTextEmailid);
+        editTextUsername = (EditText) findViewById(R.id.editTextUsernameid);
+        editTextPassword = (EditText) findViewById(R.id.editTextPasswordid);
+        editTextPhone = (EditText) findViewById(R.id.editTextPhoneid);
+        editTextCarID = (EditText) findViewById(R.id.editTextCarid);
+        editTextCarSerial = (EditText) findViewById(R.id.editTextCarserial);
        // textViewLogin = (TextView) findViewById(R.id.textViewLogin);
 
         buttonRegister = (Button) findViewById(R.id.register);

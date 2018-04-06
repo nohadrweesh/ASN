@@ -34,12 +34,9 @@ class LocationManipulating {
     //private Activity mActivity;
 
 
-
     public LocationManipulating(Context context) {
         mContext = context;
     }
-
-
     public LocationObject getLocation(){
 
 

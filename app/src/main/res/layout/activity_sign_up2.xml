@@ -41,7 +41,7 @@
         </RelativeLayout>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editTextUsernameid"
             android:layout_width="match_parent"
             android:layout_height="40dp"
 
@@ -55,7 +55,7 @@
             />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editeTextEmailid"
             android:layout_width="match_parent"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -69,34 +69,34 @@
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/editTextPasswordid"
             android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_height="40dp"
 
             android:background="#11000000"
             android:ems="10"
             android:hint="Password"
-            android:paddingLeft="15dp"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:paddingLeft="15dp" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/editTextPasswordid2"
             android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_height="40dp"
 
             android:layout_marginTop="30dp"
             android:background="#11000000"
             android:ems="10"
             android:hint="Re-Enter Password"
-            android:paddingLeft="15dp"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:paddingLeft="15dp" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/editTextPhoneid"
             android:layout_width="match_parent"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -110,32 +110,32 @@
             android:inputType="phone" />
 
         <EditText
-            android:id="@+id/editTextcarid"
+            android:id="@+id/editTextCarid"
             android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_height="40dp"
 
             android:layout_marginTop="30dp"
             android:background="#11000000"
             android:ems="10"
             android:hint="Car Model"
-            android:paddingLeft="15dp"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:paddingLeft="15dp" />
 
         <EditText
-            android:id="@+id/editTextcarserial"
+            android:id="@+id/editTextCarserial"
             android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_height="40dp"
 
             android:layout_marginTop="30dp"
             android:background="#11000000"
             android:ems="10"
             android:hint="Car Serial"
-            android:paddingLeft="15dp"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:paddingLeft="15dp" />
 
         <Button
             android:id="@+id/register"
@@ -148,7 +148,7 @@
             android:textAllCaps="false"
             android:fontFamily="@font/strslml"
             android:textSize="20dp"
-            android:layout_below="@+id/editText5"
+            android:layout_below="@+id/editTextPhoneid"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
 

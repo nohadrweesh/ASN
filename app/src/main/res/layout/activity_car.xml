@@ -50,7 +50,7 @@
         </RelativeLayout>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editTextUsernameid"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/relativeLayout"
@@ -64,13 +64,13 @@
             />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editeTextEmailid"
             android:layout_width="match_parent"
             android:layout_marginRight="30dp"
             android:layout_height="40dp"
-            android:layout_alignLeft="@+id/editText"
-            android:layout_alignStart="@+id/editText"
-            android:layout_below="@+id/editText"
+            android:layout_alignLeft="@+id/editTextUsernameid"
+            android:layout_alignStart="@+id/editTextUsernameid"
+            android:layout_below="@+id/editTextUsernameid"
             android:layout_marginTop="30dp"
             android:background="#11000000"
             android:ems="10"
@@ -83,9 +83,9 @@
             android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_alignLeft="@+id/editText2"
-            android:layout_alignStart="@+id/editText2"
-            android:layout_below="@+id/editText2"
+            android:layout_alignLeft="@+id/editeTextEmailid"
+            android:layout_alignStart="@+id/editeTextEmailid"
+            android:layout_below="@+id/editeTextEmailid"
             android:layout_marginTop="61dp"
             android:background="#80424242"
             android:fontFamily="@font/strslml"
