@@ -129,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
                             Log.d(TAG, "onResponse: "+response);
                             if(!obj.getBoolean("error")){
                                 Toast.makeText(getApplicationContext(),"location set ",Toast.LENGTH_LONG).show();
-                                finish();
+                                //finish();
                             }else{
                                 Toast.makeText(
                                         getApplicationContext(),
@@ -186,9 +186,9 @@ public class ProfileActivity extends AppCompatActivity {
         LocationManipulating locationManipulating=new LocationManipulating(getApplicationContext());
         LocationObject currentLocation=locationManipulating.getLocation();
         setLocation(currentLocation);
-        getNeighboursFromDb(userID,currentLocation);
+        getNeighboursFromDb(currentLocation);
     }
-    public void getNeighboursFromDb(int userID, final LocationObject curr){
+    public void getNeighboursFromDb( final LocationObject curr){
         progressDialog.show();
         //final JSONObject retJSON;
 
@@ -239,6 +239,7 @@ public class ProfileActivity extends AppCompatActivity {
         ){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+
                 String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
                 Log.d(TAG, "getParams: starts with "+curr.toString());
                 Log.d(TAG, "getParams: starts with time "+timeStamp);
@@ -248,6 +249,7 @@ public class ProfileActivity extends AppCompatActivity {
                 params.put("longitude", String.valueOf(curr.getLongitude()));
                 params.put("altitude", String.valueOf(curr.getAltitude()));
                 params.put("userID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserId()));
+                params.put("time", timeStamp);
                 //params.put("carID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getCarId()));
                 //params.put("locationTime", timeStamp);
 

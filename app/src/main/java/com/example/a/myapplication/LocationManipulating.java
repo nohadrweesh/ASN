@@ -55,6 +55,7 @@ class LocationManipulating {
             mFusedLocationProviderClient.getLastLocation().addOnSuccessListener( new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
+                    Log.d(TAG, "onSuccess: starts");
                     if(location != null) {
                         Toast.makeText(mContext.getApplicationContext(), "your location is set to "+location.toString(), Toast.LENGTH_LONG).show();
 
