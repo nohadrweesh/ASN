@@ -86,11 +86,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
         </LinearLayout>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set location"
-            android:onClick="AddLocation"/>
+            android:onClick="AddLocation"
+            android:text="Add location" />
 
         <Button
             android:layout_width="wrap_content"

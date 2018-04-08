@@ -18,9 +18,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
     String userEmail;
     int userID;
     int carID;
+    Driver driver;
     List<Car> neighbourCars=new ArrayList<>();
     private static LocationObject driverPosition =new LocationObject();
 
@@ -59,11 +62,15 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         driverPosition =locationManipulating.getLocation();
-        //TODO:- username returns email ....userEmail returns password
+        //TODO:- fix this username returns email ....userEmail returns password
         username =SharedPrefManager.getInstance(this).getUsername();
         userEmail =SharedPrefManager.getInstance(this).getUserEmail();
         userID =SharedPrefManager.getInstance(this).getUserId();
         carID =SharedPrefManager.getInstance(this).getCarId();
+        driver=new Driver(userID,username,userEmail,carID);
+
+        Log.d("ProfileActivity ","username "+driver.getDriverName()+" user email "+driver.getDriverEmail()+" user id "+driver.getDriverID());
+        Log.d("ProfileActivity ","carid "+driver.getDriverID());
 
         textViewUsername = (TextView) findViewById(R.id.tv_username);
         textViewUserEmail = (TextView) findViewById(R.id.tv_useremail);
@@ -77,10 +84,6 @@ public class ProfileActivity extends AppCompatActivity {
         textViewCarId=(TextView)findViewById(R.id.tv_carID);
 
 
-
-        Log.d("ProfileActivity: ","user ID "+userID+" username "+username+" user email "+userEmail+ " car ID "+carID+
-                                        " longitude "+driverPosition.getLongitude()+" latitude "+driverPosition.getLatitude()+
-                                        " altitude "+driverPosition.getAltitude());
         textViewUserEmail.setText(userEmail);
         textViewUsername.setText(username);
         textViewUserId.setText(String.valueOf(userID));
@@ -115,6 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return true;
     }
+
     public void AddLocation(View view)
     {
         Log.d("ProfileActivity: "," add location clicked user ID "+userID+" username "+username+" user email "+userEmail+ " car ID "+carID+
@@ -185,11 +189,6 @@ public class ProfileActivity extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
-    public List<Car> getNeighbours()  //this function is called from MapsActivity
-    {
-        return neighbourCars;
-    }
-
     public void getNeighbours(View view){
 //        userID=SharedPrefManager.getInstance(this).getUserId();
 //        int carID=SharedPrefManager.getInstance(this).getCarId();
@@ -211,7 +210,10 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response)
                     {
-
+                        try
+                            {neighbourCars=getNeighboursFromJSON(response);}
+                        catch (JSONException e)
+                            {e.printStackTrace();}
                         Log.d(TAG, "onResponse: starts with response "+response);
                         textViewNeighbours.setText(response);
 
@@ -255,8 +257,6 @@ public class ProfileActivity extends AppCompatActivity {
                 params.put("userID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserId()));
                 //params.put("carID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getCarId()));
                 //params.put("locationTime", timeStamp);
-
-
                 return params;
             }
 
@@ -265,10 +265,41 @@ public class ProfileActivity extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    public List<Car> getNeighboursFromJSON(String response) throws JSONException {
+        List <Car> nc=new ArrayList<>();
+        String hardCodedResponse = "{}";
+        JSONArray neighbourArray= new JSONArray(response);
+
+        for (int i=0;i<neighbourArray.length();i++)
+        {
+            JSONObject neighbour=neighbourArray.getJSONObject(i);
+            double latitude  =neighbour.getDouble("");
+            double longitude =neighbour.getDouble("");
+            double altitude  =neighbour.getDouble("");
+            LocationObject neighbourPosition=new LocationObject(longitude,latitude,altitude);
+            int neighbourCarID=neighbour.getInt("");
+            int neighbourDriverID=neighbour.getInt("") ;
+            Car neighbourCar=new Car(neighbourPosition,neighbourCarID,neighbourDriverID);
+            nc.add(neighbourCar);
+        }
+
+//        double latitude=36.1112;
+//        double longitude=30.1111;
+//        double altitude=0;
+//        LocationObject neighbourPosition=new LocationObject(longitude,latitude,altitude);
+//        int neighbourCarID=1;
+//        int neighbourDriverID=2 ;
+//        Car neighbourCar=new Car(neighbourPosition,neighbourCarID,neighbourDriverID);
+//        nc.add(neighbourCar);
+
+        return nc;
+    }
+
+
     public void gotoGoogleMaps(View view)
     {
         Intent i=new Intent(ProfileActivity.this,MapsActivity.class);
-        i.putExtra("userID",userID);
+        i.putExtra("driver", (Serializable) driver);
         startActivity(i);
     }
 }

@@ -87,12 +87,12 @@ public class SharedPrefManager {
     }
 
 
-    public int getUserId(){
+    public static int getUserId(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getInt(KEY_USER_ID,0);
     }
 
-    public int getCarId(){
+    public static int getCarId(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getInt(KEY_CAR_ID,0);
     }

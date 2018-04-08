@@ -4,6 +4,7 @@ package com.example.a.myapplication;
  * Created by Speed on 22/03/2018.
  */
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -24,6 +25,8 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
  * Created by Speed on 13/10/2017.
  */
 
+//TODO: delete this class when deleting ProfileActivity
+
 class LocationManipulating
 {
     private static final String TAG = "LocationManipulating";
@@ -34,10 +37,44 @@ class LocationManipulating
     private Context mContext;
     //private Activity mActivity;
 
+    public LocationManipulating() {}
+
+
+    public LocationObject getLocation1()
+    {
+        int hasLocationPermission= ContextCompat.checkSelfPermission(mContext,ACCESS_COARSE_LOCATION);
+        if(hasLocationPermission== PackageManager.PERMISSION_GRANTED)
+        {
+            mFusedLocationProviderClient.getLastLocation().addOnSuccessListener( new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if(location != null)
+                    {
+                        Toast.makeText(mContext.getApplicationContext(), "your location is set to "+location.toString(), Toast.LENGTH_LONG).show();
+                        double latitude=location.getLatitude();
+                        double longitude=location.getLongitude();
+                        double altitude=location.getAltitude();
+                        retObject.setLongitude(longitude);
+                        retObject.setLatitude(latitude);
+                        retObject.setAltitude(altitude);
+                        Log.d(TAG, "addItem:before return place long @ "+retObject.getLongitude()+" lat @"+retObject.getLatitude());
+                    }
+                }
+            });
+            Log.d(TAG, "addItem:before else place long @ "+retObject.getLongitude()+" lat @"+retObject.getLatitude());
+        }
+        else
+        {Toast.makeText(mContext,"Accept Permission",Toast.LENGTH_LONG).show();}
+        Log.d(TAG, "addItem:return place long @ "+retObject.getLongitude()+" lat @"+retObject.getLatitude());
+
+        return  retObject;
+    }
 
     public LocationManipulating(Context context) {
         mContext = context;
     }
+
+    @SuppressLint("RestrictedApi")
     public LocationObject getLocation()
     {
         mFusedLocationProviderClient=new FusedLocationProviderClient(mContext);

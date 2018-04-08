@@ -72,7 +72,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                         progressDialog.dismiss();
                         try {
                             JSONObject obj = new JSONObject(response);
-                            Log.d(TAG, "onResponse: "+response);
+                            Log.d(TAG, "onResponse: "+response); // at this point: response contains id, email, password
                             if(!obj.getBoolean("error")){
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(
@@ -80,7 +80,12 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                                                 obj.getString("email"),
                                                 obj.getString("password")
                                         );
-                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                Intent profileIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+
+                                //TODO: retrieve user's full information and save it in Driver object
+                                //pass this object to the profile intent  (or to the map intent in the future :D)
+                                //profileIntent.putExtra("driver",driverObject);
+                                startActivity(profileIntent);
                                 finish();
                             }else{
                                 Toast.makeText(
@@ -111,7 +116,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
         ){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Log.d(TAG, "getParams: starts with "+userEmail+" , "+password);
+                Log.d( "SignIN","email, password "+userEmail+", "+password);
                 Map<String, String> params = new HashMap<>();
                 params.put("email", userEmail);
                 params.put("password", password);

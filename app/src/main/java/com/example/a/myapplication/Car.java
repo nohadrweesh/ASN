@@ -1,6 +1,28 @@
 package com.example.a.myapplication;
 
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by user on 05/04/2018.
@@ -8,157 +30,55 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class Car {
 
-    LocationObject position;
-    private String carID;
+    LocationObject location;
+    private int carID;
     private int driverID;
+    List<Car> neighbourCars=new ArrayList<>();
 
-    public Car(LocationObject pos, int dID) {
-        this.position = pos;
-        this.driverID = dID;
+
+    public Car(int carID, int driverID)
+    {
+        this.carID = carID;
+        this.driverID = driverID;
     }
-
-    public Car(LocationObject pos, String cID, int dID) {
-        this.position = pos;
+    public Car(LocationObject pos, int cID, int dID)
+    {
+        this.location = pos;
         this.carID = cID;
         this.driverID = dID;
     }
 
     public LocationObject getPosition() {return this.getPosition();}
 
-
-    public String getCarID() {return carID;}
-    public void setCarID(String carID) {this.carID = carID;}
-
+    public int getCarID() {return carID;}
     public int getDriverID() {return driverID;}
+
+    public void setCarID(int carID) {this.carID = carID;}
     public void setDriverID(int driverID) {this.driverID = driverID;}
 
-    //    public void setInformation()
-//    {
-//        int userID=SharedPrefManager.getInstance(this).getUserId();
-//        driver.setID(userID);
-//        carID=SharedPrefManager.getInstance(getApplicationContext()).getCarId();
-//    }
-//
-//    private void setLocation(final LocationObject locationObject){
-//
-//        latitude=locationObject.getLatitude();
-//        longitude=locationObject.getLongitude();
-//        altitude=locationObject.getAltitude();
-//
-//        StringRequest stringRequest = new StringRequest(
-//                Request.Method.POST,
-//                Constants.LOCATION_SET,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        try {
-//                            JSONObject obj = new JSONObject(response);
-//                            if(!obj.getBoolean("error"))
-//                            {
-//                            }
-//                            else
-//                            {
-//
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error)
-//                    {
-//
-//                    }
-//                }
-//        ){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-//
-//                Map<String, String> params = new HashMap<>();
-//                params.put("latitude", String.valueOf(latitude));
-//                params.put("longitude", String.valueOf(longitude));
-//                params.put("altitude", String.valueOf(altitude));
-//                params.put("userID", String.valueOf(driver.getID()));
-//                params.put("carID", String.valueOf(carID));
-//                params.put("locationTime", timeStamp);
-//
-//                return params;
-//            }
-//
-//        };
-//
-//        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
-//    }
-//
-//
-//    public  List<Car> getNeighbours(View view)
-//    {
-//        List<Car> cars=new ArrayList<>();
-//
-//        LocationManipulating locationManipulating=new LocationManipulating(getApplicationContext());
-//        LocationObject currentLocation=locationManipulating.getLocation();
+    public void setLocation(Context ctx,LocationObject locationObject, Driver driver)
+    {
+        carID=this.getCarID();
+        driverID=this.getDriverID();
+        DatabaseOperations dbOperations = new DatabaseOperations();;
+        location=locationObject;
+        Log.d("Car: location is"," latitude "+location.getLatitude()+" longitude "+location.getLongitude()+" altitude "+location.getAltitude());
+        dbOperations.addLocationToDB(ctx, location,carID,driverID);
+    }
+
+    public List<Car> getNeighbours(Car car)
+    {
+        DatabaseOperations dbOperations=new DatabaseOperations();
+//        userID=SharedPrefManager.getInstance(this).getUserId();
+//        int carID=SharedPrefManager.getInstance(this).getCarId();
+        LocationManipulating locationManipulating=new LocationManipulating();
+        LocationObject currentLocation=locationManipulating.getLocation();
 //        setLocation(currentLocation);
-//        cars = getNeighboursFromDb(driver.getID(),currentLocation);
-//
-//        return cars;
-//    }
-//
-//    public List<Car> getNeighboursFromDb(int userID, final LocationObject curr)
-//    {
-//        //final JSONObject retJSON;
-//        List<Car> cars=new ArrayList<>();
-//        StringRequest stringRequest = new StringRequest(
-//                Request.Method.POST,
-//                Constants.URL_NEIGBOURS,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//
-//                        try {
-//                            JSONObject obj = new JSONObject(response);
-//                            //retJSON=new JSONObject(response);
-//                            if(!obj.getBoolean("error"))
-//                            {
-//
-//                                // finish();
-//                            }
-//                            else{
-//
-//                            }
-//                        } catch (JSONException e) {
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//
-//
-//                    }
-//                }
-//        ){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-//
-//                Map<String, String> params = new HashMap<>();
-//                params.put("latitude", String.valueOf(curr.getLatitude()));
-//                params.put("longitude", String.valueOf(curr.getLongitude()));
-//                params.put("altitude", String.valueOf(curr.getAltitude()));
-//                params.put("userID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserId()));
-//                //params.put("carID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getCarId()));
-//                //params.put("locationTime", timeStamp);
-//
-//                return params;
-//            }
-//
-//        };
-//
-//        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
-//        return cars;
-//    }
+        Log.d("ProfileActivity:"," get neighbours clicked");
+        int userID =SharedPrefManager.getUserId();
+        neighbourCars = dbOperations.getNeighboursFromDb(userID,currentLocation);
+        Log.d("ProfileActivity:"," get neighbours from database finished");
+        return neighbourCars;
+    }
 
 }
