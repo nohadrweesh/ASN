@@ -52,13 +52,12 @@ class LocationManipulating
             mFusedLocationProviderClient.getLastLocation().addOnSuccessListener( new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-<<<<<<< HEAD
+
                     Log.d(TAG, "onSuccess: starts");
-                    if(location != null) {
-=======
+
                     if(location != null)
                     {
->>>>>>> 350f84dc8d2b99d85e080cc6ebf4d9dd35c68132
+
                         Toast.makeText(mContext.getApplicationContext(), "your location is set to "+location.toString(), Toast.LENGTH_LONG).show();
                         double latitude=location.getLatitude();
                         double longitude=location.getLongitude();
@@ -70,28 +69,15 @@ class LocationManipulating
                     }
                 }
             });
-            Log.d(TAG, "addItem:before else place long @ "+retObject.getLongitude()+" lat @"+retObject.getLatitude());
+            Log.d(TAG, "addItem:before else place long @ "+retObject+" lat @"+retObject.getLatitude());
         }
+
         else
             {Toast.makeText(mContext,"Accept Permission",Toast.LENGTH_LONG).show();}
         Log.d(TAG, "addItem:return place long @ "+retObject.getLongitude()+" lat @"+retObject.getLatitude());
 
         return  retObject;
     }
-//    private boolean checkGettingLocationPermission(){
-//        Log.d(TAG, "checkGettingLocationPermission: starts");
-//        String permission ="android.permission.ACCESS_COARSE_LOCATION";
-//        int res=mContext.getApplicationContext().checkCallingOrSelfPermission(permission);
-//
-//        if (res== PackageManager.PERMISSION_GRANTED){
-//            Log.d(TAG, "checkGettingLocationPermission: ends with res :"+res);
-//            return true;
-//        }else{
-//            ActivityCompat
-//                    .requestPermissions((Activity) mContext, new String[]{permission}, REQUEST_CODE_ASK_PERMISSIONS);
-//            res=mContext.getApplicationContext().checkCallingOrSelfPermission(permission);
-//            Log.d(TAG, "checkGettingLocationPermission: ends with res :"+res);
-//            return (res== PackageManager.PERMISSION_GRANTED);
-//        }
-//    }
+
 }
+
