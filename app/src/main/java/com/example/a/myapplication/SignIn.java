@@ -29,7 +29,7 @@ import java.util.Map;
 public class SignIn extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "SignIn";
 
-    private EditText editTextUsername, editTextPassword;
+    private EditText editTextEmail, editTextPassword;
     private Button buttonLogin;
     private ProgressDialog progressDialog;
 
@@ -44,8 +44,8 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
             return;
         }
 
-        editTextUsername = (EditText) findViewById(R.id.editText);
-        editTextPassword = (EditText) findViewById(R.id.editText2);
+        editTextEmail = (EditText) findViewById(R.id.editTextUsernameid);
+        editTextPassword = (EditText) findViewById(R.id.editeTextEmailid);
         buttonLogin = (Button) findViewById(R.id.login);
 
         progressDialog = new ProgressDialog(this);
@@ -57,7 +57,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
 
     private void userLogin(){
         Log.d(TAG, "userLogin: starts");
-        final String username = editTextUsername.getText().toString().trim();
+        final String userEmail = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
 
         progressDialog.show();
@@ -111,9 +111,9 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
         ){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Log.d(TAG, "getParams: starts with "+username+" , "+password);
+                Log.d(TAG, "getParams: starts with "+userEmail+" , "+password);
                 Map<String, String> params = new HashMap<>();
-                params.put("email", username);
+                params.put("email", userEmail);
                 params.put("password", password);
                 return params;
             }
