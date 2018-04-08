@@ -211,6 +211,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response)
                     {
+
                         Log.d(TAG, "onResponse: starts with response "+response);
                         textViewNeighbours.setText(response);
 
