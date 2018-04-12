@@ -140,7 +140,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return;
             }
             Log.d("MapsActivity: "," entered checkForUpdates before locationManger.requestLocationUpdates");
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
+            // check updates each 1000 millisecond, and min distance = 1 meter
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location)
                 {
@@ -159,6 +160,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
         {
             Log.d("MapsActivity: ","entered GPS_PROVIDER ");
+            // check updates each 1000 millisecond, and min distance = 1 meter
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location)
@@ -189,6 +191,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("MapsActivity","entered displayCars"+"Long "+location.getLongitude()+"lat "+location.getLatitude());
         driverLocation = new LocationObject(location.getLongitude(),location.getLatitude(),location.getAltitude());
 //        driverCar.setLocation(this,driverLocation,driver);
+        //TODO: uncomment to start storing locations into database
+        //driverCar.setLocation(this,driverLocation,driver);
 
         mLastLocation = location;
         if (mCurrLocationMarker != null)
