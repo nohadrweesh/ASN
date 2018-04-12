@@ -1,10 +1,25 @@
 package com.example.a.myapplication.services;
 
 import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.a.myapplication.Constants;
+import com.example.a.myapplication.RequestHandler;
+import com.example.a.myapplication.SharedPrefManager;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
@@ -42,7 +57,63 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
      *
      * @param token The new token.
      */
-    private void sendRegistrationToServer(String token) {
+    private void sendRegistrationToServer(final String token) {
         // TODO: Implement this method to send token to your app server.
+
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.URL_TOKEN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "onResponse: starts with response "+response);
+
+                        try
+                        {
+                            JSONObject obj = new JSONObject(response);
+                            Log.d(TAG, "onResponse: "+response);
+
+                            if(!obj.getBoolean("error")){
+                                Toast.makeText(getApplicationContext(),"token set  ",Toast.LENGTH_SHORT).show();
+                                //finish();
+                            }else{
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        obj.getString("message"),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        } catch (JSONException e) {
+
+                            Log.d(TAG, "onResponse: error"+response);
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: starts");
+
+                        Toast.makeText(getApplicationContext(), "unknown error  error is  "+error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+                Map<String, String> params = new HashMap<>();
+                params.put("token", String.valueOf(token));
+
+                params.put("userID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserId()));
+
+
+                return params;
+            }
+
+        };
+
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 }

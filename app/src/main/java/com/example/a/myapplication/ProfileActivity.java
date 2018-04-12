@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -288,4 +289,142 @@ public class ProfileActivity extends AppCompatActivity {
         i.putExtra("userID",userID);
         startActivity(i);
     }
+
+    //HELP
+
+    public void urgentHelp(View view){
+        Log.d(TAG, "urgent help: starts");
+
+        final String currentTime = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.URL_PROBLEM,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "onResponse: starts with response "+response);
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            Log.d(TAG, "onResponse: "+response);
+                            if(!obj.getBoolean("error")){
+                                Toast.makeText(getApplicationContext(),"Help sent ",Toast.LENGTH_LONG).show();
+                                finish();
+                            }else{
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        obj.getString("message"),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        } catch (JSONException e) {
+                            Log.d(TAG, "onResponse: error"+response);
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: starts");
+                        progressDialog.dismiss();
+
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "unknown error  error is  "+error.toString(),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        ){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Log.d(TAG, "getParams: starts with "+currentTime);
+                Map<String,String> params = new HashMap<>();
+                params.put("time",currentTime );
+                return params;
+            }
+
+        };
+
+
+    }
+
+    public void Help(View view){
+
+        Log.d(TAG, "urgent help: starts");
+        final String currentTime = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+        EditText et=(EditText)findViewById(R.id.help_edittxt);
+
+        //final TextView tx=(TextView) findViewById(R.id.error);
+        final String helpType = et.getText().toString().trim();
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.URL_PROBLEM,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "onResponse: starts with response "+response);
+                        //tx.setText(response);
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            Log.d(TAG, "onResponse: "+response);
+                            if(!obj.getBoolean("error")){
+                                Toast.makeText(getApplicationContext(),"Help sent ",Toast.LENGTH_LONG).show();
+                                finish();
+                            }else{
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        obj.getString("message"),
+                                        Toast.LENGTH_LONG
+                                ).show();
+
+                            }
+                            Intent i = new Intent(getApplicationContext(), Error.class);
+                            i.putExtra("RESPONSE", response);
+                            startActivity(i);
+                            finish();
+
+                        } catch (JSONException e) {
+                            Log.d(TAG, "onResponse: error"+response);
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: starts");
+                        progressDialog.dismiss();
+
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "unknown error  error is  "+error.toString(),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        ){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Log.d(TAG, "getParams: starts with "+currentTime+" , "+helpType);
+                Map<String,String> params = new HashMap<>();
+                params.put("type",helpType );
+                params.put("time",currentTime );
+                params.put("location","Yassmin" );
+                params.put("driverID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserId()));
+                params.put("carID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getCarId()));
+                Log.d(TAG, "getParams: driverID");
+
+                return params;
+            }
+
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+
+    }
+
 }
