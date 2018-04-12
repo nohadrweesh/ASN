@@ -200,8 +200,9 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d("ProfileActivity:"," get neighbours from database finished");
     }
 
-    public void getNeighboursFromDb(final int userID, final LocationObject curr){
-        progressDialog.show();
+    public List<Car> getNeighboursFromDb(final int userID, final LocationObject curr)
+    {
+//        progressDialog.show();
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_NEIGBOURS,
@@ -215,18 +216,22 @@ public class ProfileActivity extends AppCompatActivity {
                         catch (JSONException e)
                             {e.printStackTrace();}
                         Log.d(TAG, "onResponse: starts with response "+response);
-                        textViewNeighbours.setText(response);
+//                        textViewNeighbours.setText(response);
 
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         try
                         {
                             JSONObject obj = new JSONObject(response);
                             //retJSON=new JSONObject(response);
                             Log.d(TAG, "onResponse: "+response);
                             if(!obj.getBoolean("error"))
-                                {Toast.makeText(getApplicationContext(),"Retreived neighbours are  "+response,Toast.LENGTH_LONG).show();}
+                                {
+//                                    Toast.makeText(getApplicationContext(),"Retreived neighbours are  "+response,Toast.LENGTH_LONG).show();
+                                }
                             else
-                                {Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();}
+                                {
+//                                    Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
+                                }
                         }
                         catch (JSONException e)
                         {
@@ -239,8 +244,8 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "onErrorResponse: starts");
-                        progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "unknown error  error is  "+error.toString(), Toast.LENGTH_LONG).show();
+//                        progressDialog.dismiss();
+//                        Toast.makeText(getApplicationContext(), "unknown error  error is  "+error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }
         ){
@@ -256,45 +261,38 @@ public class ProfileActivity extends AppCompatActivity {
                 params.put("altitude", String.valueOf(curr.getAltitude()));
                 params.put("userID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserId()));
                 //params.put("carID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getCarId()));
-                //params.put("locationTime", timeStamp);
+                params.put("time", timeStamp);
                 return params;
             }
 
         };
 
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+        return neighbourCars;
     }
 
     public List<Car> getNeighboursFromJSON(String response) throws JSONException {
         List <Car> nc=new ArrayList<>();
-        String hardCodedResponse = "{}";
-        JSONArray neighbourArray= new JSONArray(response);
+        JSONObject responseObject= new JSONObject(response);
+        JSONObject result = (JSONObject) responseObject.get("result");
+
+        JSONArray neighbourArray= result.getJSONArray("users");
 
         for (int i=0;i<neighbourArray.length();i++)
         {
             JSONObject neighbour=neighbourArray.getJSONObject(i);
-            double latitude  =neighbour.getDouble("");
-            double longitude =neighbour.getDouble("");
-            double altitude  =neighbour.getDouble("");
+            double latitude  =neighbour.getDouble("latitude");
+            double longitude =neighbour.getDouble("longitude");
+            double altitude  =neighbour.getDouble("altitude");
             LocationObject neighbourPosition=new LocationObject(longitude,latitude,altitude);
-            int neighbourCarID=neighbour.getInt("");
-            int neighbourDriverID=neighbour.getInt("") ;
-            Car neighbourCar=new Car(neighbourPosition,neighbourCarID,neighbourDriverID);
+//            int neighbourCarID=neighbour.getInt("");
+            int neighbourDriverID=neighbour.getInt("driverID") ;
+            String neighbourName = neighbour.getString("driverName");
+            Car neighbourCar = new Car(neighbourPosition,neighbourName,neighbourDriverID);
             nc.add(neighbourCar);
         }
-
-//        double latitude=36.1112;
-//        double longitude=30.1111;
-//        double altitude=0;
-//        LocationObject neighbourPosition=new LocationObject(longitude,latitude,altitude);
-//        int neighbourCarID=1;
-//        int neighbourDriverID=2 ;
-//        Car neighbourCar=new Car(neighbourPosition,neighbourCarID,neighbourDriverID);
-//        nc.add(neighbourCar);
-
         return nc;
     }
-
 
     public void gotoGoogleMaps(View view)
     {

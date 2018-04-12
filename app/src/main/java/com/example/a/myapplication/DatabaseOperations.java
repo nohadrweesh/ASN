@@ -28,7 +28,8 @@ import static com.google.android.gms.wearable.DataMap.TAG;
 
 public class DatabaseOperations {
 
-    Context ctx;
+    List<Car> neighbourCars;
+
     public void addLocationToDB(Context ctx, final LocationObject locationObject, final int carID, final int driverID)
     {
         Log.d(" addLocationToDB: ",locationObject.toString());
@@ -86,9 +87,9 @@ public class DatabaseOperations {
     }
 
 
-    public List<Car> getNeighboursFromDb(final int userID, final LocationObject curr)
+    public List<Car> getNeighboursFromDb(Context ctx, final int userID, final LocationObject curr)
     {
-        List<Car> neighbourCars =new ArrayList<>();
+        neighbourCars =new ArrayList<>();
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
@@ -97,17 +98,15 @@ public class DatabaseOperations {
                     @Override
                     public void onResponse(String response)
                     {
-                        //TODO: handle response when neighbours are retrieved
-//                        try
-//                            {neighbourCars=getNeighboursFromJSON(response);}
-//                        catch (JSONException e)
-//                            {e.printStackTrace();}
+                        try
+                            {neighbourCars=getNeighboursFromJSON(response);}
+                        catch (JSONException e)
+                            {e.printStackTrace();}
                         Log.d(ContentValues.TAG, "onResponse: starts with response "+response);
 
                         try
                         {
                             JSONObject obj = new JSONObject(response);
-                            //retJSON=new JSONObject(response);
                             Log.d(ContentValues.TAG, "onResponse: "+response);
                             if(!obj.getBoolean("error"))
                             {}
@@ -138,9 +137,8 @@ public class DatabaseOperations {
                 params.put("latitude", String.valueOf(curr.getLatitude()));
                 params.put("longitude", String.valueOf(curr.getLongitude()));
                 params.put("altitude", String.valueOf(curr.getAltitude()));
-                params.put("userID", String.valueOf(SharedPrefManager.getUserId()));
-                //params.put("carID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getCarId()));
-                //params.put("locationTime", timeStamp);
+                params.put("userID", String.valueOf(userID));
+                params.put("time", timeStamp);
                 return params;
             }
         };
@@ -152,19 +150,24 @@ public class DatabaseOperations {
     public List<Car> getNeighboursFromJSON(String response) throws JSONException
     {
         List <Car> nc=new ArrayList<>();
-        JSONArray neighbourArray= new JSONArray(response);
+        JSONObject responseObject= new JSONObject(response);
+        JSONObject result = (JSONObject) responseObject.get("result");
+        JSONArray neighbourArray= result.getJSONArray("users");
+
         for (int i=0;i<neighbourArray.length();i++)
         {
             JSONObject neighbour=neighbourArray.getJSONObject(i);
-            double latitude  =neighbour.getDouble("");
-            double longitude =neighbour.getDouble("");
-            double altitude  =neighbour.getDouble("");
+            double latitude  =neighbour.getDouble("latitude");
+            double longitude =neighbour.getDouble("longitude");
+            double altitude  =neighbour.getDouble("altitude");
             LocationObject neighbourPosition=new LocationObject(longitude,latitude,altitude);
-            int neighbourCarID=neighbour.getInt("");
-            int neighbourDriverID=neighbour.getInt("") ;
-            Car neighbourCar=new Car(neighbourPosition,neighbourCarID,neighbourDriverID);
+//            int neighbourCarID=neighbour.getInt("");
+            int neighbourDriverID=neighbour.getInt("driverID") ;
+            String neighbourName = neighbour.getString("driverName");
+            Car neighbourCar = new Car(neighbourPosition,neighbourName,neighbourDriverID);
             nc.add(neighbourCar);
         }
         return nc;
     }
+
 }

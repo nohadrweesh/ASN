@@ -30,6 +30,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -120,9 +122,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
             Log.d("MapsActivity: ","entered onConnected  entered if condition ");
             //code for checking location updates
+//            locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+//            Location lastKnownDriverLocation=locationManager.(LocationManager.NETWORK_PROVIDER);
+//            displayCars(lastKnownDriverLocation);
             checkForUpdates();
         }
-
     }
 
     private void checkForUpdates()
@@ -132,12 +136,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
             Log.d("MapsActivity: "," entered checkForUpdates entered 1s if ");
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 Log.d("MapsActivity: "," entered onCreate entered 2nd if ");
                 return;
             }
@@ -145,7 +143,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location)
-                {executeOnLocationChanged(location);}
+                {
+                    Log.d("MapsActivity","entered onLocationChanged NETWORK_PROVIDER");
+                    executeOnLocationChanged(location);
+                }
 
                 @Override
                 public void onStatusChanged(String s, int i, Bundle bundle) {}
@@ -157,10 +158,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
         {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+            Log.d("MapsActivity: ","entered GPS_PROVIDER ");
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location)
-                {executeOnLocationChanged(location);}
+                {
+                    Log.d("MapsActivity","entered onLocationChanged GPS_PROVIDER");
+                    executeOnLocationChanged(location);}
 
                 @Override
                 public void onStatusChanged(String s, int i, Bundle bundle) {}
@@ -175,24 +179,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void executeOnLocationChanged(Location location)
     {
         Log.d("MapsActivity: ","entered executeOnLocationChanged ");
+        displayCars(location);
+
+        Log.d("MapsActivity: ","entered onLocationChanged ");
+    }
+
+    public void displayCars(Location location)
+    {
+        Log.d("MapsActivity","entered displayCars"+"Long "+location.getLongitude()+"lat "+location.getLatitude());
         driverLocation = new LocationObject(location.getLongitude(),location.getLatitude(),location.getAltitude());
-        driverCar.setLocation(this,driverLocation,driver);
+//        driverCar.setLocation(this,driverLocation,driver);
 
         mLastLocation = location;
         if (mCurrLocationMarker != null)
         {mCurrLocationMarker.remove();}
 
-        //Place current location marker
+        //display driver's marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        //move map camera
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title("@"+driver.getDriverName()+driver.getCarID());
+        markerOptions.title("Me");
+        markerOptions.snippet("@"+driver.getDriverName()+driver.getCarID());
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
 
-        //move map camera
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
-        Log.d("MapsActivity: ","entered onLocationChanged ");
+        //display neighbouring cars
+
+        ProfileActivity pa=new ProfileActivity();
+        List<Car> neighbouringCars=driverCar.getNeighbours(this,driverCar.getDriverID(),driverLocation);
+        if (!neighbouringCars.isEmpty())
+        {
+            for (Car neighbour :neighbouringCars)
+            {
+                //display driver's marker
+                LatLng latLng1 = new LatLng(location.getLatitude(), location.getLongitude());
+                MarkerOptions markerOptions1 = new MarkerOptions();
+                markerOptions1.position(latLng1);
+                markerOptions1.title("Neighbour");
+//                markerOptions1.snippet("@"+neighbour.getDriverName()+driver.getCarID());
+                markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                mCurrLocationMarker = mGoogleMap.addMarker(markerOptions1);
+            }
+        }
+        else
+        {
+            Log.d("MapsActivity","entered displayCars: no neighbours found");
+        }
+
     }
 
 

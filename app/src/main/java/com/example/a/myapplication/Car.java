@@ -33,6 +33,7 @@ public class Car {
     LocationObject location;
     private int carID;
     private int driverID;
+    private String driverName;
     List<Car> neighbourCars=new ArrayList<>();
 
 
@@ -46,6 +47,13 @@ public class Car {
         this.location = pos;
         this.carID = cID;
         this.driverID = dID;
+    }
+
+    public Car(LocationObject neighbourPosition, String driverName, int neighbourDriverID)
+    {
+        this.location = neighbourPosition;
+        this.driverName = driverName;
+        this.driverID = neighbourDriverID;
     }
 
     public LocationObject getPosition() {return this.getPosition();}
@@ -66,18 +74,11 @@ public class Car {
         dbOperations.addLocationToDB(ctx, location,carID,driverID);
     }
 
-    public List<Car> getNeighbours(Car car)
+    public List<Car> getNeighbours(Context ctx,int driverID,LocationObject driverLocation)
     {
         DatabaseOperations dbOperations=new DatabaseOperations();
-//        userID=SharedPrefManager.getInstance(this).getUserId();
-//        int carID=SharedPrefManager.getInstance(this).getCarId();
-        LocationManipulating locationManipulating=new LocationManipulating();
-        LocationObject currentLocation=locationManipulating.getLocation();
-//        setLocation(currentLocation);
-        Log.d("ProfileActivity:"," get neighbours clicked");
-        int userID =SharedPrefManager.getUserId();
-        neighbourCars = dbOperations.getNeighboursFromDb(userID,currentLocation);
-        Log.d("ProfileActivity:"," get neighbours from database finished");
+        Log.d("Car Class "," getNeighbours");
+        neighbourCars = dbOperations.getNeighboursFromDb(ctx,driverID,driverLocation);
         return neighbourCars;
     }
 
