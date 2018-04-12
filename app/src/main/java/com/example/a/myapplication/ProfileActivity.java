@@ -27,8 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.android.volley.Request.Method.HEAD;
-
 public class ProfileActivity extends AppCompatActivity {
 
 
@@ -132,6 +130,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         progressDialog.show();
+        Log.d(TAG, "setLocation: with "+locationObject.toString());
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
@@ -147,7 +146,7 @@ public class ProfileActivity extends AppCompatActivity {
                             Log.d(TAG, "onResponse: "+response);
 
                             if(!obj.getBoolean("error")){
-                                Toast.makeText(getApplicationContext(),"location set ",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"location set  ",Toast.LENGTH_LONG).show();
                                 //finish();
                             }else{
                                 Toast.makeText(

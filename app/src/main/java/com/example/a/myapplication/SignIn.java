@@ -73,12 +73,18 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                         try {
                             JSONObject obj = new JSONObject(response);
                             Log.d(TAG, "onResponse: "+response);
+                            Toast.makeText(getApplicationContext(),"response is "+response,Toast.LENGTH_LONG).show();
                             if(!obj.getBoolean("error")){
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(
 
                                                 obj.getString("email"),
                                                 obj.getString("password")
+                                        );
+                                SharedPrefManager.getInstance(getApplicationContext())
+                                        .setUserInfo(
+                                                obj.getInt("ID"),
+                                                obj.getInt("carID")
                                         );
                                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                                 finish();

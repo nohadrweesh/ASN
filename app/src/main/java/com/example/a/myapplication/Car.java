@@ -1,6 +1,6 @@
 package com.example.a.myapplication;
 
-import com.google.android.gms.maps.model.LatLng;
+//import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by user on 05/04/2018.

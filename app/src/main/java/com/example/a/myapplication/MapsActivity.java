@@ -1,20 +1,15 @@
 package com.example.a.myapplication;
 
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -51,15 +46,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     {
         ProfileActivity pa=new ProfileActivity();
 
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         //display driver car
 
         LocationManipulating lm = new LocationManipulating(getApplicationContext());
         LocationObject driverPosition=lm.getLocation();
 
         Log.d("MapsActivity: ","driver position is "+driverPosition.getLatitude()+" "+driverPosition.getLongitude());
-        LatLng driverxyPosition = new LatLng(driverPosition.getLatitude(),driverPosition.getLongitude());
+        LatLng driverxyPosition = new LatLng(30,10);
+        Toast.makeText(this,String.valueOf(driverxyPosition==null),Toast.LENGTH_SHORT).show();
         mMap.addMarker(new MarkerOptions().position(driverxyPosition));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(driverxyPosition));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(driverxyPosition));
+
         //display neighbour cars
 //        List<Car> neighbourCars=pa.getNeighbours();
 //
@@ -69,6 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //            LatLng xyPosition=new LatLng(neighbourCarPosition.getLongitude(),neighbourCarPosition.getLatitude());
 //            mMap.addMarker(new MarkerOptions().position(xyPosition));
 //        }
+
     }
 
 }
