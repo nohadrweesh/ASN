@@ -426,5 +426,75 @@ public class ProfileActivity extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
 
     }
+    public  void openDriverMap(View view){
+        startActivity(new Intent(this,DriverMapActivity.class));
+    }
+
+    public void sendNotification(View view){
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.NOTIFICATION_URL,
+                //TODO: there are no neighbours retrieved with error msg= {"error":true,"message":"Required fields are missing"}
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        Log.d(TAG, "onResponse: starts with response "+response);
+                        textViewNeighbours.setText(response);
+
+                        progressDialog.dismiss();
+                        try
+                        {
+                            JSONObject obj = new JSONObject(response);
+                            //retJSON=new JSONObject(response);
+                            Log.d(TAG, "onResponse: "+response);
+                            if(!obj.getBoolean("error"))
+                            {Toast.makeText(getApplicationContext(),"Retreived neighbours are  "+response,Toast.LENGTH_LONG).show();}
+                            else
+                            {Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();}
+                        }
+                        catch (JSONException e)
+                        {
+                            Log.d(TAG, "onResponse: error"+response);
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: starts");
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "unknown error  error is  "+error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+                Log.d(TAG, "getParams: starts with  ");
+
+                Map<String, String> params = new HashMap<>();
+
+                params.put("userID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserId()));
+                params.put("token", "ehywsxKpdEk:APA91bGpUNSy8StDgwRtGDkcrHfDst0iWqjlibr68_f0_e_ArkQHgE-9PEunMS9vYnD6KwWkXrai6om5eL8KrRVLivIawpy5uAlsDlRItQzMujn9lEGHjawivHR2XPknY-18SCrRaJVT");
+
+                params.put("title", "title");
+                params.put("message", "simple message");
+
+                //params.put("carID", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getCarId()));
+                //params.put("locationTime", timeStamp);
+
+
+                return params;
+            }
+
+        };
+
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+
+    }
 
 }

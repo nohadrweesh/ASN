@@ -14,9 +14,10 @@ public class Constants {
     public static final String URL_LOGIN = ROOT_URL+"UserLogin.php";
     public static final String LOCATION_SET = ROOT_URL+"location.php";
     public static final String URL_NEIGBOURS = ROOT_URL+"Neighbours.php";
-    public static final String URL_TOKEN=ROOT_URL+"TokenSet";
+    public static final String URL_TOKEN=ROOT_URL+"TokenSet.php";
     public static final String NOTIFICATION_URL="https://asnasucse18.000webhostapp.com/Android/firebase/notifications/sendNotification.php";
     public static final String URL_PROBLEM = ROOT_URL+"problem.php";
+    public static final String URL_LOGOUT=ROOT_URL+"Logout.php";
 
 }
 

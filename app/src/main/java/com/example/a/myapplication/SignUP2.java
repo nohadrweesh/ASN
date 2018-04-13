@@ -121,6 +121,8 @@ public class SignUP2 extends AppCompatActivity implements View.OnClickListener {
                 params.put("phonenumber", phone);
                 params.put("CarModel", carId);
                 params.put("CarSerial", carSerial);
+                params.put("token",String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getToken()));
+                Log.d("signup", "getParams: token is "+String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getToken()));
 
 
                 return params;

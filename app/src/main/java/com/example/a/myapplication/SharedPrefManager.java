@@ -21,6 +21,7 @@ public class SharedPrefManager {
     private static final String KEY_USER_EMAIL = "userEmail";
     private static final String KEY_USER_ID = "userid";
     private static final String KEY_CAR_ID = "carid";
+    private static final String NOTIFICATION_TOKEN="token";
 
 
     private SharedPrefManager(Context context) {
@@ -40,6 +41,16 @@ public class SharedPrefManager {
 
         editor.putInt(KEY_CAR_ID,carID);
         editor.putInt(KEY_USER_ID,userID);
+        editor.apply();
+        return true;
+
+    }
+    public  boolean setToken( final String token){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(NOTIFICATION_TOKEN,token);
+
         editor.apply();
         return true;
 
@@ -70,7 +81,7 @@ public class SharedPrefManager {
     public boolean logout(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
+        editor.putString(KEY_USERNAME,null);
         editor.apply();
         return true;
     }
@@ -79,6 +90,11 @@ public class SharedPrefManager {
     public String getUsername(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_USERNAME, null);
+    }
+    public String getToken(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(NOTIFICATION_TOKEN
+                , null);
     }
 
     public String getUserEmail(){
