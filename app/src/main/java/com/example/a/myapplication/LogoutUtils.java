@@ -32,7 +32,7 @@ public class LogoutUtils {
         return mInstance;
     }
 
-    public void logout(int userID){
+    public void logout(){
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_LOGOUT,

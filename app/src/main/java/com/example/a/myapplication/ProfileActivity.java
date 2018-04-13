@@ -82,7 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d("ProfileActivity: ","user ID "+userID+" username "+username+" user email "+userEmail+ " car ID "+carID+
                                         " longitude "+driverPosition.getLongitude()+" latitude "+driverPosition.getLatitude()+
                                         " altitude "+driverPosition.getAltitude());
-        textViewUserEmail.setText(userEmail);
+        textViewUserEmail.setText(SharedPrefManager.getInstance(this).getToken());
         textViewUsername.setText(username);
         textViewUserId.setText(String.valueOf(userID));
         textViewCarId.setText(String.valueOf(carID));

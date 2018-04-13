@@ -64,10 +64,15 @@ public class NeighborsUtils {
                                 Log.d(TAG, "onResponse: "+response);
                                 //got neighbours
                                 JSONObject result=obj.getJSONObject("result");
-                                JSONObject users=result.getJSONObject("users");
-                                Log.d(TAG, "onResponse: users "+users.toString());
+                                int numUsers=result.getInt("num_users");
+                                if(numUsers>0){
+                                    JSONObject users=result.getJSONObject("users");
+                                    Log.d(TAG, "onResponse: users "+users.toString());
 
-                                parseUsersJson(users);
+                                    parseUsersJson(users);
+                                }
+                                Log.d(TAG, "onResponse: No users are nearby");
+                                
                             }
 
                                 else

@@ -1,6 +1,7 @@
 package com.example.a.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,9 +12,12 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -33,7 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriverMapActivity extends FragmentActivity implements OnMapReadyCallback,
+public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         com.google.android.gms.location.LocationListener {
 
@@ -44,9 +48,14 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     Marker marker;
     List<Marker> neighboursMarkers;
 
+    BitmapDescriptor myCarDescriptor;
+    BitmapDescriptor otherCarsDescriptors;
+
 
     LocationUtils mLocationUtils;
     NeighborsUtils mNeighborsUtils;
+
+    HelpUtils mHelpUtils;
 
     private static final String TAG = "DriverMapActivity";
 
@@ -65,6 +74,9 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
         mNeighborsUtils=NeighborsUtils.getInstance(this);
         neighboursMarkers=new ArrayList<Marker>();
+
+        myCarDescriptor=bitmapDescriptorFromVector(this, R.drawable.my_car);
+        otherCarsDescriptors=bitmapDescriptorFromVector(this, R.drawable.other_car);
 
 
     }
@@ -124,7 +136,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
         if(marker==null) {
             marker = mMap.addMarker(new MarkerOptions().position(latLng).title("My Car ^__^").snippet("I'm Noha ,a software engineer from Egypt")
-                    .icon(bitmapDescriptorFromVector(this, R.drawable.my_car))
+                    .icon(myCarDescriptor)
                     .anchor(0.5f,0.5f));
         }else{
             marker.setPosition(latLng);
@@ -143,7 +155,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                     .position(latLng1)
                     .title("Metro Market ")
                     .snippet("others")
-                    .icon(bitmapDescriptorFromVector(this, R.drawable.other_car))));
+                    .icon(otherCarsDescriptors)));
         }
 
 
@@ -200,4 +212,42 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         return (double) tmp / factor;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu: ");
+        getMenuInflater().inflate(R.menu.map_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id=item.getItemId();
+        if(id==R.id.map_logout){
+            Log.d(TAG, "onOptionsItemSelected: ");
+            LogoutUtils mLogoutUtils=LogoutUtils.getInstance(this);
+            mLogoutUtils.logout();
+            startActivity(new Intent(this,MainActivity.class));
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void help(View view){
+        startActivity(new Intent(this,HelpActivity.class));
+
+    }
+
+    public void urgentHelp(View view){
+        mHelpUtils=HelpUtils.getInstance(this);
+        mHelpUtils.help("URGENT","The driver has a serious problem which we have not configure yet" +
+                ",please help him/her if you can...","not specified");
+        Toast.makeText(this,"We have sent your request ,Your neighbours will help you ASAP ,please don't panic and stop the car" +
+                "if you can.If you coud provide us with more info that'll be great  ",Toast.LENGTH_LONG).show();
+
+
+    }
+    public  Location getLocation(){
+        return  mLocation;
+    }
 }
