@@ -30,10 +30,12 @@ public class NeighborsUtils {
 
     public List<Location>locations;
     public List<Integer>IDs;
+    public List<String>Names;
     private NeighborsUtils(Context context){
         mContext=context;
         locations=new ArrayList<Location>();
         IDs=new ArrayList<Integer>();
+        Names=new ArrayList<String>();
     }
     public static NeighborsUtils getInstance(Context context){
         Log.d(TAG, "getInstance: starts");
@@ -46,7 +48,7 @@ public class NeighborsUtils {
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_NEIGBOURS,
-                //TODO: there are no neighbours retrieved with error msg= {"error":true,"message":"Required fields are missing"}
+
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response)
@@ -130,7 +132,11 @@ public class NeighborsUtils {
                 jsonobject = users.getJSONObject("user"+String.valueOf(i));
                 double latitude=jsonobject.getDouble("latitude");
                 double longitude=jsonobject.getDouble("longitude");
-                //Integer id=jsonobject.getInt("userId");
+                Integer id=jsonobject.getInt("driverID");
+                IDs.add(id);
+
+                String name=jsonobject.getString("driverName");
+                Names.add(name);
                 Location location=new Location("");
                 location.setLongitude(longitude);
                 location.setLatitude(latitude);

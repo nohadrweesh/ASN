@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -121,6 +122,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onLocationChanged(Location location) {
        // Log.d(TAG, "onLocationChanged: starts with "+location.toString());
+        //mMap.clear();
 
         mLocation=location;
         mLocation.setLatitude(round(location.getLatitude(),3));
@@ -141,7 +143,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
         }else{
             marker.setPosition(latLng);
         }
-        //marker.setAnchor((float) round(location.getLatitude(),3),(float) round(location.getLongitude(),3));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
@@ -149,13 +151,19 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
         mLocationUtils.setLocation(mLocation);
         mNeighborsUtils.getNeighbours(mLocation);
+        neighboursMarkers.clear();
         for(int i=0;i<mNeighborsUtils.locations.size();i++){
+
             LatLng latLng1=new LatLng(mNeighborsUtils.locations.get(i).getLatitude(),mNeighborsUtils.locations.get(i).getLongitude());
-            neighboursMarkers.add(mMap.addMarker(new MarkerOptions()
-                    .position(latLng1)
-                    .title("Metro Market ")
-                    .snippet("others")
-                    .icon(otherCarsDescriptors)));
+            if(neighboursMarkers.get(i)==null) {
+                neighboursMarkers.add(mMap.addMarker(new MarkerOptions()
+                        .position(latLng1)
+                        .title(mNeighborsUtils.Names.get(i))
+                        .snippet("other cars with id " + String.valueOf(mNeighborsUtils.IDs.get(i)))
+                        .icon(otherCarsDescriptors)));
+            }else{
+                neighboursMarkers.get(i).setPosition(latLng1);
+            }
         }
 
 
@@ -221,15 +229,20 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        if(id==R.id.map_logout){
+        int id = item.getItemId();
+        if (id == R.id.map_logout) {
             Log.d(TAG, "onOptionsItemSelected: ");
-            LogoutUtils mLogoutUtils=LogoutUtils.getInstance(this);
+            LogoutUtils mLogoutUtils = LogoutUtils.getInstance(this);
             mLogoutUtils.logout();
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
 
             return true;
-        }
+        } else if (id == R.id.settings){
+
+            Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivity(intent);
+          }
         return super.onOptionsItemSelected(item);
     }
 

@@ -121,6 +121,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                 Map<String, String> params = new HashMap<>();
                 params.put("email", userEmail);
                 params.put("password", password);
+                params.put("token",String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getToken()));
                 return params;
             }
 

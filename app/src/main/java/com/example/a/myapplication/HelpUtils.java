@@ -118,5 +118,79 @@ public class HelpUtils {
     }
 
 
+    public void sendHelpTo(final int needingHelpID,final int needingHelpCarID){
+        Log.d(TAG, "sendHelpTo: starts");
+
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.URL_SEND_HELP_TO,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "onResponse: starts with response " + response);
+                        //tx.setText(response);
+
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            Log.d(TAG, "onResponse: " + response);
+                            if (!obj.getBoolean("error")) {
+                                Log.d(TAG, "onResponse: sentHelp sent");
+
+                            } else {
+                                Log.d(TAG, "onResponse: error " + obj.getString("message"));
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            Log.d(TAG, "onResponse: error" + response);
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: starts error " + error.toString());
+
+                    }
+
+                }
+        ) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                LocationManager locationManager = (LocationManager) mContext
+                        .getSystemService(LOCATION_SERVICE);
+                if (ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    Log.d(TAG, "getParams: Accept permissions ");
+                }
+                Location location1 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+
+                final String currentTime = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                Log.d(TAG, "getParams: starts with " + currentTime);
+                Map<String, String> params = new HashMap<>();
+
+                params.put("time", currentTime);
+
+                params.put("driverID", String.valueOf(SharedPrefManager.getInstance(mContext).getUserId()));
+                params.put("carID", String.valueOf(SharedPrefManager.getInstance(mContext).getCarId()));
+                params.put("latitude",String.valueOf(location1.getLatitude()));
+                params.put("longitude",String.valueOf(location1.getLongitude()));
+                params.put("altitude",String.valueOf(location1.getAltitude()));
+                params.put("to",String.valueOf(needingHelpID));
+                params.put("toCar",String.valueOf(needingHelpCarID));
+
+
+
+                return params;
+            }
+
+        };
+        RequestHandler.getInstance(mContext).addToRequestQueue(stringRequest);
+
+    }
 
 }

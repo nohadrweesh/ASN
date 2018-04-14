@@ -19,6 +19,7 @@ public class Constants {
                                                                              public static final String testUrl=      "https://asnasucse18.000webhostapp.com/Android/firebase/notifications/sendHelpNotification.php";
     public static final String URL_PROBLEM = ROOT_URL+"problem.php";
     public static final String URL_LOGOUT=ROOT_URL+"Logout.php";
+    public static final String  URL_SEND_HELP_TO=ROOT_URL+"SendHelp.php";
 
 }
 

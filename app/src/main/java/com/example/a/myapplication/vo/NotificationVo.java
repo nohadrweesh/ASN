@@ -11,6 +11,19 @@ public class NotificationVo {
     private String iconUrl;
     private String action;
     private String actionDestination;
+    private int toCarID;
+    private int toDriverID;
+
+    public int getToCarID() {
+        return toCarID;
+    }
+
+
+    public int getToDriverID() {
+        return toDriverID;
+    }
+
+
 
     public String getTitle() {
         return title;

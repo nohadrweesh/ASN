@@ -6,4 +6,7 @@
         android:id="@+id/map_logout"
         android:title="Logout"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/map_settings"
+        android:title="Settings"/>
 </menu>

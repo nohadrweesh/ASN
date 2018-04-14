@@ -1,6 +1,7 @@
 package com.example.a.myapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -59,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.profile:
                 startActivity(new Intent(this, ProfileActivity.class));
+                break;
+            case R.id.settings:
+                Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
                 break;
 
         }
