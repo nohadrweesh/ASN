@@ -152,18 +152,28 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
         mLocationUtils.setLocation(mLocation);
         mNeighborsUtils.getNeighbours(mLocation);
         neighboursMarkers.clear();
+        int markersSize=neighboursMarkers.size();
         for(int i=0;i<mNeighborsUtils.locations.size();i++){
 
             LatLng latLng1=new LatLng(mNeighborsUtils.locations.get(i).getLatitude(),mNeighborsUtils.locations.get(i).getLongitude());
-            if(neighboursMarkers.get(i)==null) {
+            if(i<markersSize){
+                if(neighboursMarkers.get(i)==null) {
+                    neighboursMarkers.add(mMap.addMarker(new MarkerOptions()
+                            .position(latLng1)
+                            .title(mNeighborsUtils.Names.get(i))
+                            .snippet("other cars with id " + String.valueOf(mNeighborsUtils.IDs.get(i)))
+                            .icon(otherCarsDescriptors)));
+                }else{
+                    neighboursMarkers.get(i).setPosition(latLng1);
+                }
+            }else{
                 neighboursMarkers.add(mMap.addMarker(new MarkerOptions()
                         .position(latLng1)
                         .title(mNeighborsUtils.Names.get(i))
                         .snippet("other cars with id " + String.valueOf(mNeighborsUtils.IDs.get(i)))
                         .icon(otherCarsDescriptors)));
-            }else{
-                neighboursMarkers.get(i).setPosition(latLng1);
             }
+
         }
 
 
