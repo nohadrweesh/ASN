@@ -63,7 +63,7 @@ public class NotificationUtils {
     public NotificationUtils(Context mContext) {
         this.mContext = mContext;
         //Populate activity map
-        activityMap.put("MainActivity", Main2Activity.class);
+        activityMap.put("OBDActivity", Main2Activity.class);
         activityMap.put("SecondActivity", SecondActivity.class);
     }
 
