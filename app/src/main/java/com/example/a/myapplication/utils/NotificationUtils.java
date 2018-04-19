@@ -58,6 +58,7 @@ public class NotificationUtils {
 
     public static int toCarID;
     public  static int toDriverID;
+    public static  int problemID;
 
 
     public NotificationUtils(Context mContext) {
@@ -248,6 +249,7 @@ public class NotificationUtils {
         String destination = notificationVO.getActionDestination();
         toCarID=notificationVO.getToCarID();
         toDriverID=notificationVO.getToDriverID();
+        problemID=notificationVO.getProblemID();//TODO:
 
         Log.d(TAG, "displayNotification: toDriverID "+String.valueOf(toDriverID));
         Log.d(TAG, "displayNotification: toCarID "+String.valueOf(toCarID));

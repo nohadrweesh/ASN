@@ -25,6 +25,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String ACTION = "action";
     private static final String DATA = "data";
     private static final String ACTION_DESTINATION = "action_destination";
+    private static final String TO_CAR_ID="toCarID";
+    private static final String TO_USER_ID="toUserID";
+    private static final String PROBLEM_ID="problemID";
 
 
     @Override
@@ -64,12 +67,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String iconUrl = data.get(IMAGE);
         String action = data.get(ACTION);
         String actionDestination = data.get(ACTION_DESTINATION);
+        String toCarID=data.get(TO_CAR_ID);
+        String toUserID=data.get(TO_USER_ID);
+        String problemID=data.get(PROBLEM_ID);
         NotificationVo notificationVO = new NotificationVo();
         notificationVO.setTitle(title);
         notificationVO.setMessage(message);
+
         notificationVO.setIconUrl(iconUrl);
         notificationVO.setAction(action);
         notificationVO.setActionDestination(actionDestination);
+
+        notificationVO.setToCarID(Integer.parseInt(toCarID));
+        notificationVO.setToDriverID(Integer.parseInt(toUserID));
+        notificationVO.setProblemID(Integer.parseInt(problemID));
 
         Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
 

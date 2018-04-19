@@ -13,6 +13,12 @@ public class NotificationVo {
     private String actionDestination;
     private int toCarID;
     private int toDriverID;
+    private int problemID;
+
+
+    public int getProblemID() {
+        return problemID;
+    }
 
     public int getToCarID() {
         return toCarID;
@@ -23,7 +29,17 @@ public class NotificationVo {
         return toDriverID;
     }
 
+    public void setToCarID(int toCarID) {
+        this.toCarID = toCarID;
+    }
 
+    public void setToDriverID(int toDriverID) {
+        this.toDriverID = toDriverID;
+    }
+
+    public void setProblemID(int problemID) {
+        this.problemID = problemID;
+    }
 
     public String getTitle() {
         return title;
