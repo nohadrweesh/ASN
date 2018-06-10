@@ -1,11 +1,16 @@
 package com.example.a.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HelpActivity extends AppCompatActivity {
     EditText et_type,et_message;
@@ -32,7 +37,9 @@ public class HelpActivity extends AppCompatActivity {
 
         Boolean loc=loc_switch.isChecked();
         String location=(loc)?"fixed":"moving";
-        mHelpUtils.help(type,message,location);
+
+        mHelpUtils.help(type,message,location,this);
+
         Toast.makeText(this,"Help sent,Have a nice day ",Toast.LENGTH_SHORT).show();
         finish();
     }

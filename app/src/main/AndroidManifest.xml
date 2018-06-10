@@ -36,6 +36,9 @@
         </activity>
         <activity android:name=".SignIn"/>
         <activity android:name=".SignUP2"/>
+        <activity android:name=".Waiting"/>
+        <activity android:name=".SendHelp"/>
+        <activity android:name=".AcceptorInfo"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

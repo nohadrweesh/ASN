@@ -262,11 +262,11 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     public void urgentHelp(View view){
-        mHelpUtils=HelpUtils.getInstance(this);
-        mHelpUtils.help("URGENT","The driver has a serious problem which we have not configure yet" +
-                ",please help him/her if you can...","not specified");
-        Toast.makeText(this,"We have sent your request ,Your neighbours will help you ASAP ,please don't panic and stop the car" +
-                "if you can.If you coud provide us with more info that'll be great  ",Toast.LENGTH_LONG).show();
+//        mHelpUtils=HelpUtils.getInstance(this);
+//        mHelpUtils.help("URGENT","The driver has a serious problem which we have not configure yet" +
+//                ",please help him/her if you can...","not specified",this);
+//        Toast.makeText(this,"We have sent your request ,Your neighbours will help you ASAP ,please don't panic and stop the car" +
+//                "if you can.If you coud provide us with more info that'll be great  ",Toast.LENGTH_LONG).show();
 
 
     }

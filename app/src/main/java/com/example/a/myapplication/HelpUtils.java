@@ -1,10 +1,12 @@
 package com.example.a.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -25,11 +27,12 @@ import static android.content.Context.LOCATION_SERVICE;
 /**
  * Created by Speed on 13/04/2018.
  */
-
-public class HelpUtils {
+//extends AppCompatActivity
+public class HelpUtils extends AppCompatActivity{
     private static final String TAG = "HelpUtils";
     private static Context mContext;
     private static HelpUtils mInstance;
+    JSONObject res;
 
     private HelpUtils(Context context) {
         mContext = context;
@@ -41,10 +44,11 @@ public class HelpUtils {
         return mInstance;
     }
 
-    public void help(final String type, final String message, final String location) {
+    public void help(final String type, final String message, final String location, final HelpActivity activityObj) {
 
         Log.d(TAG, "help: starts");
 
+//        final Intent i = new Intent(this,Waiting.class);
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
@@ -61,11 +65,25 @@ public class HelpUtils {
                             if (!obj.getBoolean("error")) {
                                 Log.d(TAG, "onResponse: pb sent");
 
+                                ////////////////////////////////////////
+                                //////// YOMNA HESHAM  19 APRIL ////////
+                                ////////////////////////////////////////
+                                int problemID = obj.getJSONObject("res").getInt("pbID");
+//                                Intent i =new Intent(getApplicationContext(),Waiting.class);
+                                Intent i = new Intent(activityObj,Waiting.class);
+                                i.putExtra("problemID",problemID);
+                                activityObj.startActivity(i);
+//                                startActivity(new Intent(HelpUtils.this,Waiting.class));
+//                                activityObj.startActivity(new Intent(activityObj,Waiting.class));
+                                //////////////////////////////////////
+                                ////////////////////////////////////////
+
+
                             } else {
                                 Log.d(TAG, "onResponse: error " + obj.getString("message"));
-
                             }
 
+                            res = obj;
 
                         } catch (JSONException e) {
                             Log.d(TAG, "onResponse: error" + response);
@@ -114,12 +132,13 @@ public class HelpUtils {
 
         };
         RequestHandler.getInstance(mContext).addToRequestQueue(stringRequest);
-
     }
 
 
-    public void sendHelpTo(final int needingHelpID,final int needingHelpCarID){
+    public void sendHelpTo(final int needingHelpID,final int needingHelpCarID,final int problemID ){
         Log.d(TAG, "sendHelpTo: starts");
+
+        final Intent i =new Intent(mContext,SendHelp.class);
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
@@ -135,6 +154,27 @@ public class HelpUtils {
                             Log.d(TAG, "onResponse: " + response);
                             if (!obj.getBoolean("error")) {
                                 Log.d(TAG, "onResponse: sentHelp sent");
+                                ///////////////////////////////////////////
+                                //////// ESRAA SAMEH 19 APRIL /////////////
+                                ///////////////////////////////////////////
+                                int userID = obj.getInt("userID");
+                                String username = obj.getString("username");
+                                double lat = obj.getJSONObject("position").getDouble("lat");
+                                double lng = obj.getJSONObject("position").getDouble("lng");
+                                double atit = obj.getJSONObject("position").getDouble("atit");
+                                //azaweeeed el parameters
+//                                Intent i =new Intent(getApplicationContext(),SendHelp.class);
+                                i.putExtra("userID",userID);
+                                i.putExtra("username"  ,username  );
+                                //i.putExtra("phone"     ,phone     );
+                                i.putExtra("lng"       ,lng       );
+                                i.putExtra("lat"       ,lat       );
+                                i.putExtra("atit"      ,atit      );
+                                mContext.startActivity(i);
+
+                                //////////////////////////////////////////////
+                                //////////////////////////////////////////////
+
 
                             } else {
                                 Log.d(TAG, "onResponse: error " + obj.getString("message"));
@@ -182,6 +222,7 @@ public class HelpUtils {
                 params.put("altitude",String.valueOf(location1.getAltitude()));
                 params.put("to",String.valueOf(needingHelpID));
                 params.put("toCar",String.valueOf(needingHelpCarID));
+                params.put("problemID",String.valueOf(problemID));
 
 
 
