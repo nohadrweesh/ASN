@@ -41,10 +41,10 @@ public class ObdConfig {
     public static ArrayList<ObdCommand> getCommands() {
         ArrayList<ObdCommand> cmds = new ArrayList<>();
 
-         // Control
+        // Control
+        /*0--->6 **/
         cmds.add(new ModuleVoltageCommand());
         cmds.add(new EquivalentRatioCommand());
-        cmds.add(new RPMCommand());
         cmds.add(new DistanceMILOnCommand());
         cmds.add(new DtcNumberCommand());
         cmds.add(new TimingAdvanceCommand());
@@ -53,21 +53,22 @@ public class ObdConfig {
 
 
         // Engine
-
+        /**7---->12***/
         cmds.add(new LoadCommand());
         cmds.add(new RPMCommand());
         cmds.add(new RuntimeCommand());
         cmds.add(new MassAirFlowCommand());
         cmds.add(new ThrottlePositionCommand());
-
+        cmds.add(new OilTempCommand());
 
         // Fuel
+        /**13----> 21**/
         cmds.add(new FindFuelTypeCommand());
         cmds.add(new ConsumptionRateCommand());
         // cmds.add(new AverageFuelEconomyObdCommand());
         //cmds.add(new FuelEconomyCommand());
         cmds.add(new FuelLevelCommand());
-        // cmds.add(new FuelEconomyMAPObdCommand());
+        //cmds.add(new FuelEconomyMAPObdCommand());
         // cmds.add(new FuelEconomyCommandedMAPObdCommand());
         cmds.add(new FuelTrimCommand(FuelTrim.LONG_TERM_BANK_1));
         cmds.add(new FuelTrimCommand(FuelTrim.LONG_TERM_BANK_2));
@@ -75,10 +76,12 @@ public class ObdConfig {
         cmds.add(new FuelTrimCommand(FuelTrim.SHORT_TERM_BANK_2));
         cmds.add(new AirFuelRatioCommand());
         cmds.add(new WidebandAirFuelRatioCommand());
-        cmds.add(new OilTempCommand());
+
+
 
 
         // Pressure
+        /**22---->25****/
         cmds.add(new BarometricPressureCommand());
         cmds.add(new FuelPressureCommand());
         cmds.add(new FuelRailPressureCommand());
@@ -86,6 +89,7 @@ public class ObdConfig {
 
 
         // Temperature
+        /**26--->28***/
         cmds.add(new AirIntakeTemperatureCommand());
         cmds.add(new AmbientAirTemperatureCommand());
         cmds.add(new EngineCoolantTemperatureCommand());
@@ -93,6 +97,7 @@ public class ObdConfig {
 
 
         // Misc
+        /**29**/
         cmds.add(new SpeedCommand());
 
 

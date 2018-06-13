@@ -1,8 +1,7 @@
 package com.example.a.myapplication.OBD.obdConnection;
 /**
- *this class starts the connection
+ * this class starts the connection
  * returns the bluetooth socket
- *
  */
 
 import android.bluetooth.BluetoothAdapter;
@@ -16,12 +15,12 @@ import android.os.Message;
 import android.util.Log;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
+import com.example.a.myapplication.OBD.ObdData.obdLiveData;
 import com.example.a.myapplication.OBD.obdApi.Commands.protocol.EchoOffCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.protocol.LineFeedOffCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.protocol.ObdResetCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.protocol.SelectProtocolCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.protocol.TimeoutCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.temperature.AmbientAirTemperatureCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 import com.example.a.myapplication.OBD.obdApi.enums.AvailableCommandNames;
 import com.example.a.myapplication.OBD.obdApi.enums.ObdProtocols;
@@ -41,14 +40,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class obdBlutoothManager {
 
+
     private static final String TAG = obdBlutoothManager.class.getSimpleName();
     private BluetoothAdapter mBluetoothAdapter;
-    private AcceptThread mAcceptThread ;
-    private ConnectThread mConnectThread ;
+    private AcceptThread mAcceptThread;
+    private ConnectThread mConnectThread;
     private final Handler mHandler;
     private ConnectedThread mConnectedThread;
     private int mState;
     private int mNewState;
+
+    //my data holder for holding obd command results
+    private obdLiveData obdLiveData = new obdLiveData();
 
 
     // Constants that indicate the current connection state
@@ -59,9 +62,9 @@ public class obdBlutoothManager {
 
 
     /*constructor
-    *
+     *
      */
-    public obdBlutoothManager(Context context , Handler handler) {
+    public obdBlutoothManager(Context context, Handler handler) {
 
         //create the bluetooth adapter
 
@@ -69,13 +72,14 @@ public class obdBlutoothManager {
         mState = STATE_NONE;
         mNewState = mState;
         mHandler = handler;
-        Log.d(TAG,"new connection");
+        Log.d(TAG, "new connection");
     }
+
 
     /**
      * "Hint: If you are connecting to a Bluetooth serial board then try using the
      * <p>
-*     * <p>
+     *     * <p>
      * are connecting to an Android peer then please generate your own unique
      * <p>
      * UUID."
@@ -84,8 +88,6 @@ public class obdBlutoothManager {
 
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final String NAME = "ahmed";
-
-
 
 
     /**
@@ -102,7 +104,7 @@ public class obdBlutoothManager {
     }
 
     /**
-            * Return the current connection state.
+     * Return the current connection state.
      */
     public synchronized int getState() {
         return mState;
@@ -136,7 +138,6 @@ public class obdBlutoothManager {
         }   // Update UI title
         updateUserInterfaceTitle();
     }
-
 
 
     /**
@@ -175,7 +176,7 @@ public class obdBlutoothManager {
      * @param socket The BluetoothSocket on which the connection was made
 
      */
-    public synchronized void connected(BluetoothSocket socket ,BluetoothDevice device) {
+    public synchronized void connected(BluetoothSocket socket, BluetoothDevice device) {
         Log.d(TAG, "connected fn , to the socket");
         // Cancel the thread that completed the connection
         if (mConnectThread != null) {
@@ -197,7 +198,7 @@ public class obdBlutoothManager {
 
         // Start the thread to manage the connection and perform transmissions
         mConnectedThread = new ConnectedThread(socket);
-       // mConnectedThread.start();
+        mConnectedThread.start();
 
         // Send the name of the connected device back to the UI Activity
         Message msg = mHandler.obtainMessage(Constants.MESSAGE_DEVICE_NAME);
@@ -256,17 +257,15 @@ public class obdBlutoothManager {
     }
 
 
-
-
     /*find all devices
-    * @return list of all devices
-    *
-    * */
+     * @return list of all devices
+     *
+     * */
     public Set<BluetoothDevice> findAllDevices() {
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
         /*this pice of code is to be used later
-        * */
+         * */
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
                 String deviceName = device.getName();
@@ -285,8 +284,31 @@ public class obdBlutoothManager {
     }
 
 
+    /*return inputstream and outstream
+     *
+     * we want them to be static so to be accessed from diffrent activetis
+     * */
+
+    private static InputStream in;
+    private static OutputStream out;
+
+    public InputStream getInstream() {
+
+        return in;
+    }
+
+    public OutputStream getOutstream() {
+        return out;
+    }
+
+
+
+
+
+
+
     /*server class
-    * * */
+     * * */
 
 
     private class AcceptThread extends Thread {
@@ -364,7 +386,7 @@ public class obdBlutoothManager {
 
 
     /*the client class
-    * **/
+     * **/
 
 
     private class ConnectThread extends Thread {
@@ -418,7 +440,6 @@ public class obdBlutoothManager {
         }
 
 
-
         // Closes the client socket and causes the thread to finish.
         public void cancel() {
             try {
@@ -428,7 +449,6 @@ public class obdBlutoothManager {
             }
         }
     }
-
 
 
     /**
@@ -467,28 +487,35 @@ public class obdBlutoothManager {
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
             mState = STATE_CONNECTED;
+            //static in and out stream to be accessed from diffrent activetis
+            in = mmInStream;
+            out = mmOutStream;
 
 
             //  obd Let's configure the connection.
             queueJob(new ObdCommandJob(new ObdResetCommand()));
             //Below is to give the adapter enough time to reset before sending the commands, otherwise the first startup commands could be ignored.
-            try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             queueJob(new ObdCommandJob(new EchoOffCommand()));
 
-    /*
-     * Will send second-time based on tests.
-     *
-     * TODO this can be done w/o having to queue jobs by just issuing
-     * command.run(), command.getResult() and validate the result.
-     */
-           queueJob(new ObdCommandJob(new EchoOffCommand()));
+            /*
+             * Will send second-time based on tests.
+             *
+             * TODO this can be done w/o having to queue jobs by just issuing
+             * command.run(), command.getResult() and validate the result.
+             */
+            queueJob(new ObdCommandJob(new EchoOffCommand()));
             queueJob(new ObdCommandJob(new LineFeedOffCommand()));
             queueJob(new ObdCommandJob(new TimeoutCommand(62)));
             // Get protocol from preferences
             queueJob(new ObdCommandJob(new SelectProtocolCommand(ObdProtocols.valueOf("AUTO"))));
 
             // Job for returning dummy data
-            queueJob(new ObdCommandJob(new AmbientAirTemperatureCommand()));
+//            queueJob(new ObdCommandJob(new AmbientAirTemperatureCommand()));
 
 
         }
@@ -499,16 +526,16 @@ public class obdBlutoothManager {
             job.setId(queueCounter);
             try {
                 jobsQueue.put(job);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 job.setState(ObdCommandJob.ObdCommandJobState.QUEUE_ERROR);
             }
         }
 
         public void executeQueue() throws InterruptedException {
+            int j = 0;
             Log.d(TAG, "Executing queue..");
-           // while (!Thread.currentThread().isInterrupted()) {
-            while(!jobsQueue.isEmpty()){
+            // while (!Thread.currentThread().isInterrupted()) {
+            while (!jobsQueue.isEmpty()) {
                 ObdCommandJob job = null;
                 try {
                     //remove .take() which blocks the thread with .poll(time,unit) or with .remove()
@@ -526,7 +553,7 @@ public class obdBlutoothManager {
                         }
                     } else
                         // log not new job
-                        Log.e(TAG,"Job state was not new, so it shouldn't be in queue. BUG ALERT!");
+                        Log.e(TAG, "Job state was not new, so it shouldn't be in queue. BUG ALERT!");
                 } catch (InterruptedException i) {
                     Thread.currentThread().interrupt();
                 } catch (UnsupportedCommandException u) {
@@ -536,7 +563,7 @@ public class obdBlutoothManager {
                     Log.d(TAG, "Command not supported. -> " + u.getMessage());
                 } catch (IOException io) {
                     if (job != null) {
-                        if(io.getMessage().contains("Broken pipe"))
+                        if (io.getMessage().contains("Broken pipe"))
                             job.setState(ObdCommandJob.ObdCommandJobState.BROKEN_PIPE);
                         else
                             job.setState(ObdCommandJob.ObdCommandJobState.EXECUTION_ERROR);
@@ -550,32 +577,32 @@ public class obdBlutoothManager {
                 }
 
                 if (job != null) {
-                     ObdCommandJob job2 = job;
+                    ObdCommandJob job2 = job;
 
-                     String cmdName = job2.getCommand().getName();
+                    String cmdName = job2.getCommand().getName();
                     String cmdResult = "";
-                     String cmdID = LookUpCommand(cmdName);
+                    String cmdID = LookUpCommand(cmdName);
                     if (job.getState().equals(ObdCommandJob.ObdCommandJobState.EXECUTION_ERROR)) {
                         cmdResult = job.getCommand().getResult();
-                    }
-                    else if (job.getState().equals(ObdCommandJob.ObdCommandJobState.BROKEN_PIPE)) {
+                    } else if (job.getState().equals(ObdCommandJob.ObdCommandJobState.BROKEN_PIPE)) {
                         cmdResult = "stop live data";
                         //stop live data
                         cancel();
-                    }
-                    else if (job.getState().equals(ObdCommandJob.ObdCommandJobState.NOT_SUPPORTED)) {
+                    } else if (job.getState().equals(ObdCommandJob.ObdCommandJobState.NOT_SUPPORTED)) {
                         cmdResult = "status_obd_no_support";
-                    }
-                    else {
+                    } else {
                         cmdResult = job.getCommand().getFormattedResult();
                     }
 
-                    String msg = cmdName + " "+cmdResult ;
-                    Message
+                    String msg = cmdName + ": " + cmdResult;
+                    obdLiveData.setData(j, msg);
+                    j = (j + 1) % obdLiveData.getCommandsCount();
+
+                    /*Message
                             readMsg = mHandler.obtainMessage(
                             Constants.MESSAGE_READ,msg.getBytes().length, -1,
                             msg.getBytes());
-                    readMsg.sendToTarget();
+                    readMsg.sendToTarget();*/
 
                 }
 
@@ -585,7 +612,7 @@ public class obdBlutoothManager {
 
         }
 
-        public  String LookUpCommand(String txt) {
+        public String LookUpCommand(String txt) {
             for (AvailableCommandNames item : AvailableCommandNames.values()) {
                 if (item.getValue().equals(txt)) return item.name();
             }
@@ -593,20 +620,49 @@ public class obdBlutoothManager {
         }
 
 
-
-
         private void queueCommands() {
-                for (ObdCommand Command : ObdConfig.getCommands())
-                {
-                    queueJob(new ObdCommandJob(Command));
+            for (ObdCommand Command : ObdConfig.getCommands()) {
+                queueJob(new ObdCommandJob(Command));
+            }
+        }
+
+
+
+
+        /*this was supposed to be running to listen for incoming messages
+         * now we will use it as separet thread to run the commands
+         * */
+
+        public void run() {
+
+            /* we frist execute queue in order to run the configration commandes
+            *    that was added in the constructor of Connected Thread class
+            **/
+            try {
+                executeQueue();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // start issuing commanads to ECU and store results
+
+            while (mState == STATE_CONNECTED) {
+                queueCommands();
+                try {
+                    executeQueue();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    Thread.sleep(40);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
 
-
-
-
-        public void run() {
-            mmBuffer = new byte[1024];
+            /*mmBuffer = new byte[1024];
             int numBytes; // bytes returned from read()
             // Keep listening to the InputStream until an exception occurs.
             while (mState == STATE_CONNECTED) {
@@ -623,7 +679,7 @@ public class obdBlutoothManager {
                     Log.d(TAG, "Input stream was disconnected", e);
                     break;
                 }
-            }
+            }*/
         }
 
         // Call this from the main activity to send data to the remote device.
@@ -662,8 +718,6 @@ public class obdBlutoothManager {
 
     }
 }
-
-
 
 
 

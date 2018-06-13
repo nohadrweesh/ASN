@@ -8,8 +8,6 @@
     -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -102,7 +100,7 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".HelpActivity"></activity>
+        <activity android:name=".HelpActivity" />
 
         <service
             android:name=".sync.HelpIntentService"
@@ -111,10 +109,17 @@
         <activity android:name=".ObdActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".EngineDataActivity" />
+        <activity android:name=".ControllDataActivity" />
+        <activity android:name=".FuelDataActivity" />
+        <activity android:name=".OldMainActivityobd" />
+        <activity android:name=".SpeedDataActivity" />
+        <activity android:name=".TempDataActivity" />
+        <activity android:name=".PressureDataActivity"></activity>
     </application>
 
 </manifest>
