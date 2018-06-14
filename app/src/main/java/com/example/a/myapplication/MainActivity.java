@@ -69,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
                 intent.setData(Uri.parse("package:" + getPackageName()));
                 startActivity(intent);
                 break;
+            case R.id.OBD:
+
+                startActivity(new Intent(this,ObdActivity.class));
+                break;
+            case R.id.driverMap:
+
+
+                startActivity(new Intent(this,DriverMapActivity.class));
+                break;
 
         }
         return true;

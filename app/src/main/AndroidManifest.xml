@@ -65,13 +65,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".Main2Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Main2Activity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".SecondActivity" />
 
         <service
@@ -106,13 +101,8 @@
             android:name=".sync.HelpIntentService"
             android:exported="false" />
 
-        <activity android:name=".ObdActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ObdActivity"/>
+            
         <activity android:name=".EngineDataActivity" />
         <activity android:name=".ControllDataActivity" />
         <activity android:name=".FuelDataActivity" />

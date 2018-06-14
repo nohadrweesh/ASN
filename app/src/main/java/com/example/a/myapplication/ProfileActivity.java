@@ -113,6 +113,10 @@ public class ProfileActivity extends AppCompatActivity {
             case R.id.menuSettings:
                 Toast.makeText(this, "You clicked settings", Toast.LENGTH_LONG).show();
                 break;
+            case R.id.OBD:
+
+                startActivity(new Intent(this,ObdActivity.class));
+
         }
         return true;
     }

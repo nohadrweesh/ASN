@@ -10,4 +10,10 @@
     <item
         android:id="@+id/settings"
         android:title="Settings"/>
+    <item
+        android:id="@+id/driverMap"
+        android:title="Driver Map"/>
+    <item
+        android:id="@+id/OBD"
+        android:title="OBD"/>
 </menu>

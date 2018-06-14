@@ -278,11 +278,16 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             startActivity(new Intent(this, MainActivity.class));
 
             return true;
-        } else if (id == R.id.settings){
+        } else if (id == R.id.map_settings){
 
             Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             intent.setData(Uri.parse("package:" + getPackageName()));
             startActivity(intent);
+            return true;
+        }else if(id==R.id.map_OBD){
+            startActivity(new Intent(this,ObdActivity.class));
+            return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -304,5 +309,9 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
     public  Location getLocation(){
         return  mLocation;
+    }
+
+    public void openOBDPanel(View view) {
+        startActivity(new Intent(this,ObdActivity.class));
     }
 }
