@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ASN.iml" filepath="$PROJECT_DIR$/ASN.iml" />
+      <module fileurl="file://D:\Noha Courses\apps-test\ASN2\ASN\ASN.iml" filepath="D:\Noha Courses\apps-test\ASN2\ASN\ASN.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\Noha Courses\apps-test\ASN2\ASN\app\app.iml" filepath="D:\Noha Courses\apps-test\ASN2\ASN\app\app.iml" />
     </modules>
   </component>
 </project>

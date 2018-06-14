@@ -51,6 +51,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
     BitmapDescriptor myCarDescriptor;
     BitmapDescriptor otherCarsDescriptors;
+    BitmapDescriptor pbCarsDescriptors;
 
 
     LocationUtils mLocationUtils;
@@ -59,6 +60,8 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     HelpUtils mHelpUtils;
 
     private static final String TAG = "DriverMapActivity";
+    double pbLat=-1,pbLong=-1;
+    String pbName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,16 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
         myCarDescriptor=bitmapDescriptorFromVector(this, R.drawable.my_car);
         otherCarsDescriptors=bitmapDescriptorFromVector(this, R.drawable.other_car);
+        pbCarsDescriptors=bitmapDescriptorFromVector(this, R.drawable.pb_car);
 
+        Intent i=getIntent();
+        if(i!=null && i.getExtras()!=null){
+            Toast.makeText(this,"i received with data ",Toast.LENGTH_LONG).show();
+            pbLat=i.getDoubleExtra("lat",-1);
+            pbLong=i.getDoubleExtra("long",-1);
+            pbName=i.getStringExtra("name");
+
+        }
 
     }
 
@@ -98,7 +110,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
 
-            Toast.makeText(getApplicationContext(),"Accept permssions ",Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(),"Accept permssions ",Toast.LENGTH_SHORT).show();
             return;
         }
         Log.d(TAG, "onMapReady: starts ");
@@ -110,6 +122,16 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
         /*LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
+        if(pbLong!=-1&&pbLat!=-1){
+            Toast.makeText(getApplicationContext(),"pbLat !=-1 ",Toast.LENGTH_SHORT).show();
+            LatLng pbPerson = new LatLng(pbLat,pbLong);
+            mMap.addMarker(new MarkerOptions().position(pbPerson).title(pbName).snippet("I have a problemb")
+                    .icon(pbCarsDescriptors)
+                    .anchor(0.5f,0.5f));
+
+        }else{
+            Toast.makeText(getApplicationContext(),"pbLat ===-1 ",Toast.LENGTH_SHORT).show();
+        }
     }
 
     protected synchronized void buildGoogleApiClient(){
@@ -121,8 +143,9 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
     @Override
     public void onLocationChanged(Location location) {
-       // Log.d(TAG, "onLocationChanged: starts with "+location.toString());
-        //mMap.clear();
+        // Log.d(TAG, "onLocationChanged: starts with "+location.toString());
+        mMap.clear();
+
 
         mLocation=location;
         mLocation.setLatitude(round(location.getLatitude(),3));
@@ -135,14 +158,17 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
 
 
+        mMap.addMarker(new MarkerOptions().position(latLng).title("My Car ^__^").snippet("I'm Noha ,a software engineer from Egypt")
+                .icon(myCarDescriptor)
+                .anchor(0.5f,0.5f));
 
-        if(marker==null) {
+        /*if(marker==null) {
             marker = mMap.addMarker(new MarkerOptions().position(latLng).title("My Car ^__^").snippet("I'm Noha ,a software engineer from Egypt")
                     .icon(myCarDescriptor)
                     .anchor(0.5f,0.5f));
         }else{
             marker.setPosition(latLng);
-        }
+        }*/
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -156,7 +182,12 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
         for(int i=0;i<mNeighborsUtils.locations.size();i++){
 
             LatLng latLng1=new LatLng(mNeighborsUtils.locations.get(i).getLatitude(),mNeighborsUtils.locations.get(i).getLongitude());
-            if(i<markersSize){
+            mMap.addMarker(new MarkerOptions()
+                    .position(latLng1)
+                    .title(mNeighborsUtils.Names.get(i))
+                    .snippet("other cars with id " + String.valueOf(mNeighborsUtils.IDs.get(i)))
+                    .icon(otherCarsDescriptors));
+            /*if(i<markersSize){
                 if(neighboursMarkers.get(i)==null) {
                     neighboursMarkers.add(mMap.addMarker(new MarkerOptions()
                             .position(latLng1)
@@ -172,7 +203,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
                         .title(mNeighborsUtils.Names.get(i))
                         .snippet("other cars with id " + String.valueOf(mNeighborsUtils.IDs.get(i)))
                         .icon(otherCarsDescriptors)));
-            }
+            }*/
 
         }
 
@@ -186,8 +217,8 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     public void onConnected(@Nullable Bundle bundle) {
         Log.d(TAG, "onConnected: starts");
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(100);
-        mLocationRequest.setFastestInterval(100);
+        mLocationRequest.setInterval(5000);
+        mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -252,7 +283,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             intent.setData(Uri.parse("package:" + getPackageName()));
             startActivity(intent);
-          }
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -267,6 +298,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
                 ",please help him/her if you can...","not specified");
         Toast.makeText(this,"We have sent your request ,Your neighbours will help you ASAP ,please don't panic and stop the car" +
                 "if you can.If you coud provide us with more info that'll be great  ",Toast.LENGTH_LONG).show();
+
 
 
     }

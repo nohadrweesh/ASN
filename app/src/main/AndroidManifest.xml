@@ -119,7 +119,10 @@
         <activity android:name=".OldMainActivityobd" />
         <activity android:name=".SpeedDataActivity" />
         <activity android:name=".TempDataActivity" />
-        <activity android:name=".PressureDataActivity"></activity>
+        <activity android:name=".PressureDataActivity"/>
+        <activity android:name=".Waiting"/>
+        <activity android:name=".SendHelp"/>
+        <activity android:name=".AcceptorInfo"/>
     </application>
 
 </manifest>

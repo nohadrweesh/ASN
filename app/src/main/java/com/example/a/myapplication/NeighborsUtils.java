@@ -68,20 +68,25 @@ public class NeighborsUtils {
                                 JSONObject result=obj.getJSONObject("result");
                                 int numUsers=result.getInt("num_users");
                                 if(numUsers>0){
+                                    Log.d(TAG, "onResponse: num users  nearby = "+String.valueOf(numUsers));
                                     JSONObject users=result.getJSONObject("users");
                                     Log.d(TAG, "onResponse: users "+users.toString());
 
                                     parseUsersJson(users);
+                                }else {
+                                    locations.clear();
+                                    IDs.clear();
+                                    Names.clear();
+                                    Log.d(TAG, "onResponse: No users are nearby");
                                 }
-                                Log.d(TAG, "onResponse: No users are nearby");
-                                
+
                             }
 
-                                else
+                            else
                             {
                                 //Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
                                 Log.d(TAG, "onResponse: error "+obj.getString("message"));
-                                }
+                            }
                         }
                         catch (JSONException e)
                         {
@@ -126,6 +131,9 @@ public class NeighborsUtils {
 
     private void parseUsersJson(JSONObject users){
         Log.d(TAG, "parseUsersJson: with users + "+users.toString());
+        locations.clear();
+        IDs.clear();
+        Names.clear();
         for (int i = 0; i < users.length(); i++) {
             JSONObject jsonobject = null;
             try {

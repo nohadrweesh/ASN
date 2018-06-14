@@ -20,7 +20,8 @@ public class HelpTasks {
     public static void executeTask(Context context, String action) {
         if (ACTION_ACCEPT_HELP_REQUEST.equals(action)) {
             Log.d(TAG, "executeTask: action "+action);
-            HelpUtils.getInstance(context).sendHelpTo(NotificationUtils.toDriverID,NotificationUtils.toCarID);
+            HelpUtils.getInstance(context).sendHelpTo(NotificationUtils.toDriverID,NotificationUtils.toCarID,NotificationUtils.problemID);
+
 
         } else if (ACTION_DISMISS_HELP_REQUEST.equals(action)) {
             Log.d(TAG, "executeTask: action "+action);
