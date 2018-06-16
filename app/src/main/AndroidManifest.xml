@@ -102,7 +102,7 @@
             android:exported="false" />
 
         <activity android:name=".ObdActivity"/>
-            
+
         <activity android:name=".EngineDataActivity" />
         <activity android:name=".ControllDataActivity" />
         <activity android:name=".FuelDataActivity" />
