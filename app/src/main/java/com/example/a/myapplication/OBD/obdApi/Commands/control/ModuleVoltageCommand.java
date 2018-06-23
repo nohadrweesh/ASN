@@ -10,6 +10,8 @@ import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 /**
  * <p>ModuleVoltageCommand class.</p>
  *
+ * Control module voltage is the voltage supplied to the ECU.
+ * It isn't battery voltage but is usually close enough when the vehicle is running.
  */
 public class ModuleVoltageCommand extends ObdCommand {
 

@@ -8,6 +8,11 @@ import com.example.a.myapplication.OBD.obdApi.enums.AvailableCommandNames;
 
 /**
  * Engine Coolant Temperature.
+ * Engine Coolant Temperature Sensor is a sensor that is screwed into the engine's
+ * block or cylinder head and is used to determine the temperature of the engine coolant.
+ * reading is sent to the vehicle's PCM/ECM (car's onboard computer) and is or can be used to
+ * activate emission controls or turn the engine's cooling fan on.
+ *
  *
  */
 public class EngineCoolantTemperatureCommand extends TemperatureCommand {

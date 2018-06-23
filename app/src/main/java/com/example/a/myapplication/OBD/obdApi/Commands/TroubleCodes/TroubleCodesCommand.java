@@ -1,4 +1,4 @@
-package com.example.a.myapplication.OBD.obdApi.Commands.control;
+package com.example.a.myapplication.OBD.obdApi.Commands.TroubleCodes;
 
 /**
  * Created by Ahmed on 3/27/2018.
@@ -30,6 +30,16 @@ public class TroubleCodesCommand extends ObdCommand {
     /**
      * <p>Constructor for TroubleCodesCommand.</p>
      */
+    /**
+     * Mode 3 returns hard fault DTCs, meaning single trip codes or two trip codes that have failed twice.
+     * Mode 7 returns pending DTCs, meaning two trip codes that have failed only once
+     * so we use mode 3
+     *
+     * what is pending DTCs ??
+     * The computer detects something "wrong", but the error usually has to be present after a
+     * few driving cycles before it turns into an "actual" code that triggers the Check Engine Light.
+     * Otherwise, if the code goes away before that, then the computer shrugs it off.
+     * */
     public TroubleCodesCommand() {
         super("03");
         codes = new StringBuilder();

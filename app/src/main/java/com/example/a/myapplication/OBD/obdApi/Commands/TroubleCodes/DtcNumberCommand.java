@@ -1,4 +1,4 @@
-package com.example.a.myapplication.OBD.obdApi.Commands.control;
+package com.example.a.myapplication.OBD.obdApi.Commands.TroubleCodes;
 
 /**
  * Created by Ahmed on 3/27/2018.

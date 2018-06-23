@@ -10,6 +10,19 @@ import com.example.a.myapplication.OBD.obdApi.enums.AvailableCommandNames;
 /**
  * Wideband AFR
  *
+ * 01 34
+ * Oxygen Sensor 1
+ * AB: Fuel–Air Equivalence Ratio
+ * CD: Current
+ *
+ * Oxygen sensors are usually located in the exhaust manifolds or exhaust piping.
+ * They read data from the exhaust gasses leaving the engine.
+ * This is helpful in determining if the engine is running correctly.
+ * However, if you are trying to determine the AFR entering the engine,
+ * which is what it sounds like, the oxygen sensors would not be very helpful.
+ * A very high or very low reading could indicate that the intake AFR is not correct,
+ * but getting an actual number would be difficult.
+ *
  */
 public class WidebandAirFuelRatioCommand extends ObdCommand {
 

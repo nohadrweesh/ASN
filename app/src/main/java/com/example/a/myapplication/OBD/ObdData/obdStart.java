@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.RPMCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 import com.example.a.myapplication.OBD.obdConnection.obdBlutoothManager;
 
@@ -65,13 +66,15 @@ public class obdStart {
         connectDevice();
 
         /****for testing only***/
-        obdLiveData m = new obdLiveData(1);
+        obdLiveData m = new obdLiveData(new RPMCommand());
         //int i =0;
         for (ObdCommand command : ObdConfig.getCommands())
         {
             m.addData(command.getName()+": Not connected");
             //i++;
         }
+
+
 
     }
 
@@ -120,4 +123,8 @@ public class obdStart {
 
     }
 
+    public void stopObdBluetoothManager()
+    {
+        mobdBlutoothManager.stop();
+    }
 }

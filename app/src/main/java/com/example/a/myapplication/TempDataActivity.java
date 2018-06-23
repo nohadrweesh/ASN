@@ -1,18 +1,23 @@
 package com.example.a.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
+import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
+import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class TempDataActivity extends AppCompatActivity {
 
     private obdLiveData mobObdLiveData = new obdLiveData();
-    private TextView t;
+    private TextView [] t = new TextView[7];
 
     /**
      * related to the thread updateing the ui
@@ -21,8 +26,8 @@ public class TempDataActivity extends AppCompatActivity {
     private final static int stop = 0;
     private int state;
 
-    private final int loopFristNumber = 26;
-    private final int loopLastNumber = 28;
+    private final int loopFristNumber = 32;
+    private final int loopLastNumber = 38;
 
 
     @Override
@@ -30,9 +35,31 @@ public class TempDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_data);
 
-        t = (TextView) findViewById(R.id.ttview);
+        t[0] = (TextView)findViewById(R.id.Text1);
+        t[1] = (TextView)findViewById(R.id.Text2);
+        t[2] = (TextView)findViewById(R.id.Text3);
+        t[3] = (TextView)findViewById(R.id.Text4);
+        t[4] = (TextView)findViewById(R.id.Text5);
+        t[5] = (TextView)findViewById(R.id.Text6);
+        t[6] = (TextView)findViewById(R.id.Text7);
+
 
         state = start;
+
+
+        // send the Temp queue to the shared memory so worker thread run only desierd queue
+
+        ArrayList<ObdCommand> cmds = ObdConfig.getCommands();
+
+        ArrayList<ObdCommand> X  = new ArrayList<>();
+        for (int i = loopFristNumber; i <= loopLastNumber; i++) {
+            X.add(cmds.get(i));
+        }
+        mobObdLiveData.setQueuCommands(X);
+
+        mobObdLiveData.setDataPlace(loopFristNumber,loopLastNumber);
+
+
         start();
     }
 
@@ -43,6 +70,11 @@ public class TempDataActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        state =start;
+    }
 
     public void start() {
 
@@ -57,11 +89,13 @@ public class TempDataActivity extends AppCompatActivity {
                         s += l.get(i);
                         s += "\n";
                     }
-                    final String finalS = s;
+                    final String [] finalS =s.split("\n");
                     h.post(new Runnable() {
                         @Override
                         public void run() {
-                            t.setText(finalS);
+                            for(int i = 0;i<finalS.length;i++)
+                                t[i].setText(finalS[i]);
+
                         }
                     });
 
@@ -80,5 +114,55 @@ public class TempDataActivity extends AppCompatActivity {
         t.start();
     }
 
+
+    public void cv1(View view) {
+        Intent i = new Intent(this, ObdExplainationActivity.class);
+        String s = getResources().getString(R.string.EngineCoolantTemperatureCommand);
+        i.putExtra("message" , s);
+        startActivity(i);
+
+    }
+    public void cv2(View view) {
+        Intent i = new Intent(this, ObdExplainationActivity.class);
+        String s = getResources().getString(R.string.AirIntakeTemperatureCommand);
+        i.putExtra("message" , s);
+        startActivity(i);
+
+    }
+    public void cv3(View view) {
+        Intent i = new Intent(this, ObdExplainationActivity.class);
+        String s = getResources().getString(R.string.CatalystTemperatureCommand);
+        i.putExtra("message" , s);
+        startActivity(i);
+
+    }
+    public void cv4(View view) {
+        Intent i = new Intent(this, ObdExplainationActivity.class);
+        String s = getResources().getString(R.string.CatalystTemperatureCommand);
+        i.putExtra("message" , s);
+        startActivity(i);
+
+    }
+    public void cv5(View view) {
+        Intent i = new Intent(this, ObdExplainationActivity.class);
+        String s = getResources().getString(R.string.CatalystTemperatureCommand);
+        i.putExtra("message" , s);
+        startActivity(i);
+
+    }
+    public void cv6(View view) {
+        Intent i = new Intent(this, ObdExplainationActivity.class);
+        String s = getResources().getString(R.string.CatalystTemperatureCommand);
+        i.putExtra("message" , s);
+        startActivity(i);
+
+    }
+    public void cv7(View view) {
+        Intent i = new Intent(this, ObdExplainationActivity.class);
+        String s = getResources().getString(R.string.AmbientAirTemperatureCommand);
+        i.putExtra("message" , s);
+        startActivity(i);
+
+    }
 
 }

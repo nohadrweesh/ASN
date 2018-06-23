@@ -1,5 +1,8 @@
 package com.example.a.myapplication.OBD.ObdData;
 
+import com.example.a.myapplication.OBD.obdApi.ObdCommand;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -20,15 +23,27 @@ public class obdLiveData {
 
     private static final int commandsCount = 30;
 
+    private static int loopFirstNumber = 0;
+    private static int loopLastNumber =commandsCount;
+    private static ArrayList<ObdCommand> obdCommands;
+
     /*
      * defult const
      * @param x no need to it just to diffrentiat betwaan the two constructor
      * use this constructor  when creating instance of this class for the first time
      * **/
 
-    public obdLiveData(int x) {
+    public obdLiveData(ObdCommand command) {
         data = new LinkedList<String>();
         commandResult = new HashMap<String, String>();
+
+        obdCommands = new ArrayList<ObdCommand>();
+
+        // for initialization
+        // to prevent obdBluetoothManager connected thread from crashing
+        obdCommands.add(command);
+
+
 
 
 
@@ -68,6 +83,38 @@ public class obdLiveData {
         data.add(s);
     }
 
+
+
+    /**
+     * methods for adding the desired commands to run
+     * */
+
+    public synchronized void setQueuCommands(ArrayList<ObdCommand> l)
+    {
+
+        this.obdCommands = l;
+    }
+
+    public synchronized  ArrayList<ObdCommand> getObdCommands() {
+
+        return obdCommands;
+    }
+
+    public synchronized void setDataPlace(int firstNumber , int LastNumber)
+    {
+        loopFirstNumber = firstNumber;
+        loopLastNumber = LastNumber;
+    }
+
+    public synchronized int getDataFirstPalce()
+    {
+        return loopFirstNumber;
+    }
+
+    public synchronized int getDataLastPlace() {
+        return loopLastNumber;
+
+    }
 }
 
 

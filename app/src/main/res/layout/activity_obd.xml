@@ -13,7 +13,7 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
 
-        android:layout_height="84dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -27,7 +27,7 @@
 
         <ImageView
             android:id="@+id/imgOBD"
-            android:layout_width="253dp"
+            android:layout_width="255dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -36,10 +36,20 @@
 
         <TextView
             android:id="@+id/conect_txtView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/imgOBD"
+            android:layout_weight="2"
             android:text="not connected" />
+
+
+        <!-- <TextView
+             android:id="@+id/conect_txtView"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_toRightOf="@+id/imgOBD"
+             android:text="not connected" />-->
+
 
     </RelativeLayout>
 
@@ -56,7 +66,7 @@
         android:layout_marginTop="8dp"
         android:layout_weight="8"
         android:alignmentMode="alignMargins"
-        android:columnCount="2"
+        android:columnCount="3"
         android:columnOrderPreserved="false"
         android:padding="14dp"
         android:rowCount="3"
@@ -68,13 +78,56 @@
 
         <android.support.v7.widget.CardView
 
+            android:id="@+id/cvDriverMode"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_rowWeight="1"
+
+            android:onClick="DriverMode"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/speedcounter" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Driver Mode "
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+
+
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+
             android:id="@+id/cvEngine"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_rowWeight="1"
             android:onClick="Engine"
 
@@ -89,8 +142,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/engine" />
 
@@ -98,7 +151,7 @@
                     android:id="@+id/engineText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Engine info"
+                    android:text="Engine"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
@@ -117,8 +170,8 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_rowWeight="1"
             android:onClick="Controll"
 
@@ -133,15 +186,15 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/carcontrol" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="control cmd"
+                    android:text="Control"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
@@ -161,8 +214,8 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_rowWeight="1"
 
 
@@ -178,15 +231,15 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/gas" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fuel info"
+                    android:text="Fuel"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
@@ -205,8 +258,8 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_rowWeight="1"
             android:onClick="Pressure"
 
@@ -221,8 +274,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/pressure" />
 
@@ -249,8 +302,8 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_rowWeight="1"
             android:onClick="Temp"
 
@@ -265,8 +318,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/tempraturelevel" />
 
@@ -288,7 +341,7 @@
 
         <android.support.v7.widget.CardView
 
-            android:id="@+id/cvSpeed"
+            android:id="@+id/cvTroubleCodes"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -296,7 +349,52 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_rowWeight="1"
-            android:onClick="Speed"
+            android:onClick="TroubleCodes"
+
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal|fill"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/problem" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Truble Codes"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+
+
+                    />
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+
+            android:id="@+id/cvExpertMode"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_rowWeight="1"
+            android:onClick="Expert"
 
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
@@ -309,15 +407,100 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/speedcounter" />
+                    android:src="@drawable/expert2" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Speed"
+                    android:text="Expert Mode "
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+
+
+                    />
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+
+            android:id="@+id/cv2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_rowWeight="1"
+
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="spare"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+
+
+                    />
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+
+            android:id="@+id/cv4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_rowWeight="1"
+
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="spare"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"

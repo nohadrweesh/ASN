@@ -30,6 +30,7 @@ public class ObdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obd);
 
+
         cv1 = (CardView) findViewById(R.id.cvEngine);
 
 
@@ -78,6 +79,12 @@ public class ObdActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mobdStart.stopObdBluetoothManager();
     }
 
     /**
@@ -155,8 +162,17 @@ public class ObdActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void Speed(View view) {
-        Intent i = new Intent(this, SpeedDataActivity.class);
+    public void Expert(View view) {
+        Intent i = new Intent(this, ExpertDataActivity.class);
+        startActivity(i);
+    }
+    public void TroubleCodes(View view) {
+        Intent i = new Intent(this, TroubleCodesActivity.class);
+        startActivity(i);
+    }
+
+    public void DriverMode(View view) {
+        Intent i = new Intent(this, DriverModeActivity.class);
         startActivity(i);
     }
 }

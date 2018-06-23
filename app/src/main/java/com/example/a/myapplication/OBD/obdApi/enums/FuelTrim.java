@@ -8,7 +8,24 @@ import java.util.HashMap;
 import java.util.Map;
 /**
  * Select one of the Fuel Trim percentage banks to access.
+ *fuel trims are the percentage of change in fuel over time.
+ * For the engine to operate properly, the air:fuel ratio needs to stay within a small window of 14.7:1.
  *
+ *
+ *If the o2 sensors inform the engine computer that the exhaust mixture is lean, the
+ * computer adds fuel by lengthening injector pulse, or "on-time", to compensate.
+ * Conversely, if the o2 sensors inform the computer that the exhaust is rich,
+ * the computer shortens injector pulse, adding less fuel to compensate in order to bring
+ * the rich condition down.
+ *
+ *
+ * This change in fuel being added or taken away is called Fuel Trim.
+ * Really, the oxygen sensors are what drive the fuel trim readings. Changes in o2 sensor voltages cause
+ * a direct change in fuel. The short term fuel trim (STFT) refers to immediate changes in fuel occurring
+ * several times per second. The long term fuel trims (LTFT) are driven by the short term fuel trims.
+ * LTFT refers to changes in STFT but averaged over a longer period of time.
+ * A negative fuel trim percentage indicates a taking away of fuel while a
+ * positive percentage indicates an adding of fuel
  */
 
 public enum FuelTrim {
