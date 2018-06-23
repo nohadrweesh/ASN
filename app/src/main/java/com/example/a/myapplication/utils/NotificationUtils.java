@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Action;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.util.Log;
@@ -202,7 +203,7 @@ public class NotificationUtils {
     }
 
 
-    private static android.support.v4.app.NotificationCompat.Action ignoreAction(Context context) {
+    private static Action ignoreAction(Context context,String notificationType) {
 
         Intent ignoreActionIntent = new Intent(context, HelpIntentService.class);
 
@@ -213,15 +214,24 @@ public class NotificationUtils {
                 ACTION_IGNORE_PENDING_INTENT_ID,
                 ignoreActionIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        android.support.v4.app.NotificationCompat.Action ignoreReminderAction = new android.support.v4.app.NotificationCompat.Action(R.drawable.ic_cancel_black_24px,
-                "No, Sorry I can't help.",
-                ignoreReminderPendingIntent);
+        if(notificationType.equals("SA")){
+            Action ignoreReminderAction = new Action(R.drawable.ic_cancel_black_24px,
+                    "Remind me later",
+                    ignoreReminderPendingIntent);
 
-        return ignoreReminderAction;
+            return ignoreReminderAction;
+        }else{
+            Action ignoreReminderAction = new Action(R.drawable.ic_cancel_black_24px,
+                    "No, Sorry I can't help.",
+                    ignoreReminderPendingIntent);
+
+            return ignoreReminderAction;
+        }
+
     }
 
 
-    private static NotificationCompat.Action acceptUserHelp(Context context) {
+    private static Action acceptUserHelp(Context context,String notificationType) {
 
         Intent incrementWaterCountIntent = new Intent(context, HelpIntentService.class);
 
@@ -232,12 +242,20 @@ public class NotificationUtils {
                 ACTION_ACCEPT_HELP_PENDING_INTENT_ID,
                 incrementWaterCountIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
+        if(notificationType.equals("SA")){
+            Action acceptHelpAction = new Action(R.drawable.ic_local_drink_black_24px,
+                    "Would you  like to get an appointment for checkup",
+                    acceptHelpPendingIntent);
 
-        NotificationCompat.Action acceptHelpAction = new NotificationCompat.Action(R.drawable.ic_local_drink_black_24px,
+            return acceptHelpAction;
+        }else{
+
+        Action acceptHelpAction = new Action(R.drawable.ic_local_drink_black_24px,
                 "I can help him,Provide with more info",
                 acceptHelpPendingIntent);
 
         return acceptHelpAction;
+        }
     }
 
 
@@ -247,6 +265,7 @@ public class NotificationUtils {
         String iconUrl = notificationVO.getIconUrl();
         String action = notificationVO.getAction();
         String destination = notificationVO.getActionDestination();
+        String notificationType = notificationVO.getNotificationType();
         toCarID=notificationVO.getToCarID();
         toDriverID=notificationVO.getToDriverID();
         problemID=notificationVO.getProblemID();//TODO:
@@ -307,8 +326,8 @@ public class NotificationUtils {
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(resultPendingIntent)
 
-                .addAction(acceptUserHelp(mContext))
-                .addAction(ignoreAction(mContext))
+                .addAction(acceptUserHelp(mContext,notificationType))
+                .addAction(ignoreAction(mContext,notificationType))
                 .setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
