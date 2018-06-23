@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
 import com.example.a.myapplication.OBD.obdApi.Commands.protocol.EchoOffCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.protocol.LineFeedOffCommand;
@@ -29,6 +28,7 @@ import com.example.a.myapplication.OBD.obdApi.exceptions.UnsupportedCommandExcep
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
@@ -521,18 +521,10 @@ public class obdBlutoothManager {
         }
 
 
-        public void queueJob(ObdCommandJob job) {
-            queueCounter++;
-            job.setId(queueCounter);
-            try {
-                jobsQueue.put(job);
-            } catch (InterruptedException e) {
-                job.setState(ObdCommandJob.ObdCommandJobState.QUEUE_ERROR);
-            }
-        }
+
 
         public void executeQueue() throws InterruptedException {
-            int j = 0;
+            int j = obdLiveData.getDataFirstPalce();
             Log.d(TAG, "Executing queue..");
             // while (!Thread.currentThread().isInterrupted()) {
             while (!jobsQueue.isEmpty()) {
@@ -596,7 +588,7 @@ public class obdBlutoothManager {
 
                     String msg = cmdName + ": " + cmdResult;
                     obdLiveData.setData(j, msg);
-                    j = (j + 1) % obdLiveData.getCommandsCount();
+                    j = (j + 1); // % obdLiveData.getDataLastPlace();
 
                     /*Message
                             readMsg = mHandler.obtainMessage(
@@ -612,6 +604,17 @@ public class obdBlutoothManager {
 
         }
 
+
+        public void queueJob(ObdCommandJob job) {
+            queueCounter++;
+            job.setId(queueCounter);
+            try {
+                jobsQueue.put(job);
+            } catch (InterruptedException e) {
+                job.setState(ObdCommandJob.ObdCommandJobState.QUEUE_ERROR);
+            }
+        }
+
         public String LookUpCommand(String txt) {
             for (AvailableCommandNames item : AvailableCommandNames.values()) {
                 if (item.getValue().equals(txt)) return item.name();
@@ -621,10 +624,15 @@ public class obdBlutoothManager {
 
 
         private void queueCommands() {
-            for (ObdCommand Command : ObdConfig.getCommands()) {
+
+            ArrayList<ObdCommand> commands = obdLiveData.getObdCommands();
+
+            //for (ObdCommand Command : ObdConfig.getCommands()) {
+              for( ObdCommand Command : commands){
                 queueJob(new ObdCommandJob(Command));
             }
         }
+
 
 
 

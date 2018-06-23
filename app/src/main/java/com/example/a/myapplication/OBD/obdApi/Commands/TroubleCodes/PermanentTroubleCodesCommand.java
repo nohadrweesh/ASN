@@ -1,4 +1,4 @@
-package com.example.a.myapplication.OBD.obdApi.Commands.control;
+package com.example.a.myapplication.OBD.obdApi.Commands.TroubleCodes;
 
 /**
  * Created by Ahmed on 3/27/2018.
@@ -29,6 +29,13 @@ public class PermanentTroubleCodesCommand extends ObdCommand {
 
     /**
      * <p>Constructor for PermanentTroubleCodesCommand.</p>
+     *
+     * Mode $0A—Request emissions-related diagnostic trouble codes with permanent status after a
+     * clear/reset emission-related diagnostic information service. The purpose of mode $0A,
+     * referred to as Mode 10, is to allow a scan tool to obtain DTCs that are stored as
+     * “permanent codes.” These are codes only the module can clear. Even if you’ve made
+     * a successful repair and have cleared the codes in Mode $04, these codes will
+     * remain in memory until the computer has completed its own system test.
      */
     public PermanentTroubleCodesCommand() {
         super("0A");

@@ -5,4 +5,290 @@
     <string name="title_activity_driver_map">Map</string>
     <string name="title_activity_controll_data">ControllDataActivity</string>
     <string name="title_activity_pressure_data">PressureDataActivity</string>
+    <string name="title_activity_driver_mode">DriverMode</string>
+
+
+    <string name="VinCommand">Vehicle Identification Number (VIN)</string>
+
+    <string name="ModuleVoltageCommand">Control module voltage is the voltage supplied to the ECU.\n
+  It isn\'t battery voltage but is usually close enough when the vehicle is running.\n
+ </string>
+
+    <string name="TimingAdvanceCommand">Timing Advance
+    It refers to the spark igniting the air-fuel mixture in the cylinder in relation
+      to the piston position in crankshaft degrees.\n The timing of the spark must change
+      with engine conditions for the engine to run efficiently.\n
+     </string>
+
+    <string name="EquivalentRatioCommand">
+
+  Fuel systems that use conventional oxygen sensor display the commanded open
+  loop equivalence ratio while the system is in open loop.\n Should report 100%
+  when in closed loop fuel.\n
+  To obtain the actual air/fuel ratio being commanded, multiply the
+  stoichiometric A/F ratio by the equivalence ratio.\n For example, gasoline
+  stoichiometric is 14.64:1 ratio.\n If the fuel control system was commande an
+  equivalence ratio of 0.\n95, the commanded A/F ratio to the engine would be
+  14.64 * 0.95 = 13.9 A/F.\n
+
+    </string>
+
+    <string name="DistanceMILOnCommand"> Distance traveled with malfunction indicator lamp (MIL) on
+</string>
+
+    <string name="TimeRunWithMILOnCommand">TimeRunWithMILOnCommand</string>
+
+    <string name="DistanceSinceCCCommand">  Distance traveled since codes cleared-up.\n
+</string>
+
+    <string name="TimeSinceTroubleCodesClearedCommand">TimeSinceTroubleCodesClearedCommand</string>
+
+    <string name="AbsoluteLoadCommand">LOAD_ABS = [air mass (g / intake stroke)] / [1.184 (g / intake stroke) ""
+ cylinder displacement in liters]
+ Where:
+ - STP = Standard Temperature and Pressure = 25 °C, 29.92 in Hg (101.3 kPa)
+ BARO
+ - WOT = wide open throttle
+
+  As you can probably see, this equation relies on the flow of air and basically engine displacement.\n
+  As it states in the body, this correlates with volumetric efficiency (how completely a cylinder fills with
+  air on the intake stroke) at WOT.\n This variable can be read from the ECU on PID $43.\n It is only required
+  by the standard on spark ignition systems.\n
+ </string>
+
+<string name="FuelInjectionTimingCommand"></string>
+    <string name="LoadCommand">  Calculated Engine Load value.\n
+ 
+  According to SAE International SAE J1979 / ISO 15031-5
+ (dated: 2014-08-11), calculated engine load is calculated by the following equation
+  Where:
+ - STP = Standard Temperature and Pressure = 25 °C, 29.92 in Hg BARO,
+ - SQRT = square root
+ - WOT = wide open throttle
+ - AAT = Ambient Air Temperature (in °C)
+ 
+  There isn\'t a single sensor it uses to figure this out.\n For a gasoline (or spark ignition) engine,
+  it utilizes the Air Intake Sensor (IAT), Manifold Absolute Pressure (MAP)
+  sensor, Throttle Position Sensor (TPS), and Engine Coolant Temperature (ECT) sensor
+  to do calculations and to discover if the engine is at the ready point to make the calculations.\n
+ 
+ </string>
+  <string name="MassAirFlowCommand"> Mass Air Flow (MAF)
+ 
+  (MAF) is a sensor used to determine the mass flow rate of air entering a fuel-injected internal combustion engine.\n
+  The air mass information is necessary for the engine control unit (ECU)
+  to balance and deliver the correct fuel mass to the engine.\n Air changes its density with temperature
+  and pressure.\n In automotive applications, air density varies with the ambient temperature, altitude and the use
+  of forced induction, which means that mass flow sensors are more appropriate
+  than volumetric flow sensors for determining the quantity of intake air in each cylinder</string>
+
+    <string name="OilTempCommand">  Displays the current engine Oil temperature.\n
+</string>
+
+    <string name="RelativeAcceleratorPedalPositionCommand"></string>
+
+    <string name="RPMCommand">  Displays the current engine revolutions per minute (RPM).\n
+</string>
+
+
+    <string name="RuntimeCommand">  Engine runtime.\n
+ 
+  Run time since engine start
+</string>
+
+    <string name="ThrottlePositionCommand"> Read the throttle position in percentage.\n
+  what is a throttle ?
+  a device controlling the flow of fuel or power to an engine.\n
+</string>
+
+
+    <string name="AirFuelRatioCommand">AirFuelRatioCommand</string>
+
+    <string name="ConsumptionRateCommand">ConsumptionRateCommand</string>
+
+    <string name="FindFuelTypeCommand">  This command is intended to determine the vehicle fuel type.\n
+</string>
+
+    <string name="FuelLevelCommand">  Get fuel level in percentage
+</string>
+
+    <string name="FuelTrimCommand"> Select one of the Fuel Trim percentage banks to access.\n
+ fuel trims are the percentage of change in fuel over time.\n
+  For the engine to operate properly, the air:fuel ratio needs to stay within a small window of 14.7:1.\n
+ 
+ 
+ If the o2 sensors inform the engine computer that the exhaust mixture is lean, the
+  computer adds fuel by lengthening injector pulse, or "on-time", to compensate.\n
+  Conversely, if the o2 sensors inform the computer that the exhaust is rich,
+  the computer shortens injector pulse, adding less fuel to compensate in order to bring
+  the rich condition down.\n
+ 
+ 
+  This change in fuel being added or taken away is called Fuel Trim.\n
+  Really, the oxygen sensors are what drive the fuel trim readings.\n Changes in o2 sensor voltages cause
+  a direct change in fuel.\n The short term fuel trim (STFT) refers to immediate changes in fuel occurring
+  several times per second.\n The long term fuel trims (LTFT) are driven by the short term fuel trims.\n
+  LTFT refers to changes in STFT but averaged over a longer period of time.\n
+  A negative fuel trim percentage indicates a taking away of fuel while a
+  positive percentage indicates an adding of fuel</string>
+
+    <string name="WidebandAirFuelRatioCommand"> Oxygen sensors are usually located in the exhaust manifolds or exhaust piping.\n
+  They read data from the exhaust gasses leaving the engine.\n
+  This is helpful in determining if the engine is running correctly.\n
+  However, if you are trying to determine the AFR entering the engine,
+  which is what it sounds like, the oxygen sensors would not be very helpful.\n
+  A very high or very low reading could indicate that the intake AFR is not correct,
+  but getting an actual number would be difficult.\n
+ </string>
+
+    <string name="AbsoluteEvapSystemVaporPressureCommand"></string>
+
+    <string name="BarometricPressureCommand">
+  The barometric (BARO) sensor is used by the engine control module (ECM)
+  to measure the pressure of the atmosphere.\n The pressure is affected
+  by weather conditions, air volume, and altitude.\n
+ </string>
+
+    <string name="EvapSystemVaporPressureCommand"></string>
+
+    <string name="FuelPressureCommand"> On a car with fuel injection there can be two fuel pumps,
+  one high-pressure and one low-pressure.\n
+  The low-pressure pump moves the gas from the tank up to the
+  high pressure pump.\n The high pressure pump then raises the pressure to a
+  level that will be useful to the injectors.\n
+  The two PIDs reflect those two different systems.\n
+  PID  Description        Min       Max      Units
+  0A   Fuel pressure        0       765      kPa (gauge)
+  22   Fuel rail pressure   0     5,177.265  kPa
+  23   Fuel rail pressure   0   655,350      kPa
+ 
+ 
+  These pressures are all controlled by regulators so that any of these PIDs should be fairly
+  constant and not affected by load in a well running engine.\n
+  Low fuel pressure would be the result of failure or clog in the fuel system.\n
+ </string>
+
+    <string name="FuelRailPressureCommand">
+   On a car with fuel injection there can be two fuel pumps,
+  one high-pressure and one low-pressure.\n
+  The low-pressure pump moves the gas from the tank up to the
+  high pressure pump.\n The high pressure pump then raises the pressure to a
+  level that will be useful to the injectors.\n
+  The two PIDs reflect those two different systems.\n
+  PID  Description        Min       Max      Units
+  0A   Fuel pressure        0       765      kPa (gauge)
+  22   Fuel rail pressure   0     5,177.265  kPa
+  23   Fuel rail pressure   0   655,350      kPa
+ 
+ 
+  These pressures are all controlled by regulators so that any of these PIDs should be fairly
+  constant and not affected by load in a well running engine.\n
+  Low fuel pressure would be the result of failure or clog in the fuel system.\n
+ </string>
+
+    <string name="IntakeManifoldPressureCommand">The Manifold Absolute Pressure (MAP) sensor is a key sensor because it senses engine load.\n
+  The sensor generates a signal that is proportional to the amount of vacuum in the intake manifold.\n
+  The engine computer then uses this information to adjust ignition timing and fuel enrichment.\n
+ 
+  When the engine is working hard, intake vacuum drops as the throttle opens wide.\n
+  The engine sucks in more air, which requires more fuel to keep the air/fuel ratio in balance.\n
+  In fact, when the computer reads a heavy load signal from the MAP sensor,
+  it usually makes the fuel mixture go slightly richer than normal so the engine can produce more power.\n
+  At the same time, the computer will retard (back off) ignition timing slightly to prevent detonation (spark knock)
+  that can damage the engine and hurt performance.\n
+ 
+  When conditions change and the vehicle is cruising along under light load, coasting or decelerating,
+  less power is needed from the engine.\n The throttle is not open very wide or may be closed causing
+  intake vacuum to increase.\n The MAP sensor senses this and the computer responds by leaning out the
+  fuel mixture to reduce fuel consumption and advances ignition timing to squeeze a little
+  more fuel economy out of the engine.\n
+ 
+ 
+  An intake manifold is a component that delivers either air or an air/fuel mixture to the cylinders
+  In fuel-injected engines, the intake manifold connects the throttle body to the intake ports.\n
+ 
+  In addition to simply providing a path for air or air and fuel to move between a common
+  intake and the intake ports, intake manifolds also perform another important function.\n Due to the way that internal
+  combustion engines work, and the way that intake manifolds are “sealed” by the constant flow of air in one side and out the
+  other, the movement of the pistons in the engine is able to effectively create a partial vacuum inside the intake manifold.\n
+  When each piston moves downward on the intake stroke, it sucks air (or air and fuel) out of the intake manifold.\n
+  This creates a situation where the pressure inside the manifold is lower than the pressure outside of the manifold,
+  which results in a partial vacuum.\n This vacuum is then harnessed to perform a variety of different functions that
+  range all the way from climate controls to brake boosters.\n
+ 
+ 
+  Since manifold vacuum is produced by the normal operation of the engine, the level of vacuum can
+  also be used to diagnose certain engine problems.\n For instance, low vacuum might indicate a burnt valve,
+  incorrect valve or ignition timing, or a variety of other problems.\n
+ </string>
+
+    <string name="AirIntakeTemperatureCommand">The Intake Air Temperature sensor (IAT) monitors the temperature
+  of the air entering the engine.\n The engine computer (PCM) needs this information to estimate
+  air density so it can balance  air/fuel mixture.\n Colder air is more dense than hot air,
+  so cold air requires more fuel to maintain the same air/fuel ratio.\n The PCM changes the air/fuel ratio
+  by changing the length (on time) of the injector pulses.\n
+ </string>
+
+    <string name="AmbientAirTemperatureCommand">
+  Ambient Air Temperature
+ 
+  The Ambient Air Temperature (AAT) sensor converts ambient air temperature into
+  an electrical signal for the Powertrain Control Module (PCM).\n This input is used to modify air
+  conditioning system operation and display outside air temperature.\n
+ 
+  The PCM receives this input and possibly two more; Intake Air Temperature (IAT) and Engine Coolant
+  Temperature Sensor (ECT).\n The PCM looks at the AAT sensor voltage and compares it to the IAT/ECT
+  sensor readings when the ignition switch is first turned on after a long cool down period.\n
+  This code is set if these inputs vary too much.\n It also looks at the voltage signals from these
+  sensors to determine if they are correct when the engine is fully warmed up.\n This code is usually
+  set due to electrical issues, but mechanical faults should not be dismissed.\n These mechanical issues
+  would include improper mounting location of the sensor, not mounting the sensor
+  (leaving it hanging by the wiring harness), etc.\n
+ </string>
+
+    <string name="CatalystTemperatureCommand"></string>
+    
+    <string name="EngineCoolantTemperatureCommand"> Engine Coolant Temperature.\n
+  Engine Coolant Temperature Sensor is a sensor that is screwed into the engine\'s
+  block or cylinder head and is used to determine the temperature of the engine coolant.\n
+  reading is sent to the vehicle\'s PCM/ECM (car\'s onboard computer) and is or can be used to
+  activate emission controls or turn the engine\'s cooling fan on.\n
+ </string>
+    
+    <string name="DtcNumberCommand"> This command will for now read MIL (check engine light) state and number of
+  diagnostic trouble codes currently flagged in the ECU.\n
+  Perhaps in the future we\'ll extend this to read the 3rd, 4th and 5th bytes of
+  the response in order to store information about the availability and
+  completeness of certain on-board tests.\n</string>
+    <string name="PendingTroubleCodesCommand">what is pending DTCs ??
+      The computer detects something "wrong", but the error usually has to be present after a
+      few driving cycles before it turns into an "actual" code that triggers the Check Engine Light.\n
+      Otherwise, if the code goes away before that, then the computer shrugs it off.\n</string>
+    
+    <string name="PermanentTroubleCodesCommand">Mode $0A—Request emissions-related diagnostic trouble codes with permanent status after a
+      clear/reset emission-related diagnostic information service.\n The purpose of mode $0A,
+      referred to as Mode 10, is to allow a scan tool to obtain DTCs that are stored as
+      “permanent codes.\n” These are codes only the module can clear.\n Even if you’ve made
+      a successful repair and have cleared the codes in Mode $04, these codes will
+      remain in memory until the computer has completed its own system test.\n</string>
+    
+    <string name="TroubleCodesCommand"> what is pending DTCs ??
+      The computer detects something "wrong", but the error usually has to be present after a
+      few driving cycles before it turns into an "actual" code that triggers the Check Engine Light.\n
+      Otherwise, if the code goes away before that, then the computer shrugs it off.\n
+     </string>
+    <string name="SpeedCommand"> Current speed.\n
+</string>
+
+    <string name="ActualEnginePercentTorqueCommand">ActualEnginePercentTorqueCommand </string>
+    <string name="CommandedEGRCommand">CommandedEGRCommand</string>
+    <string name="CommandedEvaporativePurgeCommand">CommandedEvaporativePurgeCommand </string>
+    <string name="DriverDemandEnginePercentTorqueCommand">DriverDemandEnginePercentTorqueCommand</string>
+    <string name="EGRErrorCommand">EGRErrorCommand</string>
+    <string name="EngineReferenceTorqueCommand">EngineReferenceTorqueCommand</string>
+    <string name="EthanolPercentageCommand">EthanolPercentageCommand </string>
+    <string name="HybridBatteryPackRemainingLifeCommand">HybridBatteryPackRemainingLifeCommand</string>
+    
+    
+    
 </resources>

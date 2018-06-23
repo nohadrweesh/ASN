@@ -12,7 +12,7 @@ import com.example.a.myapplication.OBD.obdApi.ObdCommand;
  * Displays the current engine revolutions per minute (RPM).
  *
  */
-public class RPMCommand extends ObdCommand {
+    public class RPMCommand extends ObdCommand {
 
     private int rpm = -1;
 

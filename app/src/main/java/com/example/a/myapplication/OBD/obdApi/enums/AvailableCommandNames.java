@@ -49,7 +49,20 @@ public enum AvailableCommandNames {
     WIDEBAND_AIR_FUEL_RATIO("Wideband Air/Fuel Ratio"),
     DESCRIBE_PROTOCOL("Describe protocol"),
     DESCRIBE_PROTOCOL_NUMBER("Describe protocol number"),
-    IGNITION_MONITOR("Ignition monitor")
+    IGNITION_MONITOR("Ignition monitor"),
+
+    ABS_EVAP_SYS_VAP_PRESSURE("Absolute evap system vapor pressure"),
+    ACTUAL_ENGINE_PERCENT_TOURQ("Actual Engine Percent Torque"),
+    COMMANDED_EGR("Commanded EGR"),
+    EGR_ERROR("EGR error"),
+    COMMANDED_EVAPORATIVE_PURGE("Evaporative Purge"),
+    DRIVE_DEMAND_ENGINE_PERCENT_TOURQE("Driver's demand engine Tourque"),
+    ENGINE_REFRENCE_TOURQUE("Engine refrence Tourque"),
+    ETHANOL_PERCENT("Ethanol Percentage"),
+    EVAP_SYSTEM_VAPOR_PRESSURE("Evaporation system vapor pressure"),
+    FUEL_INJECTION_TIMING("Fuel Injection Timing"),
+    HYBRID_BATTERY_PACK_REMAINING_LIFE("hyprid Battery remain life"),
+    RELATIVE_ACC_PEDAL_POS("Relative Acc Pedal Pos"),
     ;
 
     private final String value;

@@ -7,6 +7,8 @@ package com.example.a.myapplication.OBD.obdApi.Commands.protocol;
 /**
  * Warm-start the OBD connection.
  *
+ * this command cause the elm327 to perform a complete reset similar to AT Z Command ,
+ * but dose not include the power on LED Test
  */
 public class ObdWarmstartCommand extends ObdProtocolCommand {
 

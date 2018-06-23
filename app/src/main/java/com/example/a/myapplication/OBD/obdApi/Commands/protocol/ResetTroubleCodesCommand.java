@@ -9,6 +9,8 @@ import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 /**
  * Reset trouble codes.
  *
+ * Clear Diagnostic Trouble Codes and stored values
+ *
  */
 public class ResetTroubleCodesCommand extends ObdCommand {
 

@@ -13,7 +13,7 @@ import com.example.a.myapplication.OBD.obdApi.SystemOfUnits;
  */
 public abstract class TemperatureCommand extends ObdCommand implements
         SystemOfUnits {
-    private float temperature = 0.0f;
+    protected float temperature = 0.0f;
 
     /**
      * Default ctor.
