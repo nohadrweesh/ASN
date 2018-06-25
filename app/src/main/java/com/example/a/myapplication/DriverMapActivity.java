@@ -314,4 +314,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     public void openOBDPanel(View view) {
         startActivity(new Intent(this,ObdActivity.class));
     }
+
+    public void displayConnectionRequests(View v)
+        {startActivity(new Intent(getApplicationContext(),ConnectionRequestsActivity.class));}
 }
