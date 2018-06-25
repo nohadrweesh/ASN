@@ -161,6 +161,16 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
         mMap.addMarker(new MarkerOptions().position(latLng).title("My Car ^__^").snippet("I'm Noha ,a software engineer from Egypt")
                 .icon(myCarDescriptor)
                 .anchor(0.5f,0.5f));
+        if(pbLong!=-1&&pbLat!=-1){
+            Toast.makeText(getApplicationContext(),"pbLat !=-1 ",Toast.LENGTH_SHORT).show();
+            LatLng pbPerson = new LatLng(pbLat,pbLong);
+            mMap.addMarker(new MarkerOptions().position(pbPerson).title(pbName).snippet("I have a problem")
+                    .icon(pbCarsDescriptors)
+                    .anchor(0.5f,0.5f));
+
+        }else{
+            Toast.makeText(getApplicationContext(),"pbLat ===-1 ",Toast.LENGTH_SHORT).show();
+        }
 
         /*if(marker==null) {
             marker = mMap.addMarker(new MarkerOptions().position(latLng).title("My Car ^__^").snippet("I'm Noha ,a software engineer from Egypt")

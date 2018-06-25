@@ -197,12 +197,12 @@ public class HelpUtils extends AppCompatActivity{
                 params.put("message", message);
                 params.put("driverID", String.valueOf(SharedPrefManager.getInstance(mContext).getUserId()));
                 params.put("carID", String.valueOf(SharedPrefManager.getInstance(mContext).getCarId()));
-//                params.put("latitude",String.valueOf(location1.getLatitude()));
-//                params.put("longitude",String.valueOf(location1.getLongitude()));
-//                params.put("altitude",String.valueOf(location1.getAltitude()));
-                params.put("latitude",String.valueOf(30.106));
-                params.put("longitude",String.valueOf(31.638));
-                params.put("altitude",String.valueOf(0));
+                params.put("latitude",String.valueOf(location1.getLatitude()));
+                params.put("longitude",String.valueOf(location1.getLongitude()));
+                params.put("altitude",String.valueOf(location1.getAltitude()));
+//                params.put("latitude",String.valueOf(30.106));
+//                params.put("longitude",String.valueOf(31.638));
+//                params.put("altitude",String.valueOf(0));
 
 
 

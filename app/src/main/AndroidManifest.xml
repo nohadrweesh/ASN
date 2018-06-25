@@ -101,11 +101,14 @@
             android:exported="false" />
 
         <activity android:name=".ObdActivity" />
+=======
+
+>>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
         <activity android:name=".EngineDataActivity" />
         <activity android:name=".ControllDataActivity" />
         <activity android:name=".FuelDataActivity" />
         <activity android:name=".OldMainActivityobd" />
-        <activity android:name=".SpeedDataActivity" />
+        <activity android:name=".ExpertDataActivity" />
         <activity android:name=".TempDataActivity" />
         <activity android:name=".PressureDataActivity" />
         <activity android:name=".Waiting" />
@@ -113,6 +116,12 @@
         <activity android:name=".AcceptorInfo" />
         <activity android:name=".ConnectionRequestsActivity" />
         <activity android:name=".ConnectionSenderProfileActivity"></activity>
+=======
+        <activity android:name=".TroubleCodesActivity" />
+        <activity android:name=".DriverModeActivity" />
+        <activity android:name=".TroubleCodesActivity2" />
+        <activity android:name=".ObdExplainationActivity"></activity>
+>>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
     </application>
 
 </manifest>

@@ -10,6 +10,19 @@ import com.example.a.myapplication.OBD.obdApi.PercentageObdCommand;
 /**
  * <p>AbsoluteLoadCommand class.</p>
  *
+ *LOAD_ABS = [air mass (g / intake stroke)] / [1.184 (g / intake stroke) *
+ *cylinder displacement in liters]
+ *Where:
+ *- STP = Standard Temperature and Pressure = 25 °C, 29.92 in Hg (101.3 kPa)
+ *BARO
+ *- WOT = wide open throttle
+ *
+ * As you can probably see, this equation relies on the flow of air and basically engine displacement.
+ * As it states in the body, this correlates with volumetric efficiency (how completely a cylinder fills with
+ * air on the intake stroke) at WOT. This variable can be read from the ECU on PID $43. It is only required
+ * by the standard on spark ignition systems.
+ *
+ *
  */
 public class AbsoluteLoadCommand extends PercentageObdCommand {
 

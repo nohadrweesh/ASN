@@ -5,6 +5,11 @@ package com.example.a.myapplication.OBD.obdApi.Commands.protocol;
  */
 /**
  * Turn-off echo.
+ * E0: echo off       E1: echo on
+ * this commands controll weather or not the characters received on the RS232 port are echoed (retransmitted)
+ * back to the host computer
+ * Character echo can be used to confirm that characters sent to the ELM327 were received correctly
+ * the default is E1 (echo on)
  *
  */
 public class EchoOffCommand extends ObdProtocolCommand {

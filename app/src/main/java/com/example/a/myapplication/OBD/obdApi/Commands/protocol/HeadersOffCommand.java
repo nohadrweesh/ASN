@@ -6,6 +6,12 @@ package com.example.a.myapplication.OBD.obdApi.Commands.protocol;
 /**
  * Turn-off headers.
  *
+ * H0: headers off       H1: headers on
+ * this commands controll weather or not additional (headers) bytes of information are shown in the response from the vehicle
+ * these are not shown by the elm327 but may be of interest (especially if you receive multiple
+ * responses and wish to determine what module they were from
+ *
+ *
  */
 public class HeadersOffCommand extends ObdProtocolCommand {
 
