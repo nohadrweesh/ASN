@@ -100,8 +100,10 @@
             android:name=".sync.HelpIntentService"
             android:exported="false" />
 
-        <activity android:name=".ObdActivity"/>
+        <activity android:name=".ObdActivity" />
 
+
+>>>>>>> HandleConnectionRequests
         <activity android:name=".EngineDataActivity" />
         <activity android:name=".ControllDataActivity" />
         <activity android:name=".FuelDataActivity" />
@@ -116,6 +118,10 @@
         <activity android:name=".DriverModeActivity" />
         <activity android:name=".TroubleCodesActivity2" />
         <activity android:name=".ObdExplainationActivity"></activity>
+=======
+        <activity android:name=".ConnectionRequestsActivity" />
+        <activity android:name=".ConnectionSenderProfileActivity"></activity>
+>>>>>>> HandleConnectionRequests
     </application>
 
 </manifest>
