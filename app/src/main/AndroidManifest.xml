@@ -100,7 +100,13 @@
             android:name=".sync.HelpIntentService"
             android:exported="false" />
 
-        <activity android:name=".ObdActivity"/>
+        <activity android:name=".ObdActivity">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
+
         <activity android:name=".EngineDataActivity" />
         <activity android:name=".ControllDataActivity" />
         <activity android:name=".FuelDataActivity" />

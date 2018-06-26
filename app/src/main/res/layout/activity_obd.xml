@@ -449,15 +449,23 @@
                 android:layout_margin="16dp"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal" />
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="?"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="#f4271c"
+
+
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="spare"
+                    android:text="Status"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
@@ -482,6 +490,7 @@
             android:layout_marginRight="12dp"
             android:layout_rowWeight="1"
 
+            android:visibility="invisible"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 

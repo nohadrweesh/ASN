@@ -9,7 +9,12 @@ import android.widget.TextView;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
+import com.example.a.myapplication.OBD.obdApi.Commands.temperature.AirIntakeTemperatureCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.temperature.AmbientAirTemperatureCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.temperature.CatalystTemperatureCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.temperature.EngineCoolantTemperatureCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
+import com.example.a.myapplication.OBD.obdApi.enums.CatalystBank;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -117,49 +122,112 @@ public class TempDataActivity extends AppCompatActivity {
 
     public void cv1(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.EngineCoolantTemperatureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new EngineCoolantTemperatureCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber,loopFristNumber);
+
+        String s = String.valueOf(loopFristNumber) + "~0~0~";
+
+
+        s += getResources().getString(R.string.EngineCoolantTemperatureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv2(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.AirIntakeTemperatureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new AirIntakeTemperatureCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+1,loopFristNumber+1);
+
+        String s = String.valueOf(loopFristNumber+1) + "~0~0~";
+
+
+        s += getResources().getString(R.string.AirIntakeTemperatureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv3(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.CatalystTemperatureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new CatalystTemperatureCommand(CatalystBank.Catalyst_Temperature_Bank_1_Sensor_1));
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+2,loopFristNumber+2);
+
+        String s = String.valueOf(loopFristNumber+2) + "~0~0~";
+
+
+        s += getResources().getString(R.string.CatalystTemperatureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv4(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.CatalystTemperatureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new CatalystTemperatureCommand(CatalystBank.Catalyst_Temperature_Bank_1_Sensor_2));
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+3,loopFristNumber+3);
+
+        String s = String.valueOf(loopFristNumber+3) + "~0~0~";
+
+
+        s += getResources().getString(R.string.CatalystTemperatureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv5(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.CatalystTemperatureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new CatalystTemperatureCommand(CatalystBank.Catalyst_Temperature_Bank_2_Sensor_1));
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+4,loopFristNumber+4);
+
+        String s = String.valueOf(loopFristNumber+4) + "~0~0~";
+
+
+        s += getResources().getString(R.string.CatalystTemperatureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv6(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.CatalystTemperatureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new CatalystTemperatureCommand(CatalystBank.Catalyst_Temperature_Bank_2_Sensor_2));
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+5,loopFristNumber+5);
+
+        String s = String.valueOf(loopFristNumber+5) + "~0~0~";
+
+
+        s += getResources().getString(R.string.CatalystTemperatureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv7(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.AmbientAirTemperatureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new AmbientAirTemperatureCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+6,loopFristNumber+6);
+
+        String s = String.valueOf(loopFristNumber+6) + "~0~0~";
+
+
+        s += getResources().getString(R.string.AmbientAirTemperatureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 

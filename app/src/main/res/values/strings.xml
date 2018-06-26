@@ -56,7 +56,8 @@
   by the standard on spark ignition systems.\n
  </string>
 
-<string name="FuelInjectionTimingCommand"></string>
+<string name="FuelInjectionTimingCommand">FuelInjectionTimingCommand</string>
+
     <string name="LoadCommand">  Calculated Engine Load value.\n
  
   According to SAE International SAE J1979 / ISO 15031-5
@@ -85,7 +86,7 @@
     <string name="OilTempCommand">  Displays the current engine Oil temperature.\n
 </string>
 
-    <string name="RelativeAcceleratorPedalPositionCommand"></string>
+    <string name="RelativeAcceleratorPedalPositionCommand">RelativeAcceleratorPedalPositionCommand</string>
 
     <string name="RPMCommand">  Displays the current engine revolutions per minute (RPM).\n
 </string>
@@ -141,7 +142,7 @@
   but getting an actual number would be difficult.\n
  </string>
 
-    <string name="AbsoluteEvapSystemVaporPressureCommand"></string>
+    <string name="AbsoluteEvapSystemVaporPressureCommand">AbsoluteEvapSystemVaporPressureCommand</string>
 
     <string name="BarometricPressureCommand">
   The barometric (BARO) sensor is used by the engine control module (ECM)
@@ -149,7 +150,7 @@
   by weather conditions, air volume, and altitude.\n
  </string>
 
-    <string name="EvapSystemVaporPressureCommand"></string>
+    <string name="EvapSystemVaporPressureCommand">EvapSystemVaporPressureCommand</string>
 
     <string name="FuelPressureCommand"> On a car with fuel injection there can be two fuel pumps,
   one high-pressure and one low-pressure.\n
@@ -246,7 +247,7 @@
   (leaving it hanging by the wiring harness), etc.\n
  </string>
 
-    <string name="CatalystTemperatureCommand"></string>
+    <string name="CatalystTemperatureCommand">CatalystTemperatureCommand</string>
     
     <string name="EngineCoolantTemperatureCommand"> Engine Coolant Temperature.\n
   Engine Coolant Temperature Sensor is a sensor that is screwed into the engine\'s

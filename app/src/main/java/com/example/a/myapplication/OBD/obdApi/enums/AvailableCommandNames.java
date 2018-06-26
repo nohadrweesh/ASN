@@ -35,7 +35,7 @@ public enum AvailableCommandNames {
     CONTROL_MODULE_VOLTAGE("Control Module Power Supply "),
     ENGINE_FUEL_RATE("Engine Fuel Rate"),
     FUEL_RAIL_PRESSURE("Fuel Rail Pressure"),
-    VIN("Vehicle Identification Number (VIN)"),
+    VIN("Vehicle Identification Number VIN"),
     DISTANCE_TRAVELED_MIL_ON("Distance traveled with MIL on"),
     TIME_TRAVELED_MIL_ON("Time run with MIL on"),
     TIME_SINCE_TC_CLEARED("Time since trouble codes cleared"),

@@ -195,6 +195,9 @@ public class ObdConfig {
         //51
         cmds.add(new PermanentTroubleCodesCommand());
 
+
+        // 52 duplicate command for speed
+        cmds.add(new SpeedCommand());
         return cmds;
 
     }

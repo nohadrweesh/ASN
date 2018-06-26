@@ -9,6 +9,15 @@ import android.widget.TextView;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
+import com.example.a.myapplication.OBD.obdApi.Commands.EGR.ActualEnginePercentTorqueCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.EGR.CommandedEGRCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.EGR.CommandedEvaporativePurgeCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.EGR.DriverDemandEnginePercentTorqueCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.EGR.EGRErrorCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.EGR.EngineReferenceTorqueCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.EGR.EthanolPercentageCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.EGR.HybridBatteryPackRemainingLifeCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.SpeedCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 
 import java.util.ArrayList;
@@ -117,7 +126,16 @@ public class ExpertDataActivity extends AppCompatActivity {
 
     public void cv1(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.SpeedCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new SpeedCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber,loopFristNumber);
+
+        String s = String.valueOf(loopFristNumber) + "~0~0~";
+
+
+        s +=getResources().getString(R.string.SpeedCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
@@ -125,56 +143,128 @@ public class ExpertDataActivity extends AppCompatActivity {
 
     public void cv2(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.HybridBatteryPackRemainingLifeCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new HybridBatteryPackRemainingLifeCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+1,loopFristNumber+1);
+
+        String s = String.valueOf(loopFristNumber+1) + "~0~0~";
+
+
+        s +=getResources().getString(R.string.HybridBatteryPackRemainingLifeCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv3(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.ActualEnginePercentTorqueCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new ActualEnginePercentTorqueCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+2,loopFristNumber+2);
+
+        String s = String.valueOf(loopFristNumber+2) + "~0~0~";
+
+
+        s +=getResources().getString(R.string.ActualEnginePercentTorqueCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv4(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.DriverDemandEnginePercentTorqueCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new DriverDemandEnginePercentTorqueCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+3,loopFristNumber+3);
+
+        String s = String.valueOf(loopFristNumber+3) + "~0~0~";
+
+
+        s +=getResources().getString(R.string.DriverDemandEnginePercentTorqueCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv5(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.EngineReferenceTorqueCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new EngineReferenceTorqueCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+4,loopFristNumber+4);
+
+        String s = String.valueOf(loopFristNumber+4) + "~0~0~";
+
+
+        s +=getResources().getString(R.string.EngineReferenceTorqueCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv6(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.CommandedEvaporativePurgeCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new CommandedEvaporativePurgeCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+5,loopFristNumber+5);
+
+        String s = String.valueOf(loopFristNumber+5) + "~0~0~";
+
+
+        s +=getResources().getString(R.string.CommandedEvaporativePurgeCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv7(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.CommandedEGRCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new CommandedEGRCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+6,loopFristNumber+6);
+
+        String s = String.valueOf(loopFristNumber+6) + "~0~0~";
+
+
+        s +=getResources().getString(R.string.CommandedEGRCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv8(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.EGRErrorCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new EGRErrorCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+7,loopFristNumber+7);
+
+        String s = String.valueOf(loopFristNumber+7) + "~0~0~";
+
+
+        s +=getResources().getString(R.string.EGRErrorCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv9(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.EthanolPercentageCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new EthanolPercentageCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+8,loopFristNumber+8);
+
+        String s = String.valueOf(loopFristNumber+8) + "~0~0~";
+
+
+        s +=getResources().getString(R.string.EthanolPercentageCommand);
         i.putExtra("message" , s);
         startActivity(i);
 

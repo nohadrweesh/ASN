@@ -12,9 +12,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
+import com.example.a.myapplication.OBD.ObdData.obdLiveData;
 import com.example.a.myapplication.OBD.ObdData.obdStart;
+import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 import com.example.a.myapplication.OBD.obdConnection.Constants;
 import com.example.a.myapplication.OBD.obdConnection.obdBlutoothManager;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ObdActivity extends AppCompatActivity {
 
@@ -24,6 +30,21 @@ public class ObdActivity extends AppCompatActivity {
 
     private obdStart mobdStart = null;
     private TextView Textview2;
+
+
+    // time wait between sending data to server 1000 * 60 * 5 = 5 min
+    private static Thread t ;
+    private static boolean serverThreadRunning = false;
+    private final int dataToServer_sleepTime_InMillsec = 1000 * 60 * 1;
+    private obdLiveData mobObdLiveData;
+    private final int loopFristNumber = 0;
+    private final int loopLastNumber = 51;
+
+    private final static int start = 1;
+    private final static int stop = 0;
+    private int state;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +70,7 @@ public class ObdActivity extends AppCompatActivity {
         Textview2 = (TextView) findViewById(R.id.conect_txtView);
 
         onStart();
+
     }
 
     @Override
@@ -71,6 +93,119 @@ public class ObdActivity extends AppCompatActivity {
         {
             m.setData(i,String.valueOf(i));
         }*/
+
+
+
+        mobObdLiveData = new obdLiveData();
+
+
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+
+                serverThreadRunning = true;
+
+                //for testing
+                //Textview2.setText("Connecting...  ");
+
+
+
+                while (state==start) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(getApplicationContext(),"entering server thread",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                    ObdUtils obdUtils = ObdUtils.getInstance(getApplicationContext());
+
+
+                    ArrayList<ObdCommand> x = new ArrayList<ObdCommand>(ObdConfig.getCommands());
+
+                /*x.add(new EngineCoolantTemperatureCommand());
+                x.add(new TroubleCodesCommand());
+                x.add(new FuelTrimCommand(FuelTrim.LONG_TERM_BANK_1));
+                x.add(new IntakeManifoldPressureCommand());
+                */
+                    mobObdLiveData.setDataPlace(loopFristNumber, loopLastNumber);
+
+                    mobObdLiveData.setQueuCommands(x);
+
+                    mobObdLiveData.setServer(true);
+
+                    // spin till all commands run and return values
+                    // remove ! in real case
+                   // while (!mobObdLiveData.isServer());
+
+
+                    LinkedList<String> l = new LinkedList<String>(mobObdLiveData.getData());
+
+                    String s = "";
+                    for (int i = loopFristNumber; i <= loopLastNumber; i++) {
+                        s += l.get(i);
+                        s += "\n";
+                    }
+
+                    String[] readings = s.split("\n");
+
+
+                    // now we have something like  speed : 12 km/h
+                    // lets split into key and value
+
+                    ArrayList<String> keys = new ArrayList<String>();
+                    ArrayList<String> values = new ArrayList<String>();
+
+                    for (int i = 0; i < readings.length; i++) {
+
+                        String[] d = readings[i].split(":");
+                        d[0] = d[0].replaceAll(" ", "");
+                        d[0] = d[0].replaceAll("/", "");
+                        //d[0]=d[0].replaceAll("(","");
+                        //d[0]=d[0].replaceAll(")","");
+                        d[0] = d[0].replaceAll(",", "");
+                        d[0] = d[0].replaceAll("'", "");
+
+                        d[1] = d[1].replaceAll(" ", "");
+
+                        keys.add(d[0]);
+                        values.add(d[1]);
+
+                    }
+               /*
+                Date currentTime = Calendar.getInstance().getTime();
+                keys.add("time");
+                values.add(currentTime.toString());
+                */
+                    obdUtils.setObdData(keys, values);
+
+                    mobObdLiveData.returnprevQueue();
+
+                    try {
+                        Thread.sleep(dataToServer_sleepTime_InMillsec);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                serverThreadRunning=false;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(getApplicationContext(),"leaving server thread",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }};
+
+
+        //if(User agree to share his data )
+        if(!serverThreadRunning) {
+            t = new Thread(r);
+            t.start();
+        }
 
     }
 
@@ -102,13 +237,16 @@ public class ObdActivity extends AppCompatActivity {
                     switch (msg.arg1) {
                         case obdBlutoothManager.STATE_CONNECTED:
                             Textview2.setText("Connected  ");
+                            state=start;
                             break;
                         case obdBlutoothManager.STATE_CONNECTING:
                             Textview2.setText("Connecting...  ");
+                            state = start;
                             break;
                         case obdBlutoothManager.STATE_LISTEN:
                         case obdBlutoothManager.STATE_NONE:
                             Textview2.setText("notConnected ");
+                            state = stop;
                             break;
                     }
                     break;
@@ -134,7 +272,7 @@ public class ObdActivity extends AppCompatActivity {
 
     public void Engine(View view) {
         Intent i = new Intent(this, EngineDataActivity.class);
-       //i.setComponent(new ComponentName("com.example.a.myapplication.OBD.ObdActivities", "EngineDataActivity.java"));
+        //i.setComponent(new ComponentName("com.example.a.myapplication.OBD.ObdActivities", "EngineDataActivity.java"));
         startActivity(i);
 
     }
@@ -166,6 +304,7 @@ public class ObdActivity extends AppCompatActivity {
         Intent i = new Intent(this, ExpertDataActivity.class);
         startActivity(i);
     }
+
     public void TroubleCodes(View view) {
         Intent i = new Intent(this, TroubleCodesActivity.class);
         startActivity(i);
@@ -175,4 +314,7 @@ public class ObdActivity extends AppCompatActivity {
         Intent i = new Intent(this, DriverModeActivity.class);
         startActivity(i);
     }
+
+
+
 }

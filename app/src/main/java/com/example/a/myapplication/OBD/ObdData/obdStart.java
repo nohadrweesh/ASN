@@ -74,7 +74,17 @@ public class obdStart {
             //i++;
         }
 
-
+        // spare data places
+        for(int i =0 ;i<50;i++)
+        {
+            m.addData("spare: 0%k");
+        }
+   /*     // data to be send to server
+        m.addData("EngineCoolantTemperature: Not connected");
+        m.addData("TroubleCodes: Not connected");
+        m.addData("LongTermFuelTrimBank1: Not connected");
+        m.addData("IntakeManifoldPressure: Not connected");
+*/
 
     }
 

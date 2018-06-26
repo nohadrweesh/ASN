@@ -5,13 +5,13 @@ import java.util.Map;
 
 public enum CatalystBank {
 
-    Catalyst_Temperature_Bank_1_Sensor_1(0x60,"Catalyst Temperature: Bank 1, Sensor 1"),
+    Catalyst_Temperature_Bank_1_Sensor_1(0x60,"Catalyst Temperature Bank 1, Sensor 1"),
 
-    Catalyst_Temperature_Bank_2_Sensor_1(0x61,"Catalyst Temperature: Bank 2, Sensor 1"),
+    Catalyst_Temperature_Bank_2_Sensor_1(0x61,"Catalyst Temperature Bank 2, Sensor 1"),
 
-    Catalyst_Temperature_Bank_1_Sensor_2(0x62,"Catalyst Temperature: Bank 1, Sensor 2"),
+    Catalyst_Temperature_Bank_1_Sensor_2(0x62,"Catalyst Temperature Bank 1, Sensor 2"),
 
-    Catalyst_Temperature_Bank_2_Sensor_2(0x63,"Catalyst Temperature: Bank 1, Sensor 2");
+    Catalyst_Temperature_Bank_2_Sensor_2(0x63,"Catalyst Temperature Bank 2, Sensor 2");
 
 
 

@@ -9,6 +9,15 @@ import android.widget.TextView;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.AbsoluteLoadCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.FuelInjectionTimingCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.LoadCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.MassAirFlowCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.OilTempCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.RPMCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.RelativeAcceleratorPedalPositionCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.RuntimeCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.engine.ThrottlePositionCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 
 import java.util.ArrayList;
@@ -22,6 +31,7 @@ public class EngineDataActivity extends AppCompatActivity {
 
     private obdLiveData mobObdLiveData = new obdLiveData();
     private TextView [] t = new TextView[9];
+
 
     /**
      * related to the thread updateing the ui
@@ -125,57 +135,138 @@ public class EngineDataActivity extends AppCompatActivity {
 
     public void cv1(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.RPMCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new RPMCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber,loopFristNumber);
+
+        String s = String.valueOf(loopFristNumber) + "~0~0~";
+
+
+         s += getResources().getString(R.string.RPMCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv2(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.RuntimeCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new RuntimeCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+1,loopFristNumber+1);
+
+        String s = String.valueOf(loopFristNumber+1) + "~0~0~";
+
+
+         s += getResources().getString(R.string.RuntimeCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     } public void cv3(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.OilTempCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new OilTempCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+2,loopFristNumber+2);
+
+        String s = String.valueOf(loopFristNumber+2) + "~0~0~";
+
+
+         s += getResources().getString(R.string.OilTempCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     } public void cv4(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.ThrottlePositionCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new ThrottlePositionCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+3,loopFristNumber+3);
+
+        String s = String.valueOf(loopFristNumber+3) + "~0~0~";
+
+
+         s += getResources().getString(R.string.ThrottlePositionCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     } public void cv5(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.LoadCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new LoadCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+4,loopFristNumber+4);
+
+        String s = String.valueOf(loopFristNumber+4) + "~0~0~";
+
+
+        s += getResources().getString(R.string.LoadCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     } public void cv6(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.AbsoluteLoadCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new AbsoluteLoadCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+5,loopFristNumber+5);
+
+        String s = String.valueOf(loopFristNumber+5) + "~0~0~";
+
+
+         s += getResources().getString(R.string.AbsoluteLoadCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     } public void cv7(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.MassAirFlowCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new MassAirFlowCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+6,loopFristNumber+6);
+
+        String s = String.valueOf(loopFristNumber+6) + "~0~0~";
+
+
+        s += getResources().getString(R.string.MassAirFlowCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     } public void cv8(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.FuelInjectionTimingCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new FuelInjectionTimingCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+7,loopFristNumber+7);
+
+        String s = String.valueOf(loopFristNumber+7) + "~0~0~";
+
+
+        s += getResources().getString(R.string.FuelInjectionTimingCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv9(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.RelativeAcceleratorPedalPositionCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new RelativeAcceleratorPedalPositionCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+8,loopFristNumber+8);
+
+        String s = String.valueOf(loopFristNumber+8) + "~0~0~";
+
+
+        s += getResources().getString(R.string.RelativeAcceleratorPedalPositionCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
