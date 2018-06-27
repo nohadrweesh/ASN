@@ -8,7 +8,7 @@ package com.example.a.myapplication;
 
 public class Constants {
 
-    private static final String ROOT_URL = "https://asnasucse18.000webhostapp.com/Android/v1/";
+    private static final String ROOT_URL = "http://asnasucse18.000webhostapp.com/Android/v1/";
 
     public static final String URL_REGISTER = ROOT_URL+"RegisterUser.php";
     public static final String URL_LOGIN = ROOT_URL+"UserLogin.php";
