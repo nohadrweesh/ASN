@@ -326,5 +326,10 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     public void displayConnectionRequests(View v)
-        {startActivity(new Intent(getApplicationContext(),ConnectionRequestsActivity.class));}
+    {
+        Intent i= new Intent(getApplicationContext(),ConnectionRequestsActivity.class);
+        i.putExtra("currentDriver",getIntent().getSerializableExtra("driver"));
+        startActivity(i);
+
+    }
 }

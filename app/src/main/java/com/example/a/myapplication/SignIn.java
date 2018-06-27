@@ -86,7 +86,10 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                                                 obj.getInt("ID"),
                                                 obj.getInt("carID")
                                         );
-                                startActivity(new Intent(getApplicationContext(), DriverMapActivity.class));
+                                Intent intent=new Intent(getApplicationContext(), DriverMapActivity.class);
+                                Driver driver=new Driver(obj.getInt("ID"),obj.getString("email"));
+                                intent.putExtra("driver",driver);
+                                startActivity(intent);
                                 finish();
                             }else{
                                 Toast.makeText(
