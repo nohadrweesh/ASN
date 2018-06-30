@@ -1,10 +1,12 @@
 package com.example.a.myapplication;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,17 +83,6 @@ public class SingleAdActivity extends AppCompatActivity {
         fetchOwnerInfo();
     }
 
-    private void viewOwnerInfo(){
-        owName.setText(name);
-        owSlogan.setText(slogan);
-        owServiceType.setText(serviceType);
-        owAvailibility.setText(availibility);
-        owAdrs.setText(adrs);
-        owEmail.setText(email);
-        owPhone.setText(phone);
-
-        Picasso.with(this).load(iconURL).into(owIcon);
-    }
     private void viewAdInfo(){
         adOwner.setText(__AvailableAds.ads.get(adPosition).getOwnerName());
         adTitle.setText(__AvailableAds.ads.get(adPosition).getTitle());
@@ -118,16 +109,16 @@ public class SingleAdActivity extends AppCompatActivity {
                         try {
                             JSONObject obj = new JSONObject(response);
 
-                            name = obj.getString("name");
-                            slogan = obj.getString("slogan");
-                            serviceType = obj.getString("serviceType");
-                            availibility = obj.getString("workingTimes");
-                            adrs = obj.getString("adrs");
-                            phone = obj.getString("phone");
-                            email = obj.getString("email");
-                            iconURL = obj.getString("iconURL");
-
-                            viewOwnerInfo();
+                            loadOwnerProfile(
+                                    obj.getString("name"),
+                                    obj.getString("slogan"),
+                                    obj.getString("serviceType"),
+                                    obj.getString("workingTimes"),
+                                    obj.getString("adrs"),
+                                    obj.getString("phone"),
+                                    obj.getString("email"),
+                                    obj.getString("iconURL")
+                            );
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -154,9 +145,57 @@ public class SingleAdActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    private void loadOwnerProfile(
+            String name,
+            String slogan,
+            String serviceType,
+            String availibility,
+            String adrs,
+            String phone,
+            String mail,
+            String iconURL
+    ){
+        TextView owName, owSlogan, owServiceType, owAvailibility, owAdrs, owPhone, owEmail;
+        ImageView owIcon;
+
+        View ownerProfileView = getLayoutInflater().inflate(R.layout.advertiser_profile, null);
+
+        owName = (TextView) ownerProfileView.findViewById(R.id.name);
+        owSlogan = (TextView) ownerProfileView.findViewById(R.id.slogan);
+        owServiceType = (TextView) ownerProfileView.findViewById(R.id.serviceType);
+        owAvailibility = (TextView) ownerProfileView.findViewById(R.id.availibilityValue);
+        owAdrs = (TextView) ownerProfileView.findViewById(R.id.adrsValue);
+        owPhone = (TextView) ownerProfileView.findViewById(R.id.phoneValue);
+        owEmail = (TextView) ownerProfileView.findViewById(R.id.emailValue);
+
+        owIcon = (ImageView) ownerProfileView.findViewById(R.id.icon);
+
+
+        owName.setText(name);
+        owSlogan.setText(slogan);
+        owServiceType.setText(serviceType);
+        owAvailibility.setText(availibility);
+        owAdrs.setText(adrs);
+        owPhone.setText(phone);
+        owEmail.setText(mail);
+
+        Picasso.with(this).load(iconURL).into(owIcon);
+
+        Dialog settingsDialog = new Dialog(this);
+        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        settingsDialog.setContentView(ownerProfileView);
+        settingsDialog.show();
+    }
+    public void aboutOwnerBtnOnClick(View view) {
+        fetchOwnerInfo();
+    }
+
+
     public void RmvAdBtnOnClick(View view) {
         __AvailableAds.ads.remove(adPosition);
         startActivity(new Intent(this, AdvertisementsActivity.class ));
         finish();
     }
+
 }
+

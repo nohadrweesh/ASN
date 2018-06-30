@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 public class AdvertisementsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -22,5 +23,9 @@ public class AdvertisementsActivity extends AppCompatActivity {
         adapter = new RecyclerViewAdapterClass(__AvailableAds.ads, this);
         recyclerView.setAdapter(adapter);
 
+    }
+
+    public void rmvAllAdsBtnOnClick(View view) {
+        __AvailableAds.ads.clear();
     }
 }

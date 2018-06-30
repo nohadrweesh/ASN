@@ -22,6 +22,7 @@ public class Constants {
     public static final String  URL_SEND_HELP_TO=ROOT_URL+"SendHelp.php";
     public static final String URL_WAITING = ROOT_URL+"waiting.php";
     public static final String URL_GET_AD_OWNER_INFO = ROOT_URL+"GetAdOwnerInfo.php";
+    public static final String URL_FETCH_ADS = ROOT_URL+"FetchAds.php";
 
 
 

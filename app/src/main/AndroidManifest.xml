@@ -112,7 +112,8 @@
         <activity android:name=".SendHelp" />
         <activity android:name=".AcceptorInfo" />
         <activity android:name=".AdvertisementsActivity" />
-        <activity android:name=".SingleAdActivity"></activity>
+        <activity android:name=".SingleAdActivity" />
+        <activity android:name=".SingleAdvertiserAdsActivity"></activity>
     </application>
 
 </manifest>

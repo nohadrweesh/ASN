@@ -4,10 +4,14 @@ package com.example.a.myapplication.services;
  * Created by ecs on 11/04/2018.
  */
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.a.myapplication.MainActivity;
+import com.example.a.myapplication.SingleAdActivity;
+import com.example.a.myapplication.SingleAdvertiserAdsActivity;
 import com.example.a.myapplication.utils.NotificationUtils;
 import com.example.a.myapplication.vo.NotificationVo;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -63,37 +67,56 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void handleData(Map<String, String> data) {
-        String title = data.get(TITLE);
-        String message = data.get(MESSAGE);
-        String iconUrl = data.get(IMAGE);
-        String action = data.get(ACTION);
-        String actionDestination = data.get(ACTION_DESTINATION);
-        String toCarID=data.get(TO_CAR_ID);
-        String toUserID=data.get(TO_USER_ID);
-        String problemID=data.get(PROBLEM_ID);
         String notificationType=data.get(NOTIFICATION_TYPE);
-        NotificationVo notificationVO = new NotificationVo();
-        notificationVO.setTitle(title);
-        notificationVO.setMessage(message);
 
-        notificationVO.setIconUrl(iconUrl);
-        notificationVO.setAction(action);
-        notificationVO.setActionDestination(actionDestination);
-        notificationVO.setNotificationType(notificationType);
-        if(!notificationType.equals("SA")) {
+        if(notificationType.equals("ADV")){
+            int ownerID = Integer.valueOf(data.get("ownerID"));
+            String ownerName = data.get("ownerName");
+            String ownerIconURL = data.get("iconURL");
 
-            notificationVO.setToCarID(Integer.parseInt(toCarID));
-            notificationVO.setToDriverID(Integer.parseInt(toUserID));
-            notificationVO.setProblemID(Integer.parseInt(problemID));
-        }else {
-            Log.d(TAG, "handleData: notificationTYPE SA");
+            Intent intent = new Intent(getApplicationContext(),SingleAdvertiserAdsActivity.class);
+            intent.putExtra("ownerID", ownerID);
+            intent.putExtra("ownerID", ownerID);
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+                    intent,0);
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
+                    .setContentTitle(ownerName)
+                    .setContentText(ownerName + " has new advertisements")
+                    .setContentIntent(pendingIntent);
         }
+        else {
+            String title = data.get(TITLE);
+            String message = data.get(MESSAGE);
+            String iconUrl = data.get(IMAGE);
+            String action = data.get(ACTION);
+            String actionDestination = data.get(ACTION_DESTINATION);
+            String toCarID = data.get(TO_CAR_ID);
+            String toUserID = data.get(TO_USER_ID);
+            String problemID = data.get(PROBLEM_ID);
+            NotificationVo notificationVO = new NotificationVo();
+            notificationVO.setTitle(title);
+            notificationVO.setMessage(message);
 
-        Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+            notificationVO.setIconUrl(iconUrl);
+            notificationVO.setAction(action);
+            notificationVO.setActionDestination(actionDestination);
+            notificationVO.setNotificationType(notificationType);
+            if (!notificationType.equals("SA")) {
 
-        NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
-        notificationUtils.displayNotification(notificationVO, resultIntent);
-        notificationUtils.playNotificationSound();
+                notificationVO.setToCarID(Integer.parseInt(toCarID));
+                notificationVO.setToDriverID(Integer.parseInt(toUserID));
+                notificationVO.setProblemID(Integer.parseInt(problemID));
+            } else {
+                Log.d(TAG, "handleData: notificationTYPE SA");
+            }
 
+            Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+
+            NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+            notificationUtils.displayNotification(notificationVO, resultIntent);
+            notificationUtils.playNotificationSound();
+        }
     }
+
 }
