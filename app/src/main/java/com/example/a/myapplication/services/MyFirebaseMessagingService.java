@@ -28,6 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TO_CAR_ID="toCarID";
     private static final String TO_USER_ID="toUserID";
     private static final String PROBLEM_ID="problemID";
+    private static final String NOTIFICATION_TYPE="notificationType";
 
 
     @Override
@@ -70,6 +71,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String toCarID=data.get(TO_CAR_ID);
         String toUserID=data.get(TO_USER_ID);
         String problemID=data.get(PROBLEM_ID);
+        String notificationType=data.get(NOTIFICATION_TYPE);
         NotificationVo notificationVO = new NotificationVo();
         notificationVO.setTitle(title);
         notificationVO.setMessage(message);
@@ -77,10 +79,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationVO.setIconUrl(iconUrl);
         notificationVO.setAction(action);
         notificationVO.setActionDestination(actionDestination);
+        notificationVO.setNotificationType(notificationType);
+        if(!notificationType.equals("SA")) {
 
-        notificationVO.setToCarID(Integer.parseInt(toCarID));
-        notificationVO.setToDriverID(Integer.parseInt(toUserID));
-        notificationVO.setProblemID(Integer.parseInt(problemID));
+            notificationVO.setToCarID(Integer.parseInt(toCarID));
+            notificationVO.setToDriverID(Integer.parseInt(toUserID));
+            notificationVO.setProblemID(Integer.parseInt(problemID));
+        }else {
+            Log.d(TAG, "handleData: notificationTYPE SA");
+        }
 
         Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
 
@@ -89,7 +96,4 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationUtils.playNotificationSound();
 
     }
-
-
-
 }
