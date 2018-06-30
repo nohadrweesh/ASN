@@ -101,9 +101,9 @@
             android:exported="false" />
 
         <activity android:name=".ObdActivity" />
-=======
+        =======
 
->>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
+        >>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
         <activity android:name=".EngineDataActivity" />
         <activity android:name=".ControllDataActivity" />
         <activity android:name=".FuelDataActivity" />
@@ -115,13 +115,15 @@
         <activity android:name=".SendHelp" />
         <activity android:name=".AcceptorInfo" />
         <activity android:name=".ConnectionRequestsActivity" />
-        <activity android:name=".ConnectionSenderProfileActivity"></activity>
-=======
+        <activity android:name=".ConnectionSenderProfileActivity" />
+        =======
         <activity android:name=".TroubleCodesActivity" />
         <activity android:name=".DriverModeActivity" />
         <activity android:name=".TroubleCodesActivity2" />
-        <activity android:name=".ObdExplainationActivity"></activity>
->>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
+        <activity android:name=".ObdExplainationActivity" />
+        >>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
+        <activity android:name=".TrackersListActivity" />
+        <activity android:name=".TrackerProfileActivity"></activity>
     </application>
 
 </manifest>

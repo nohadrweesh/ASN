@@ -26,6 +26,7 @@ public class ConnectionRequestsActivity extends AppCompatActivity {
     static TextView msgTV;
     List<Driver> senders;
     ArrayAdapter<String> adapter;
+    int currentDriverID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class ConnectionRequestsActivity extends AppCompatActivity {
         msgTV = findViewById(R.id.msg_tv);
 
         //  ====>>>>> currentDriver is the receiver
-        final Driver currentDriver = (Driver) getIntent().getSerializableExtra("currentDriver");
+        currentDriverID =  getIntent().getIntExtra("currentDriverID",0);
         senders = new ArrayList<>();
 
         ListView lv = (ListView)this.findViewById(R.id.connectionRequests_ListView);
@@ -47,8 +48,8 @@ public class ConnectionRequestsActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         String url = "http://asnasucse18.000webhostapp.com/RFTDA/SeeRequests.php";
         RequestParams params = new RequestParams();
-        Log.d("ConnectionRequests","current user ID "+currentDriver.getID());
-        params.put("receiverID",currentDriver.getID());
+        Log.d("ConnectionRequests","current user ID "+currentDriverID);
+        params.put("receiverID",currentDriverID);
         client.get(url,params, new JsonHttpResponseHandler()
         {
             @Override
@@ -80,7 +81,7 @@ public class ConnectionRequestsActivity extends AppCompatActivity {
             {
                 Intent intent= new Intent(getApplicationContext(),ConnectionSenderProfileActivity.class);
                 intent.putExtra("sender",senders.get(i));
-                intent.putExtra("receiver",currentDriver);
+                intent.putExtra("receiverID",currentDriverID);
                 startActivity(intent);
             }
         });
@@ -110,6 +111,14 @@ public class ConnectionRequestsActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    //TODO:- add back button to Connections requests activity
+    public void goToDriverMapActivity(View v)
+    {
+        Intent i = new Intent(getApplicationContext(),DriverMapActivity.class);
+        i.putExtra("driverID",currentDriverID);
+        startActivity(i);
     }
 
 
