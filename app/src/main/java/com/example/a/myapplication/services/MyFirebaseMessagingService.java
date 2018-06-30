@@ -6,10 +6,14 @@ package com.example.a.myapplication.services;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.a.myapplication.MainActivity;
+import com.example.a.myapplication.R;
 import com.example.a.myapplication.SingleAdActivity;
 import com.example.a.myapplication.SingleAdvertiserAdsActivity;
 import com.example.a.myapplication.utils.NotificationUtils;
@@ -17,6 +21,10 @@ import com.example.a.myapplication.vo.NotificationVo;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -73,6 +81,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             int ownerID = Integer.valueOf(data.get("ownerID"));
             String ownerName = data.get("ownerName");
             String ownerIconURL = data.get("iconURL");
+            Bitmap ownerIcon;
+
+            try {
+                URL url = new URL(ownerIconURL);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                ownerIcon = BitmapFactory.decodeStream(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+                ownerIcon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                        R.mipmap.ic_launcher);
+            }
 
             Intent intent = new Intent(getApplicationContext(),SingleAdvertiserAdsActivity.class);
             intent.putExtra("ownerID", ownerID);
@@ -83,7 +105,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
                     .setContentTitle(ownerName)
                     .setContentText(ownerName + " has new advertisements")
-                    .setContentIntent(pendingIntent);
+                    .setContentIntent(pendingIntent)
+                    .setLargeIcon(ownerIcon);
         }
         else {
             String title = data.get(TITLE);
