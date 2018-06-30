@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_weight="2"
+    tools:context="com.example.a.myapplication.MaintenanceTimeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose your maintenance time"
+            android:fontFamily="@font/strslml"
+            android:textSize="17sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#000000"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick Time"
+            android:id="@+id/pick_time_btn"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:textAllCaps="false"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="@font/strsl" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pick_date_btn"
+            android:layout_alignParentBottom="true"
+            android:text="Pick Date"
+            android:layout_marginLeft="50dp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/strsl" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your appointment will be on Pick Date, "
+            android:id="@+id/DateTime_text1"
+            android:textSize="15sp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/strsl"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="at Pick Time, we will be waiting for you. "
+            android:id="@+id/DateTime_text2"
+            android:textSize="15sp"
+            android:layout_below="@id/DateTime_text1"
+            android:fontFamily="@font/strsl"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:textAllCaps="false"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="40dp"
+            android:fontFamily="@font/strslml"
+            android:id="@+id/done_btn"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

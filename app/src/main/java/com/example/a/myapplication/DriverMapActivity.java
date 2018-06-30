@@ -299,6 +299,11 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             return true;
 
         }
+        else if(id==R.id.map_profile){
+            startActivity(new Intent(this,Profile2Activity.class));
+            return true;
+
+        }
         return super.onOptionsItemSelected(item);
     }
 

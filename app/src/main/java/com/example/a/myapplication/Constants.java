@@ -21,6 +21,8 @@ public class Constants {
     public static final String URL_LOGOUT=ROOT_URL+"Logout.php";
     public static final String  URL_SEND_HELP_TO=ROOT_URL+"SendHelp.php";
     public static final String URL_WAITING = ROOT_URL+"waiting.php";
+    public static final String URL_CENTERS = ROOT_URL+"SCFetchCenters.php";
+    public static final String URL_SEND_DATA = ROOT_URL+"SCRelation.php";
 
 
 }

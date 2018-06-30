@@ -22,7 +22,8 @@ public class SharedPrefManager {
     private static final String KEY_USER_ID = "userid";
     private static final String KEY_CAR_ID = "carid";
     private static final String NOTIFICATION_TOKEN="token";
-
+    private static final String KEY_CENTER_ID = "centerid";
+    private static final String KEY_MAINTENANCE_TIME = "time";
 
     private SharedPrefManager(Context context) {
         mCtx = context;
@@ -45,6 +46,18 @@ public class SharedPrefManager {
         return true;
 
     }
+    public boolean setMaintenanceInfo(int carID,int serviceCenterID,String time){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_CAR_ID,carID);//
+        editor.putInt(KEY_CENTER_ID,serviceCenterID);
+        editor.putString(KEY_MAINTENANCE_TIME,time);
+        editor.apply();
+        return true;
+
+
+    }
+
     public  boolean setToken( final String token){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

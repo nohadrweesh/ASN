@@ -56,7 +56,7 @@
   by the standard on spark ignition systems.\n
  </string>
 
-<string name="FuelInjectionTimingCommand"></string>
+    <string name="FuelInjectionTimingCommand"></string>
     <string name="LoadCommand">  Calculated Engine Load value.\n
  
   According to SAE International SAE J1979 / ISO 15031-5
@@ -73,7 +73,7 @@
   to do calculations and to discover if the engine is at the ready point to make the calculations.\n
  
  </string>
-  <string name="MassAirFlowCommand"> Mass Air Flow (MAF)
+    <string name="MassAirFlowCommand"> Mass Air Flow (MAF)
  
   (MAF) is a sensor used to determine the mass flow rate of air entering a fuel-injected internal combustion engine.\n
   The air mass information is necessary for the engine control unit (ECU)
@@ -247,14 +247,14 @@
  </string>
 
     <string name="CatalystTemperatureCommand"></string>
-    
+
     <string name="EngineCoolantTemperatureCommand"> Engine Coolant Temperature.\n
   Engine Coolant Temperature Sensor is a sensor that is screwed into the engine\'s
   block or cylinder head and is used to determine the temperature of the engine coolant.\n
   reading is sent to the vehicle\'s PCM/ECM (car\'s onboard computer) and is or can be used to
   activate emission controls or turn the engine\'s cooling fan on.\n
  </string>
-    
+
     <string name="DtcNumberCommand"> This command will for now read MIL (check engine light) state and number of
   diagnostic trouble codes currently flagged in the ECU.\n
   Perhaps in the future we\'ll extend this to read the 3rd, 4th and 5th bytes of
@@ -264,14 +264,14 @@
       The computer detects something "wrong", but the error usually has to be present after a
       few driving cycles before it turns into an "actual" code that triggers the Check Engine Light.\n
       Otherwise, if the code goes away before that, then the computer shrugs it off.\n</string>
-    
+
     <string name="PermanentTroubleCodesCommand">Mode $0A—Request emissions-related diagnostic trouble codes with permanent status after a
       clear/reset emission-related diagnostic information service.\n The purpose of mode $0A,
       referred to as Mode 10, is to allow a scan tool to obtain DTCs that are stored as
       “permanent codes.\n” These are codes only the module can clear.\n Even if you’ve made
       a successful repair and have cleared the codes in Mode $04, these codes will
       remain in memory until the computer has completed its own system test.\n</string>
-    
+
     <string name="TroubleCodesCommand"> what is pending DTCs ??
       The computer detects something "wrong", but the error usually has to be present after a
       few driving cycles before it turns into an "actual" code that triggers the Check Engine Light.\n
@@ -288,7 +288,6 @@
     <string name="EngineReferenceTorqueCommand">EngineReferenceTorqueCommand</string>
     <string name="EthanolPercentageCommand">EthanolPercentageCommand </string>
     <string name="HybridBatteryPackRemainingLifeCommand">HybridBatteryPackRemainingLifeCommand</string>
-    
-    
-    
+
+
 </resources>

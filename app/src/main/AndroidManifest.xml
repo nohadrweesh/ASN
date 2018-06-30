@@ -101,14 +101,12 @@
             android:exported="false" />
 
         <activity android:name=".ObdActivity" />
+        >>>>>>> HandleConnectionRequests
+        =======
+        =======
 
-
->>>>>>> HandleConnectionRequests
-=======
-=======
-
->>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
->>>>>>> HandleConnectionRequests
+        >>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
+        >>>>>>> HandleConnectionRequests
         <activity android:name=".EngineDataActivity" />
         <activity android:name=".ControllDataActivity" />
         <activity android:name=".FuelDataActivity" />
@@ -119,20 +117,24 @@
         <activity android:name=".Waiting" />
         <activity android:name=".SendHelp" />
         <activity android:name=".AcceptorInfo" />
-=======
+        =======
         <activity android:name=".ConnectionRequestsActivity" />
-        <activity android:name=".ConnectionSenderProfileActivity"></activity>
-=======
->>>>>>> HandleConnectionRequests
+        <activity android:name=".ConnectionSenderProfileActivity" />
+        =======
+        >>>>>>> HandleConnectionRequests
         <activity android:name=".TroubleCodesActivity" />
         <activity android:name=".DriverModeActivity" />
         <activity android:name=".TroubleCodesActivity2" />
-        <activity android:name=".ObdExplainationActivity"></activity>
-=======
->>>>>>> HandleConnectionRequests
-=======
->>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
->>>>>>> HandleConnectionRequests
+        <activity android:name=".ObdExplainationActivity" />
+        =======
+        >>>>>>> HandleConnectionRequests
+        =======
+        >>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
+        >>>>>>> HandleConnectionRequests
+        <activity
+            android:name=".CenterSelectionActivity"
+            android:label="Service Centers"></activity>
+        <activity android:name=".Profile2Activity"></activity>
     </application>
 
 </manifest>
