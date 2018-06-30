@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        app:cardBackgroundColor="#C5CAE9"
+        app:cardElevation="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/center_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/center_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="1"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Center Name: "
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_below="@+id/center_id"
+            android:id="@+id/NameTextView"/>
+
+        <TextView
+            android:id="@+id/center_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/NameTextView"
+            android:layout_below="@+id/center_id"
+            android:text="name"
+            android:textColor="#000000"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/NameTextView"
+            android:id="@+id/LocationTextView"
+            android:text="Center Location"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            />
+        <TextView
+            android:id="@+id/center_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/center_name"
+            android:layout_toRightOf="@+id/LocationTextView"
+            android:textColor="#000000"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="location"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select"
+            android:textAllCaps="false"
+            android:fontFamily="@font/strslml"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="#FFFFFF"
+            android:layout_below="@+id/center_location"
+            android:layout_alignParentRight="true"
+            android:id="@+id/selectCenterBtn"/>
+
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+
+</LinearLayout>
