@@ -101,12 +101,7 @@
             android:exported="false" />
 
         <activity android:name=".ObdActivity" />
-        >>>>>>> HandleConnectionRequests
-        =======
-        =======
 
-        >>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
-        >>>>>>> HandleConnectionRequests
         <activity android:name=".EngineDataActivity" />
         <activity android:name=".ControllDataActivity" />
         <activity android:name=".FuelDataActivity" />
@@ -125,16 +120,21 @@
         <activity android:name=".TroubleCodesActivity" />
         <activity android:name=".DriverModeActivity" />
         <activity android:name=".TroubleCodesActivity2" />
+
         <activity android:name=".ObdExplainationActivity" />
-        =======
-        >>>>>>> HandleConnectionRequests
-        =======
-        >>>>>>> 9bc4d29aa9447ee0ef26146dbdf2747096b13df7
-        >>>>>>> HandleConnectionRequests
+        
         <activity
             android:name=".CenterSelectionActivity"
             android:label="Service Centers"></activity>
         <activity android:name=".Profile2Activity"></activity>
+
+        <activity android:name=".ObdExplainationActivity"></activity>
+
+
+       
+        <activity android:name=".TrackersListActivity" />
+        <activity android:name=".TrackerProfileActivity"></activity>
+
     </application>
 
 </manifest>
