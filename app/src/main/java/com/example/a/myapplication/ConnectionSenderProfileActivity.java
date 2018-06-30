@@ -20,18 +20,27 @@ import cz.msebera.android.httpclient.Header;
 public class ConnectionSenderProfileActivity extends AppCompatActivity {
 
     static Driver sender;
-    static Driver receiver;
+    static int receiverID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection_sender_profile);
 
         sender = (Driver) getIntent().getSerializableExtra("sender");
-        receiver = (Driver) getIntent().getSerializableExtra("receiver");
+        receiverID = getIntent().getIntExtra("receiverID",0);
 
+        displaySenderInformation();
+
+    }
+
+    private void displaySenderInformation()
+    {
         TextView senderInfoTV= this.findViewById(R.id.senderInfo_tv);
+        TextView connectionSenderNameTV = findViewById(R.id.connectionSenderName_tv);
         senderInfoTV.setText(sender.toString());
-
+        connectionSenderNameTV.setText(sender.getDriverName());
+//        connectionSenderNameTV.setTextColor();
     }
 
     public void acceptRequest(View v)
@@ -40,7 +49,7 @@ public class ConnectionSenderProfileActivity extends AppCompatActivity {
         String url ="http://asnasucse18.000webhostapp.com/RFTDA/AcceptRequest.php";
         RequestParams params = new RequestParams();
         params.put("senderID", sender.getID());
-        params.put("receiverID",receiver.getID());
+        params.put("receiverID",receiverID);
 
         client.get(url,params, new JsonHttpResponseHandler()
         {
@@ -82,7 +91,7 @@ public class ConnectionSenderProfileActivity extends AppCompatActivity {
         String url ="http://asnasucse18.000webhostapp.com/RFTDA/RejectRequest.php";
         RequestParams params = new RequestParams();
         params.put("senderID", sender.getID());
-        params.put("receiverID",receiver.getID());
+        params.put("receiverID",receiverID);
 
         client.get(url,params, new JsonHttpResponseHandler()
         {
@@ -109,7 +118,7 @@ public class ConnectionSenderProfileActivity extends AppCompatActivity {
     public void goToPrevActivity(View v)
     {
         Intent i = new Intent(getApplicationContext(),ConnectionRequestsActivity.class);
-        i.putExtra("currentDriver",receiver);
+        i.putExtra("currentDriverID",receiverID);
         startActivity(i);
     }
 }

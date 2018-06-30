@@ -501,4 +501,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    public void goToTrackersActivity(View v)
+    {
+        Intent i = new Intent(getApplicationContext(),TrackersListActivity.class);
+        i.putExtra("currentUserID",userID);
+        startActivity(i);
+    }
+
 }

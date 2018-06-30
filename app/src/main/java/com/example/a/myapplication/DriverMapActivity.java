@@ -63,6 +63,8 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     double pbLat=-1,pbLong=-1;
     String pbName;
 
+    int currentDriverID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: starts");
@@ -88,8 +90,10 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             Toast.makeText(this,"i received with data ",Toast.LENGTH_LONG).show();
             pbLat=i.getDoubleExtra("lat",-1);
             pbLong=i.getDoubleExtra("long",-1);
-            pbName=i.getStringExtra("name");
-
+            if(i.hasExtra("name"))
+                pbName=i.getStringExtra("name");
+            if(i.hasExtra("driverID"))
+                currentDriverID = i.getIntExtra("driverID",0);
         }
 
     }
@@ -328,8 +332,18 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     public void displayConnectionRequests(View v)
     {
         Intent i= new Intent(getApplicationContext(),ConnectionRequestsActivity.class);
-        i.putExtra("currentDriver",getIntent().getSerializableExtra("driver"));
+        Log.d("DriverMapActivity","displayConnectionRequests current user is "+ currentDriverID);
+        Log.d("DriverMapActivity","displayConnectionRequests current user is "+ SharedPrefManager.getInstance(getApplicationContext()).getUserId() );
+//        i.putExtra("currentDriver",currentDriver);
+        i.putExtra("currentDriverID",SharedPrefManager.getInstance(getApplicationContext()).getUserId());
         startActivity(i);
+    }
 
+    public void goToTrackersActivity(View v)
+    {
+        Intent i = new Intent(getApplicationContext(),TrackersListActivity.class);
+        Log.d("DriverMapActivity","goToTrackersActivity current user id is "+ SharedPrefManager.getInstance(getApplicationContext()).getUserId());
+        i.putExtra("currentUserID",SharedPrefManager.getInstance(getApplicationContext()).getUserId());
+        startActivity(i);
     }
 }
