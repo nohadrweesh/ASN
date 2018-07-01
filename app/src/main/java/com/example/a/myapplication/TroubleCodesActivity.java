@@ -136,7 +136,9 @@ public class TroubleCodesActivity extends AppCompatActivity {
 
     public void cv1(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.TroubleCodesCommand);
+
+        String s = String.valueOf(loopFristNumber+8) + "~0~0~0~";
+         s += getResources().getString(R.string.TroubleCodesCommand);
         s+="\n";
         s += getResources().getString(R.string.PendingTroubleCodesCommand);
         s+="\n";

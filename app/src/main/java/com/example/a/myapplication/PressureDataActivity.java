@@ -9,6 +9,12 @@ import android.widget.TextView;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
+import com.example.a.myapplication.OBD.obdApi.Commands.pressure.AbsoluteEvapSystemVaporPressureCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.pressure.BarometricPressureCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.pressure.EvapSystemVaporPressureCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.pressure.FuelPressureCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.pressure.FuelRailPressureCommand;
+import com.example.a.myapplication.OBD.obdApi.Commands.pressure.IntakeManifoldPressureCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 
 import java.util.ArrayList;
@@ -118,42 +124,100 @@ public class PressureDataActivity extends AppCompatActivity {
 
     public void cv1(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.FuelPressureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new FuelPressureCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber,loopFristNumber);
+
+        String s = String.valueOf(loopFristNumber) + "~0~765~1~";
+
+
+        s += getResources().getString(R.string.FuelPressureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv2(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.FuelRailPressureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new FuelRailPressureCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+1,loopFristNumber+1);
+
+        String s = String.valueOf(loopFristNumber+1) + "~0~655350~1~";
+
+
+        s += getResources().getString(R.string.FuelRailPressureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv3(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.BarometricPressureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new BarometricPressureCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+2,loopFristNumber+2);
+
+        String s = String.valueOf(loopFristNumber+2) + "~0~101~1~";
+
+
+        s += getResources().getString(R.string.BarometricPressureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv4(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.IntakeManifoldPressureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new IntakeManifoldPressureCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+3,loopFristNumber+3);
+
+        String s = String.valueOf(loopFristNumber+3) + "~0~74~1~";
+
+
+        s += getResources().getString(R.string.IntakeManifoldPressureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv5(View view) {
+
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.AbsoluteEvapSystemVaporPressureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new AbsoluteEvapSystemVaporPressureCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+4,loopFristNumber+4);
+
+        String s = String.valueOf(loopFristNumber+4) + "~0~0~1~";
+
+
+        s += getResources().getString(R.string.AbsoluteEvapSystemVaporPressureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
     }
     public void cv6(View view) {
+
+        //Toast.makeText(getApplicationContext(),getResources().getString(R.string.EvapSystemVaporPressureCommand),Toast.LENGTH_SHORT).show();
+
         Intent i = new Intent(this, ObdExplainationActivity.class);
-        String s = getResources().getString(R.string.EvapSystemVaporPressureCommand);
+
+        ArrayList<ObdCommand> X= new ArrayList<>();
+        X.add(new EvapSystemVaporPressureCommand());
+        mobObdLiveData.setQueuCommands(X);
+        mobObdLiveData.setDataPlace(loopFristNumber+5,loopFristNumber+5);
+
+        String s = String.valueOf(loopFristNumber+5) + "~0~0~1~";
+
+
+        s += getResources().getString(R.string.EvapSystemVaporPressureCommand);
         i.putExtra("message" , s);
         startActivity(i);
 

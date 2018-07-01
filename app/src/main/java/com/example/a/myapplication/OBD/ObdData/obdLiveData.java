@@ -1,5 +1,6 @@
 package com.example.a.myapplication.OBD.ObdData;
 
+import com.example.a.myapplication.OBD.obdApi.Commands.SpeedCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 
 import java.util.ArrayList;
@@ -21,11 +22,19 @@ public class obdLiveData {
     private static LinkedList<String> data;
     private static Map<String, String> commandResult;
 
-    private static final int commandsCount = 30;
+    private static final int commandsCount = 52;
 
-    private static int loopFirstNumber = 0;
+    //set dafault value very far so commands for obd configuration will return in diffrent place
+    private static int loopFirstNumber = 60;
     private static int loopLastNumber =commandsCount;
     private static ArrayList<ObdCommand> obdCommands;
+
+    private static ArrayList<ObdCommand> prevobdCommands;
+    private static int prevloopFirstNumber = 0;
+    private static int prevloopLastNumber =commandsCount;
+
+
+    private static boolean Server = false;
 
     /*
      * defult const
@@ -38,6 +47,7 @@ public class obdLiveData {
         commandResult = new HashMap<String, String>();
 
         obdCommands = new ArrayList<ObdCommand>();
+        prevobdCommands = new ArrayList<ObdCommand>();
 
         // for initialization
         // to prevent obdBluetoothManager connected thread from crashing
@@ -70,6 +80,21 @@ public class obdLiveData {
     public synchronized void setData(int pos, String s) {
 
         data.set(pos, s);
+
+           if(pos == 52)
+        {
+            // server queue has run completely
+            Server = true;
+
+            obdCommands.clear();
+            obdCommands.add(new SpeedCommand());
+            loopFirstNumber = 39;
+            loopLastNumber = 39;
+        }
+        else {
+
+            Server =false;
+        }
     }
 
     public int getCommandsCount() {
@@ -91,7 +116,7 @@ public class obdLiveData {
 
     public synchronized void setQueuCommands(ArrayList<ObdCommand> l)
     {
-
+        this.prevobdCommands = obdCommands;
         this.obdCommands = l;
     }
 
@@ -102,8 +127,12 @@ public class obdLiveData {
 
     public synchronized void setDataPlace(int firstNumber , int LastNumber)
     {
+        prevloopFirstNumber = loopFirstNumber;
+        prevloopLastNumber = loopLastNumber;
+
         loopFirstNumber = firstNumber;
         loopLastNumber = LastNumber;
+
     }
 
     public synchronized int getDataFirstPalce()
@@ -115,6 +144,22 @@ public class obdLiveData {
         return loopLastNumber;
 
     }
+
+    public synchronized static boolean isServer() {
+        return Server;
+    }
+
+    public synchronized void setServer(boolean x )
+    {
+        this.Server = x;
+    }
+    public synchronized void returnprevQueue()
+    {
+        obdCommands = prevobdCommands;
+        loopFirstNumber = prevloopFirstNumber;
+        loopLastNumber = prevloopLastNumber;
+    }
 }
+
 
 

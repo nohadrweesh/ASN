@@ -70,11 +70,28 @@ public class obdStart {
         //int i =0;
         for (ObdCommand command : ObdConfig.getCommands())
         {
+            //: Not connected
             m.addData(command.getName()+": Not connected");
             //i++;
         }
 
+        // spare data places
+        for(int i =0 ;i<50;i++)
+        {
+            /*if(i==20)
+            {m.addData("spare :P1234\nP5321");
+            }
+            else {*/
+                // for status testing only spare : 0%k
+                m.addData("spare : 0%k");
 
+        }
+   /*     // data to be send to server
+        m.addData("EngineCoolantTemperature: Not connected");
+        m.addData("TroubleCodes: Not connected");
+        m.addData("LongTermFuelTrimBank1: Not connected");
+        m.addData("IntakeManifoldPressure: Not connected");
+*/
 
     }
 

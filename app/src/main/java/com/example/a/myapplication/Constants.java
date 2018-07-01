@@ -24,6 +24,7 @@ public class Constants {
     public static final String URL_CENTERS = ROOT_URL+"SCFetchCenters.php";
     public static final String URL_SEND_DATA = ROOT_URL+"SCRelation.php";
 
+    public static final String URL_OBD = ROOT_URL+"obd.php";
 
 }
 

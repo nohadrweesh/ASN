@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
@@ -37,6 +38,7 @@ public class TroubleCodesActivity2 extends AppCompatActivity {
         int code = intent.getIntExtra("message",3);
         t[0] = (TextView) findViewById(R.id.textViewTc);
 
+        Toast.makeText(getApplicationContext(),"Please wait while reading Trouble Codes...",Toast.LENGTH_LONG).show();
         loopFristNumber=loopLastNumber=code;
        // t.setText(String.valueOf(code));
 
@@ -87,11 +89,11 @@ public class TroubleCodesActivity2 extends AppCompatActivity {
                         s += l.get(i);
                         s += "\n";
                     }
-                    final String [] finalS =s.split("\n");
+                    final String[] finalS = s.split("\n");
                     h.post(new Runnable() {
                         @Override
                         public void run() {
-                            for(int i = 0;i<finalS.length;i++)
+                            for (int i = 0; i < finalS.length; i++)
                                 t[i].setText(finalS[i]);
                         }
                     });
@@ -103,13 +105,114 @@ public class TroubleCodesActivity2 extends AppCompatActivity {
                     }
 
                     // no need to keep reading the same value
-                    if(count ==3)
-                    {
+                    if (count == 3) {
                         state = stop;
                     }
                     count++;
-                }
 
+                    //lets get the response
+
+                    final String ss = (String) t[0].getText();
+
+
+                    String[] temp2 = ss.split("\n");
+                    String errorstatment = "";
+
+                    // response should be 3 trouble codes in one frame
+                    String[] troublecode = temp2[0].split(":");
+                    //now troublecode[1] contains the trouble codes response
+
+
+                    boolean detectCode = false;
+                    if (troublecode[1].equals("No Data")) {
+                        detectCode = false;
+                    }
+                    //no trouble codes
+                    else if (troublecode[1].equals("P0000")) {
+                        detectCode = false;
+                    } else if (troublecode[1].equals("P000")) {
+                        detectCode = false;
+                    } else if (troublecode[1].equals(" ")) {
+
+                        detectCode = false;
+                    }else if (troublecode[1].equals(" Not connected")){
+                     detectCode = false;
+                    }
+                    else if (!troublecode[1].equals(" ")) {
+                        detectCode = true;
+                        errorstatment += "\n trouble code no " + troublecode[1] + " details:";
+
+                        troublecode[1] = troublecode[1].replaceAll(" ", "");
+                        final char[] c = troublecode[1].toCharArray();
+                        if (c.length >= 3) {
+                            if (c[0] == 'B') {
+                                errorstatment += "\n B: Body Systems (lighting, airbags, climate control system, etc.)";
+                            } else if (c[0] == 'C') {
+                                errorstatment += "\n C: Chassis Systems (anti-lock brake system, electronic suspension and steering systems, etc";
+                            } else if (c[0] == 'P') {
+                                errorstatment += "\n P: Powertrain Systems (engine, emission and transmission systems)";
+
+                            } else if (c[0] == 'U') {
+                                errorstatment += "\n U: Network Communication and Vehicle Integration Systems";
+
+                            }
+
+
+                            if (c[1] == '0') {
+                                errorstatment += "\n 0: generic code";
+
+                            } else if (c[1] == '1') {
+
+                                errorstatment += "\n 1: Manufacturer Specific Code";
+                            }
+                            switch (c[2]) {
+                                case '0':
+                                    errorstatment += "\n 0: Overall System";
+                                    break;
+                                case '1':
+                                    errorstatment += "\n 1: Secondary Air Injection System";
+                                    break;
+                                case '2':
+                                    errorstatment += "\n 2: Fuel System";
+                                    break;
+                                case '3':
+                                    errorstatment += "\n 3: Ignition System";
+                                    break;
+                                case '4':
+                                    errorstatment += "\n 4: Exhaust Monitoring System";
+                                    break;
+                                case '5':
+                                    errorstatment += "\n 5: Idle Speed Control or Cruise Control";
+                                    break;
+                                case '6':
+                                    errorstatment += "\n 6: Input / Output Signal from Control Units";
+                                    break;
+                                case '7':
+                                    errorstatment += "\n 7: Transmission System";
+                                    break;
+                                case '8':
+                                    errorstatment += "\n 8: Transmission System ";
+                                    break;
+                                case '9':
+                                    errorstatment += "\n 9: Transmission System";
+                                    break;
+
+
+                            }
+                        }
+                    }
+                    final String finalErrorstatment = errorstatment;
+                    if(detectCode)
+                    h.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            t[0].setText(ss + "\n"+finalErrorstatment);
+
+                        }
+                    });
+
+
+                }
             }
         };
         Thread t = new Thread(r);
