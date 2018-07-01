@@ -6,17 +6,12 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
-import com.example.a.myapplication.OBD.obdApi.Commands.control.DistanceMILOnCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.control.DistanceSinceCCCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.control.EquivalentRatioCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.control.ModuleVoltageCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.control.TimeRunWithMILOnCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.control.TimeSinceTroubleCodesClearedCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.control.TimingAdvanceCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.control.VinCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 
 import java.util.ArrayList;
@@ -125,35 +120,41 @@ public class ControllDataActivity extends AppCompatActivity {
     }
 
     public void cv1(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.VinCommand),Toast.LENGTH_SHORT).show();
+        /*Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new VinCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber,loopFristNumber);
 
-        String s = String.valueOf(loopFristNumber) + "~0~0~";
+        String s = String.valueOf(loopFristNumber) + "~0~0~0~";
         s += getResources().getString(R.string.VinCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     }
 
 
     public void cv2(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.ModuleVoltageCommand),Toast.LENGTH_SHORT).show();
+
+
+      /*  Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new ModuleVoltageCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+1,loopFristNumber+1);
 
-        String s = String.valueOf(loopFristNumber+1) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+1) + "~0~0~0~";
 
          s += getResources().getString(R.string.ModuleVoltageCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     }
 
     public void cv3(View view) {
@@ -164,7 +165,7 @@ public class ControllDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+2,loopFristNumber+2);
 
-        String s = String.valueOf(loopFristNumber+2) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+2) + "~0~0~0~";
 
 
         s += getResources().getString(R.string.TimingAdvanceCommand);
@@ -181,7 +182,7 @@ public class ControllDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+3,loopFristNumber+3);
 
-        String s = String.valueOf(loopFristNumber+3) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+3) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.EquivalentRatioCommand);
@@ -191,72 +192,85 @@ public class ControllDataActivity extends AppCompatActivity {
     }
 
     public void cv5(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.DistanceMILOnCommand),Toast.LENGTH_SHORT).show();
+
+        /*Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new DistanceMILOnCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+4,loopFristNumber+4);
 
-        String s = String.valueOf(loopFristNumber+4) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+4) + "~0~0~0~";
 
 
          s += getResources().getString(R.string.DistanceMILOnCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     }
 
     public void cv6(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.TimeRunWithMILOnCommand),Toast.LENGTH_SHORT).show();
+
+
+      /*  Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new TimeRunWithMILOnCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+5,loopFristNumber+5);
 
-        String s = String.valueOf(loopFristNumber+5) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+5) + "~0~0~0~";
 
 
         s += getResources().getString(R.string.TimeRunWithMILOnCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     }
 
     public void cv7(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.DistanceSinceCCCommand),Toast.LENGTH_SHORT).show();
+
+        /*Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new DistanceSinceCCCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+6,loopFristNumber+6);
 
-        String s = String.valueOf(loopFristNumber+6) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+6) + "~0~0~0~";
 
 
         s += getResources().getString(R.string.DistanceSinceCCCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     }
 
     public void cv8(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.TimeSinceTroubleCodesClearedCommand),Toast.LENGTH_SHORT).show();
+
+        /*Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new TimeSinceTroubleCodesClearedCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+7,loopFristNumber+7);
 
-        String s = String.valueOf(loopFristNumber+7) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+7) + "~0~0~0~";
 
 
         s += getResources().getString(R.string.TimeSinceTroubleCodesClearedCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
-
+*/
     }
 }
 

@@ -6,17 +6,14 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
-import com.example.a.myapplication.OBD.obdApi.Commands.EGR.ActualEnginePercentTorqueCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.EGR.CommandedEGRCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.EGR.CommandedEvaporativePurgeCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.EGR.DriverDemandEnginePercentTorqueCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.EGR.EGRErrorCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.EGR.EngineReferenceTorqueCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.EGR.EthanolPercentageCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.EGR.HybridBatteryPackRemainingLifeCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.SpeedCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 
@@ -132,7 +129,7 @@ public class ExpertDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber,loopFristNumber);
 
-        String s = String.valueOf(loopFristNumber) + "~0~0~";
+        String s = String.valueOf(loopFristNumber) + "~0~0~1~";
 
 
         s +=getResources().getString(R.string.SpeedCommand);
@@ -142,6 +139,9 @@ public class ExpertDataActivity extends AppCompatActivity {
     }
 
     public void cv2(View view) {
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.HybridBatteryPackRemainingLifeCommand),Toast.LENGTH_SHORT).show();
+        /*
         Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
@@ -149,31 +149,35 @@ public class ExpertDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+1,loopFristNumber+1);
 
-        String s = String.valueOf(loopFristNumber+1) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+1) + "~0~0~0~";
 
 
         s +=getResources().getString(R.string.HybridBatteryPackRemainingLifeCommand);
         i.putExtra("message" , s);
         startActivity(i);
 
+*/
     }
     public void cv3(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.ActualEnginePercentTorqueCommand),Toast.LENGTH_SHORT).show();
+        /*Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new ActualEnginePercentTorqueCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+2,loopFristNumber+2);
 
-        String s = String.valueOf(loopFristNumber+2) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+2) + "~0~0~1~";
 
 
         s +=getResources().getString(R.string.ActualEnginePercentTorqueCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     }
     public void cv4(View view) {
+
         Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
@@ -181,7 +185,7 @@ public class ExpertDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+3,loopFristNumber+3);
 
-        String s = String.valueOf(loopFristNumber+3) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+3) + "~0~0~1~";
 
 
         s +=getResources().getString(R.string.DriverDemandEnginePercentTorqueCommand);
@@ -190,6 +194,10 @@ public class ExpertDataActivity extends AppCompatActivity {
 
     }
     public void cv5(View view) {
+
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.EngineReferenceTorqueCommand),Toast.LENGTH_SHORT).show();
+        /*
         Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
@@ -197,13 +205,13 @@ public class ExpertDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+4,loopFristNumber+4);
 
-        String s = String.valueOf(loopFristNumber+4) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+4) + "~0~0~0~";
 
 
         s +=getResources().getString(R.string.EngineReferenceTorqueCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     }
     public void cv6(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
@@ -213,7 +221,7 @@ public class ExpertDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+5,loopFristNumber+5);
 
-        String s = String.valueOf(loopFristNumber+5) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+5) + "~0~100~1~";
 
 
         s +=getResources().getString(R.string.CommandedEvaporativePurgeCommand);
@@ -229,7 +237,7 @@ public class ExpertDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+6,loopFristNumber+6);
 
-        String s = String.valueOf(loopFristNumber+6) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+6) + "~0~100~1~";
 
 
         s +=getResources().getString(R.string.CommandedEGRCommand);
@@ -245,7 +253,7 @@ public class ExpertDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+7,loopFristNumber+7);
 
-        String s = String.valueOf(loopFristNumber+7) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+7) + "~0~0~1~";
 
 
         s +=getResources().getString(R.string.EGRErrorCommand);
@@ -254,6 +262,9 @@ public class ExpertDataActivity extends AppCompatActivity {
 
     }
     public void cv9(View view) {
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.EthanolPercentageCommand),Toast.LENGTH_SHORT).show();
+        /*
         Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
@@ -261,13 +272,13 @@ public class ExpertDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+8,loopFristNumber+8);
 
-        String s = String.valueOf(loopFristNumber+8) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+8) + "~0~0~0~";
 
 
         s +=getResources().getString(R.string.EthanolPercentageCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     }
 
 

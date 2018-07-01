@@ -439,6 +439,7 @@
             android:layout_marginRight="12dp"
             android:layout_rowWeight="1"
 
+            android:onClick="carStatus"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 

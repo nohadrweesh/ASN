@@ -128,7 +128,7 @@ public class TempDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber,loopFristNumber);
 
-        String s = String.valueOf(loopFristNumber) + "~0~0~";
+        String s = String.valueOf(loopFristNumber) + "~85~104~1~";
 
 
         s += getResources().getString(R.string.EngineCoolantTemperatureCommand);
@@ -144,7 +144,7 @@ public class TempDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+1,loopFristNumber+1);
 
-        String s = String.valueOf(loopFristNumber+1) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+1) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.AirIntakeTemperatureCommand);
@@ -160,7 +160,7 @@ public class TempDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+2,loopFristNumber+2);
 
-        String s = String.valueOf(loopFristNumber+2) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+2) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.CatalystTemperatureCommand);
@@ -176,7 +176,7 @@ public class TempDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+3,loopFristNumber+3);
 
-        String s = String.valueOf(loopFristNumber+3) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+3) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.CatalystTemperatureCommand);
@@ -192,7 +192,7 @@ public class TempDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+4,loopFristNumber+4);
 
-        String s = String.valueOf(loopFristNumber+4) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+4) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.CatalystTemperatureCommand);
@@ -208,7 +208,7 @@ public class TempDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+5,loopFristNumber+5);
 
-        String s = String.valueOf(loopFristNumber+5) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+5) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.CatalystTemperatureCommand);
@@ -224,7 +224,7 @@ public class TempDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+6,loopFristNumber+6);
 
-        String s = String.valueOf(loopFristNumber+6) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+6) + "~0~50~1~";
 
 
         s += getResources().getString(R.string.AmbientAirTemperatureCommand);

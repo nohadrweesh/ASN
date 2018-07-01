@@ -24,7 +24,8 @@ public class obdLiveData {
 
     private static final int commandsCount = 52;
 
-    private static int loopFirstNumber = 0;
+    //set dafault value very far so commands for obd configuration will return in diffrent place
+    private static int loopFirstNumber = 60;
     private static int loopLastNumber =commandsCount;
     private static ArrayList<ObdCommand> obdCommands;
 

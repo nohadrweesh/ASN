@@ -6,17 +6,15 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.OBD.ObdConfigration.ObdConfig;
 import com.example.a.myapplication.OBD.ObdData.obdLiveData;
 import com.example.a.myapplication.OBD.obdApi.Commands.engine.AbsoluteLoadCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.engine.FuelInjectionTimingCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.engine.LoadCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.engine.MassAirFlowCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.engine.OilTempCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.engine.RPMCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.engine.RelativeAcceleratorPedalPositionCommand;
-import com.example.a.myapplication.OBD.obdApi.Commands.engine.RuntimeCommand;
 import com.example.a.myapplication.OBD.obdApi.Commands.engine.ThrottlePositionCommand;
 import com.example.a.myapplication.OBD.obdApi.ObdCommand;
 
@@ -141,7 +139,7 @@ public class EngineDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber,loopFristNumber);
 
-        String s = String.valueOf(loopFristNumber) + "~0~0~";
+        String s = String.valueOf(loopFristNumber) + "~0~0~1~";
 
 
          s += getResources().getString(R.string.RPMCommand);
@@ -150,35 +148,39 @@ public class EngineDataActivity extends AppCompatActivity {
 
     }
     public void cv2(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.RuntimeCommand),Toast.LENGTH_SHORT).show();
+        /*Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new RuntimeCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+1,loopFristNumber+1);
 
-        String s = String.valueOf(loopFristNumber+1) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+1) + "~0~0~0~";
 
 
          s += getResources().getString(R.string.RuntimeCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     } public void cv3(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.OilTempCommand),Toast.LENGTH_SHORT).show();
+      /*  Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new OilTempCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+2,loopFristNumber+2);
 
-        String s = String.valueOf(loopFristNumber+2) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+2) + "~0~0~1~";
 
 
          s += getResources().getString(R.string.OilTempCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     } public void cv4(View view) {
         Intent i = new Intent(this, ObdExplainationActivity.class);
 
@@ -187,7 +189,7 @@ public class EngineDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+3,loopFristNumber+3);
 
-        String s = String.valueOf(loopFristNumber+3) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+3) + "~0~0~1~";
 
 
          s += getResources().getString(R.string.ThrottlePositionCommand);
@@ -202,7 +204,7 @@ public class EngineDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+4,loopFristNumber+4);
 
-        String s = String.valueOf(loopFristNumber+4) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+4) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.LoadCommand);
@@ -217,7 +219,7 @@ public class EngineDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+5,loopFristNumber+5);
 
-        String s = String.valueOf(loopFristNumber+5) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+5) + "~0~0.95~1~";
 
 
          s += getResources().getString(R.string.AbsoluteLoadCommand);
@@ -232,7 +234,7 @@ public class EngineDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+6,loopFristNumber+6);
 
-        String s = String.valueOf(loopFristNumber+6) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+6) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.MassAirFlowCommand);
@@ -240,22 +242,25 @@ public class EngineDataActivity extends AppCompatActivity {
         startActivity(i);
 
     } public void cv8(View view) {
-        Intent i = new Intent(this, ObdExplainationActivity.class);
+
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.FuelInjectionTimingCommand),Toast.LENGTH_LONG).show();
+        /*Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
         X.add(new FuelInjectionTimingCommand());
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+7,loopFristNumber+7);
 
-        String s = String.valueOf(loopFristNumber+7) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+7) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.FuelInjectionTimingCommand);
         i.putExtra("message" , s);
         startActivity(i);
-
+*/
     }
     public void cv9(View view) {
+
         Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
@@ -263,7 +268,7 @@ public class EngineDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+8,loopFristNumber+8);
 
-        String s = String.valueOf(loopFristNumber+8) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+8) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.RelativeAcceleratorPedalPositionCommand);

@@ -130,7 +130,7 @@ public class PressureDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber,loopFristNumber);
 
-        String s = String.valueOf(loopFristNumber) + "~0~0~";
+        String s = String.valueOf(loopFristNumber) + "~0~765~1~";
 
 
         s += getResources().getString(R.string.FuelPressureCommand);
@@ -146,7 +146,7 @@ public class PressureDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+1,loopFristNumber+1);
 
-        String s = String.valueOf(loopFristNumber+1) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+1) + "~0~655350~1~";
 
 
         s += getResources().getString(R.string.FuelRailPressureCommand);
@@ -162,7 +162,7 @@ public class PressureDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+2,loopFristNumber+2);
 
-        String s = String.valueOf(loopFristNumber+2) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+2) + "~0~101~1~";
 
 
         s += getResources().getString(R.string.BarometricPressureCommand);
@@ -178,7 +178,7 @@ public class PressureDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+3,loopFristNumber+3);
 
-        String s = String.valueOf(loopFristNumber+3) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+3) + "~0~74~1~";
 
 
         s += getResources().getString(R.string.IntakeManifoldPressureCommand);
@@ -187,6 +187,7 @@ public class PressureDataActivity extends AppCompatActivity {
 
     }
     public void cv5(View view) {
+
         Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
@@ -194,7 +195,7 @@ public class PressureDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+4,loopFristNumber+4);
 
-        String s = String.valueOf(loopFristNumber+4) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+4) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.AbsoluteEvapSystemVaporPressureCommand);
@@ -203,6 +204,9 @@ public class PressureDataActivity extends AppCompatActivity {
 
     }
     public void cv6(View view) {
+
+        //Toast.makeText(getApplicationContext(),getResources().getString(R.string.EvapSystemVaporPressureCommand),Toast.LENGTH_SHORT).show();
+
         Intent i = new Intent(this, ObdExplainationActivity.class);
 
         ArrayList<ObdCommand> X= new ArrayList<>();
@@ -210,7 +214,7 @@ public class PressureDataActivity extends AppCompatActivity {
         mobObdLiveData.setQueuCommands(X);
         mobObdLiveData.setDataPlace(loopFristNumber+5,loopFristNumber+5);
 
-        String s = String.valueOf(loopFristNumber+5) + "~0~0~";
+        String s = String.valueOf(loopFristNumber+5) + "~0~0~1~";
 
 
         s += getResources().getString(R.string.EvapSystemVaporPressureCommand);

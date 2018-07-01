@@ -1,6 +1,8 @@
 package com.example.a.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -27,20 +29,25 @@ public class ObdExplainationActivity extends AppCompatActivity {
     private  int loopFristNumber = 0;
     private  int loopLastNumber = 0;
 
-    private int fristThreshold = 0;
-    private int secondThreshold = 0;
+    private float fristThreshold = 0;
+    private float secondThreshold = 0;
 
 
-    private int lastreading=0;
+    private float lastreading=0;
 
     private TextView t ;
 
 
+    private LineGraphSeries series0;
     private LineGraphSeries series ;
+    private LineGraphSeries series2;
+    private LineGraphSeries series3;
     private Double time = 0d;
+    private int showgraph ;
 
     private GraphView graph ;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,26 +62,73 @@ public class ObdExplainationActivity extends AppCompatActivity {
          *
          * messages[1] --> frist threshold
          * messages[2] ---> second threshold
-         * messages[3] --> command explain
+         * messages[3]----> show graph flag 1= show ; zero = don't show
+         * messages[4] --> command explain
          */
 
         loopFristNumber = loopLastNumber = Integer.parseInt(messages[0]);
-        fristThreshold = Integer.parseInt(messages[1]);
-        secondThreshold=Integer.parseInt(messages[2]);
-        state = start;
+        fristThreshold = Float.parseFloat(messages[1]);
+        secondThreshold=Float.parseFloat(messages[2]);
+
+        if(messages[3].equals("1")) {
+            state = start;
+        }
 
         t = (TextView) findViewById(R.id.textViewExplain);
         t.setMovementMethod(new ScrollingMovementMethod());
-        t.setText(messages[3]);
+        t.setText(messages[4]);
 
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        series = new LineGraphSeries();
-        graph.addSeries(series);
+        if(messages[3].equals("0"))
+        {
+            graph.setVisibility(4);
+        }
+        series = new LineGraphSeries<DataPoint>();
+        series0 = new LineGraphSeries<DataPoint>();
 
+        series2=new LineGraphSeries<DataPoint>();
+        series3=new LineGraphSeries<DataPoint>();
+
+        graph.addSeries(series);
+        graph.addSeries(series0);
+        series0.setColor(Color.BLACK);
+
+
+
+        if(secondThreshold==0){
+
+        }
+        else {
+
+            /*graph.getSecondScale().addSeries(series2);
+            graph.getSecondScale().setMinY(fristThreshold);
+            graph.getSecondScale().setMaxY(secondThreshold);
+            */
+            series2.setColor(Color.RED);
+            //graph.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(Color.RED);
+
+            //graph.getSecondScale().addSeries(series3);
+            series3.setColor(Color.RED);
+            graph.addSeries(series2);
+            graph.addSeries(series3);
+
+        }
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(80);
+        graph.getViewport().setMaxX(100);
+
+
+        graph.getViewport().setScalable(true);
+        graph.getViewport().setScrollable(true);
+
+        graph.getViewport().setScalableY(true);
+        graph.getViewport().setScrollableY(true);
+
+        graph.getGridLabelRenderer().setHighlightZeroLines(true);
+        graph.getGridLabelRenderer().setTextSize(18);
+
+
 //        graph.getViewport().setMinY(-100);
 //        graph.getViewport().setMaxY(100);
 
@@ -116,7 +170,7 @@ public class ObdExplainationActivity extends AppCompatActivity {
 
                     String [] d = s.split("\n");
 
-                    final int[] dataasInt = new int[d.length];
+                    final float[] dataasInt = new float[d.length];
                     String [] dataasString = new String[d.length];
 
                     for(int i =0 ; i<d.length;i++)
@@ -141,12 +195,14 @@ public class ObdExplainationActivity extends AppCompatActivity {
 
                     if(!dataasString[0].equals("")) {
                         for (int i = 0; i < dataasString.length; i++) {
-                            dataasInt[i] = Integer.parseInt(dataasString[i]);
+                            dataasInt[i] = Float.parseFloat(dataasString[i]);
 
                         }
                     }
+
                     else{
-                        dataasInt[0]=0;
+                        dataasInt[0] = 0;
+
                     }
 
 
@@ -156,13 +212,21 @@ public class ObdExplainationActivity extends AppCompatActivity {
                         public void run() {
 
                             time +=1d;
-                            series.appendData(new DataPoint(time , dataasInt[0]),true,40);
+                            series.appendData(new DataPoint(time , dataasInt[0]),true,1000);
+
+                            //we always draw zero line to keep it availabe
+                            if(dataasInt[0]!=0)
+                           series0.appendData(new DataPoint(time , 0),true,1000);
+
+
+                            series2.appendData(new DataPoint(time,fristThreshold),true,1000);
+                            series3.appendData(new DataPoint(time,secondThreshold),true,1000);
                             //lastreading = dataasInt[0];
                         }
                     });
 
                     try {
-                        Thread.sleep(40);
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -190,6 +254,8 @@ public class ObdExplainationActivity extends AppCompatActivity {
             case '7':
             case '8':
             case '9':
+            case '.':
+            case '-':
                 return true;
 
             default:
