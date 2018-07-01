@@ -2,6 +2,10 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:android="http://schemas.android.com/apk/res/android">
 <!--ProfileMenu-->
+
+    <item
+        android:id="@+id/map_profile"
+        android:title="Profile"/>
     <item
         android:id="@+id/map_logout"
         android:title="Logout"

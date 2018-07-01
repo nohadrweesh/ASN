@@ -100,6 +100,13 @@
             android:onClick="gotoGoogleMaps"
             android:text="Map View" />
 
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="119dp"
+            android:layout_height="wrap_content"
+            android:onClick="goToTrackersActivity"
+            android:text="Trackers" />
+
     </LinearLayout>
 
 

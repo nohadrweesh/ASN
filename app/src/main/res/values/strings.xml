@@ -50,7 +50,6 @@
 
  </string>
 
-
     <string name="LoadCommand">  Calculated Engine Load value.\n
 
   There isn\'t a single sensor it uses to figure this out.\n For a gasoline (or spark ignition) engine,
@@ -59,7 +58,7 @@
   to do calculations.\n
 
  </string>
-  <string name="MassAirFlowCommand"> Mass Air Flow (MAF)
+    <string name="MassAirFlowCommand"> Mass Air Flow (MAF)
  
   (MAF) is a sensor used to determine the mass flow rate of air entering a fuel-injected internal combustion engine.\n
   The air mass information is necessary for the engine control unit (ECU)
@@ -204,7 +203,6 @@
   Ambient Air temperature is used to modify air
   conditioning system operation and display outside air temperature.\n
  </string>
-
     <string name="CatalystTemperatureCommand">
     A catalytic converter is an exhaust emission control device that converts toxic gases and pollutants
         in exhaust gas into less-toxic pollutants by catalyzing a redox reaction (an oxidation and a reduction reaction).\n

@@ -100,9 +100,7 @@
             android:name=".sync.HelpIntentService"
             android:exported="false" />
 
-
-        
-        <activity android:name=".ObdActivity"/>
+        <activity android:name=".ObdActivity" />
 
 
         <activity android:name=".EngineDataActivity" />
@@ -115,10 +113,29 @@
         <activity android:name=".Waiting" />
         <activity android:name=".SendHelp" />
         <activity android:name=".AcceptorInfo" />
+        =======
+        <activity android:name=".ConnectionRequestsActivity" />
+        <activity android:name=".ConnectionSenderProfileActivity" />
+        =======
+        >>>>>>> HandleConnectionRequests
         <activity android:name=".TroubleCodesActivity" />
         <activity android:name=".DriverModeActivity" />
         <activity android:name=".TroubleCodesActivity2" />
+
+        <activity android:name=".ObdExplainationActivity" />
+        
+        <activity
+            android:name=".CenterSelectionActivity"
+            android:label="Service Centers"></activity>
+        <activity android:name=".Profile2Activity"></activity>
+
         <activity android:name=".ObdExplainationActivity"></activity>
+
+
+       
+        <activity android:name=".TrackersListActivity" />
+        <activity android:name=".TrackerProfileActivity"></activity>
+
     </application>
 
 </manifest>
