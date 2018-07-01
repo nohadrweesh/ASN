@@ -11,6 +11,7 @@ public class NotificationVo {
     private String iconUrl;
     private String action;
     private String actionDestination;
+    private String notificationType;
     private int toCarID;
     private int toDriverID;
     private int problemID;
@@ -82,5 +83,11 @@ public class NotificationVo {
     }
 
 
+    public String getNotificationType() {
+        return notificationType;
+    }
 
+    public void setNotificationType(String notificationType) {
+        this.notificationType = notificationType;
+    }
 }
