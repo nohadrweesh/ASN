@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBlack">#000000</color>
+    <color name="msg_no_offers">#999</color>
+    <color name="timestamp">#89a3a0a0</color>
+    <color name="offer_list_title">#858585</color>
+    <color name="offer_list_content">#232323</color>
 </resources>

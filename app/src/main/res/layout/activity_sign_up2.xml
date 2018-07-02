@@ -120,7 +120,7 @@
             android:background="#11000000"
             android:ems="10"
             android:hint="Car Model"
-            android:inputType="phone"
+            android:inputType="text"
             android:paddingLeft="15dp" />
 
         <EditText

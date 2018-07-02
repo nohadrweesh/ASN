@@ -42,7 +42,7 @@ public class ObdActivity extends AppCompatActivity {
     // time wait between sending data to server 1000 * 60 * 5 = 5 min
     private static Thread t;
     private static boolean serverThreadRunning = false;
-    private final int dataToServer_sleepTime_InMillsec = 1000 * 60 * 5;
+    private final int dataToServer_sleepTime_InMillsec = 1000 * 60 * 0;
     private obdLiveData mobObdLiveData;
     private final int loopFristNumber = 0;
     private final int loopLastNumber = 51;

@@ -123,6 +123,8 @@ public class Waiting extends AppCompatActivity {
 
             ;
         };
+        RequestHandler.getInstance(mContext).addToRequestQueue(stringRequest);
+
         ////////////////////////////////////
         ////////////////////////////////////
     }

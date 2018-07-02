@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.a.myapplication.MainActivity;
+import com.example.a.myapplication.database.DatabaseHelper;
 import com.example.a.myapplication.utils.NotificationUtils;
 import com.example.a.myapplication.vo.NotificationVo;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -29,7 +30,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TO_USER_ID="toUserID";
     private static final String PROBLEM_ID="problemID";
     private static final String NOTIFICATION_TYPE="notificationType";
+    private static final String NOTIFICATION_CENTER_ID="centerId";
+    private static final String NOTIFICATION_OFFER_ID="offerId";
+    private static final String NOTIFICATION_EXPIRY_DATE="expDate";
+    private static final String NOTIFICATION_CENTER_NAME="centerName";
 
+    private DatabaseHelper db;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -80,12 +86,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationVO.setAction(action);
         notificationVO.setActionDestination(actionDestination);
         notificationVO.setNotificationType(notificationType);
-        if(!notificationType.equals("SA")) {
+        if(notificationType.equals("HELP")) {
 
             notificationVO.setToCarID(Integer.parseInt(toCarID));
             notificationVO.setToDriverID(Integer.parseInt(toUserID));
             notificationVO.setProblemID(Integer.parseInt(problemID));
-        }else {
+        }else if(notificationType.equals("SC-OFFER")){
+            db = new DatabaseHelper(this);
+            db.insertOffer(Integer.parseInt(data.get(NOTIFICATION_OFFER_ID)),Integer.parseInt(data.get(NOTIFICATION_CENTER_ID)),
+                    data.get(TITLE),data.get(MESSAGE),data.get(NOTIFICATION_EXPIRY_DATE),data.get(NOTIFICATION_CENTER_NAME));
+        }
+        else {
             Log.d(TAG, "handleData: notificationTYPE SA");
         }
 

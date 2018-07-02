@@ -129,7 +129,17 @@
             android:label="Service Centers"></activity>
         <activity android:name=".Profile2Activity"></activity>
 
-        <activity android:name=".ObdExplainationActivity"></activity>
+        <activity
+            android:name=".OffersActivity"
+            android:label="@string/title_activity_offers"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
 
 
        

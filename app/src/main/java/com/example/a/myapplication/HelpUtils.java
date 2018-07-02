@@ -154,6 +154,20 @@ public class HelpUtils extends AppCompatActivity{
                             if (!obj.getBoolean("error")) {
                                 Log.d(TAG, "onResponse: pb sent");
 
+                                ////////////////////////////////////////
+                                //////// YOMNA HESHAM  19 APRIL ////////
+                                ////////////////////////////////////////
+                                int problemID = obj.getJSONObject("res").getInt("pbID");
+//                                Intent i =new Intent(getApplicationContext(),Waiting.class);
+                                Intent i = new Intent(mContext,Waiting.class);
+                                i.putExtra("problemID",problemID);
+                                mContext.startActivity(i);
+//                                startActivity(new Intent(HelpUtils.this,Waiting.class));
+//                                activityObj.startActivity(new Intent(activityObj,Waiting.class));
+                                //////////////////////////////////////
+                                ////////////////////////////////////////
+
+
                             } else {
                                 Log.d(TAG, "onResponse: error " + obj.getString("message"));
 
@@ -260,7 +274,7 @@ public class HelpUtils extends AppCompatActivity{
                                 i.putExtra("pbType",pbType);
                                 i.putExtra("pbMsg",pbMsg);
                                 Log.d(TAG, "onResponse: Intent data = "+i.getExtras().toString());
-                                mContext.startActivity(i);
+                                startActivity(i);
 
 
                             } else {
@@ -310,7 +324,7 @@ public class HelpUtils extends AppCompatActivity{
                 params.put("to",String.valueOf(needingHelpID));
                 params.put("toCar",String.valueOf(needingHelpCarID));
                 params.put("problemID",String.valueOf(problemID));
-
+                Log.d(TAG, "getParams: PARAMS= "+   params);
 
 
                 return params;

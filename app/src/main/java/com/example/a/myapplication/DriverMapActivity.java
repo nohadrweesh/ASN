@@ -19,7 +19,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -64,6 +67,8 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     String pbName;
 
     int currentDriverID;
+    ToggleButton trafficToggle;
+    ImageView ivLegend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +101,22 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
                 currentDriverID = i.getIntExtra("driverID",0);
         }
 
+
+        trafficToggle=(ToggleButton)findViewById(R.id.trafficToggle);
+        ivLegend=(ImageView)findViewById(R.id.ivLegend);
+        trafficToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Log.d(TAG, "onCheckedChanged: on");
+                    mMap.setTrafficEnabled(false);
+                    ivLegend.setVisibility(View.INVISIBLE);
+                } else {
+                    Log.d(TAG, "onCheckedChanged: off");
+                    mMap.setTrafficEnabled(true);
+                    ivLegend.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
 
@@ -117,6 +138,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             Toast.makeText(getApplicationContext(),"Accept permssions ",Toast.LENGTH_SHORT).show();
             return;
         }
+        mMap.setTrafficEnabled(true);
         Log.d(TAG, "onMapReady: starts ");
         buildGoogleApiClient();
         mGoogleApiClient.connect();
@@ -351,4 +373,10 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
         i.putExtra("currentUserID",SharedPrefManager.getInstance(getApplicationContext()).getUserId());
         startActivity(i);
     }
+    public void showOffers(View view) {
+
+        startActivity(new Intent(this,OffersActivity.class));
+    }
+
+
 }

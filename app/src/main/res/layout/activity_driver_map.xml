@@ -44,6 +44,18 @@
             android:layout_height="wrap_content"
             android:onClick="displayConnectionRequests"
             android:text="REQUESTS" />
+        <ToggleButton
+            android:id="@+id/trafficToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Show Traffic"
+            android:textOff="Hide Traffic"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="My Offers"
+            android:onClick="showOffers"/>
 
         <Button
             android:id="@+id/button6"
@@ -53,14 +65,32 @@
             android:text="Trackers" />
 
     </LinearLayout>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:map="http://schemas.android.com/apk/res-auto"
-          xmlns:tools="http://schemas.android.com/tools"
-          android:id="@+id/map"
-          android:name="com.google.android.gms.maps.SupportMapFragment"
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="14"
-          tools:context="com.example.a.myapplication.DriverMapActivity"/>
-
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="14">
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:map="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:id="@+id/map"
+                  android:name="com.google.android.gms.maps.SupportMapFragment"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="14"
+                  tools:context="com.example.a.myapplication.DriverMapActivity"/>
+        <ImageView
+            android:id="@+id/ivLegend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/legend"
+            android:contentDescription="traffic legend"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintRight_toRightOf="parent"
+            map:layout_constraintStart_toStartOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>
