@@ -18,11 +18,9 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Action;
 import android.support.v4.content.ContextCompat;
-import android.text.Html;
 import android.util.Log;
 
 import com.example.a.myapplication.Main2Activity;
@@ -71,101 +69,6 @@ public class NotificationUtils {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void displayNotification1(NotificationVo notificationVO, Intent resultIntent) {
-        {
-            String message = notificationVO.getMessage();
-            String title = notificationVO.getTitle();
-            String iconUrl = notificationVO.getIconUrl();
-            String action = notificationVO.getAction();
-            String destination = notificationVO.getActionDestination();
-            Bitmap iconBitMap = null;
-            if (iconUrl != null) {
-                iconBitMap = getBitmapFromURL(iconUrl);
-            }
-            final int icon = R.mipmap.ic_launcher;
-
-            PendingIntent resultPendingIntent;
-
-            if (URL.equals(action)) {
-                Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(destination));
-
-                resultPendingIntent = PendingIntent.getActivity(mContext, 0, notificationIntent, 0);
-            } else if (ACTIVITY.equals(action) && activityMap.containsKey(destination)) {
-                resultIntent = new Intent(mContext, activityMap.get(destination));
-
-                resultPendingIntent =
-                        PendingIntent.getActivity(
-                                mContext,
-                                0,
-                                resultIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT
-                        );
-            } else {
-                resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                resultPendingIntent =
-                        PendingIntent.getActivity(
-                                mContext,
-                                0,
-                                resultIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT
-                        );
-            }
-
-
-            Notification.Builder mBuilder;
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                mBuilder = new Notification.Builder(mContext,
-                        CHANNEL_ID);
-            } else {
-                mBuilder = new Notification.Builder(mContext);
-            }
-
-
-
-
-            Notification notification;
-
-            if (iconBitMap == null) {
-                //When Inbox Style is applied, user can expand the notification
-                NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-                //NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.MediaStyle().setMediaSession(sessionCompat.getSessionToken())
-
-                inboxStyle.addLine(message);
-                notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
-                        .setAutoCancel(true)
-                        .setContentTitle(title)
-                        .setContentIntent(resultPendingIntent)
-                        //.setStyle(inboxStyle)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                        .setContentText(message)
-                        //.addAction(acceptUserHelp(mContext))
-                        //.addAction(ignoreAction(mContext))
-                        .build();
-
-            } else {
-                //If Bitmap is created from URL, show big icon
-                NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
-                bigPictureStyle.setBigContentTitle(title);
-                bigPictureStyle.setSummaryText(Html.fromHtml(message).toString());
-                bigPictureStyle.bigPicture(iconBitMap);
-                notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
-                        .setAutoCancel(true)
-                        .setContentTitle(title)
-                        .setContentIntent(resultPendingIntent)
-                        //.setStyle(bigPictureStyle)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                        .setContentText(message)
-                        .build();
-            }
-
-            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(NOTIFICATION_ID, notification);
-        }
-    }
 
     /**
      * Downloads push notification image before displaying it in
@@ -248,7 +151,15 @@ public class NotificationUtils {
                     acceptHelpPendingIntent);
 
             return acceptHelpAction;
-        }else{
+        }else if(notificationType.equals("SC-OFFER")){
+            Action acceptHelpAction = new Action(R.drawable.ic_local_drink_black_24px,
+                    "Want More Details ....",
+                    acceptHelpPendingIntent);
+
+            return acceptHelpAction;
+        }
+
+        else{
 
         Action acceptHelpAction = new Action(R.drawable.ic_local_drink_black_24px,
                 "I can help him,Provide with more info",
@@ -314,21 +225,59 @@ public class NotificationUtils {
                     NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(mChannel);
         }
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext,CHANNEL_ID)
-                .setColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
+        NotificationCompat.Builder notificationBuilder;
 
-                .setContentTitle(title)
-                .setContentText(message)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(
-                        message))
-                .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setContentIntent(resultPendingIntent)
+        if(notificationType.equals("ADV")) {//TODO:IF YOU WANT NO ACTION ADD YOUR TYPE HERE
+            notificationBuilder = new NotificationCompat.Builder(mContext, CHANNEL_ID)
+                    .setColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
 
-                .addAction(acceptUserHelp(mContext,notificationType))
-                .addAction(ignoreAction(mContext,notificationType))
-                .setAutoCancel(true);
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(
+                            message))
+                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                    .setContentIntent(resultPendingIntent)
+
+
+                    .setAutoCancel(true);
+
+        }else if(notificationType.equals("SC-OFFER")){//TODO:IF YOU WANT ONE ACTION  ONLY ADD YOUR TYPE HERE
+            notificationBuilder = new NotificationCompat.Builder(mContext, CHANNEL_ID)
+                    .setColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
+
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(
+                            message))
+                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                    .setContentIntent(resultPendingIntent)
+
+                    .addAction(acceptUserHelp(mContext, notificationType))
+
+                    .setAutoCancel(true);
+        }
+
+        else{
+            notificationBuilder = new NotificationCompat.Builder(mContext, CHANNEL_ID)
+                    .setColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
+
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(
+                            message))
+                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                    .setContentIntent(resultPendingIntent)
+
+                    .addAction(acceptUserHelp(mContext, notificationType))
+                    .addAction(ignoreAction(mContext, notificationType))
+                    .setAutoCancel(true);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
                 && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {

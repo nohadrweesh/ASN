@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.a.myapplication.MainActivity;
+import com.example.a.myapplication.OffersActivity;
 import com.example.a.myapplication.database.DatabaseHelper;
 import com.example.a.myapplication.utils.NotificationUtils;
 import com.example.a.myapplication.vo.NotificationVo;
@@ -86,23 +87,49 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationVO.setAction(action);
         notificationVO.setActionDestination(actionDestination);
         notificationVO.setNotificationType(notificationType);
+        Intent resultIntent;
+        NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
         if(notificationType.equals("HELP")) {
 
             notificationVO.setToCarID(Integer.parseInt(toCarID));
             notificationVO.setToDriverID(Integer.parseInt(toUserID));
             notificationVO.setProblemID(Integer.parseInt(problemID));
+
+            resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+            //TODO: THIS INTENT DETERMINES WHERE TO GO WHEN YOU PRESS IT(NOT ITS ACTIONS)
+            // TODO:SO YOU CAN CUSTOMIZE IT WITH THE ACTIVITY YOU WANT,PUT EXTRAS TO IT
+
         }else if(notificationType.equals("SC-OFFER")){
             db = new DatabaseHelper(this);
             db.insertOffer(Integer.parseInt(data.get(NOTIFICATION_OFFER_ID)),Integer.parseInt(data.get(NOTIFICATION_CENTER_ID)),
                     data.get(TITLE),data.get(MESSAGE),data.get(NOTIFICATION_EXPIRY_DATE),data.get(NOTIFICATION_CENTER_NAME));
+
+            resultIntent = new Intent(getApplicationContext(), OffersActivity.class);
+            //TODO: THIS INTENT DETERMINES WHERE TO GO WHEN YOU PRESS IT(NOT ITS ACTIONS)
+            // TODO:SO YOU CAN CUSTOMIZE IT WITH THE ACTIVITY YOU WANT,PUT EXTRAS TO IT
+
+        }else if(notificationType.equals("ADV")) {
+
+            //TODO:ADD  ADV APP NOTIFICATION HANDLING HERE
+
+
+            resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+
+            //TODO: THIS INTENT DETERMINES WHERE TO GO WHEN YOU PRESS IT(NOT ITS ACTIONS)
+            // TODO:SO YOU CAN CUSTOMIZE IT WITH THE ACTIVITY YOU WANT,PUT EXTRAS TO IT
         }
         else {
-            Log.d(TAG, "handleData: notificationTYPE SA");
+
+            resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+
+            //TODO: THIS INTENT DETERMINES WHERE TO GO WHEN YOU PRESS IT(NOT ITS ACTIONS)
+            // TODO:SO YOU CAN CUSTOMIZE IT WITH THE ACTIVITY YOU WANT,PUT EXTRAS TO IT
+            Log.d(TAG, "handleData: notificationTYPE "+notificationType);
         }
 
-        Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
 
-        NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+
+
         notificationUtils.displayNotification(notificationVO, resultIntent);
         notificationUtils.playNotificationSound();
 
