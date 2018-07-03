@@ -44,6 +44,8 @@ dependencies {
 
     implementation 'com.jjoe64:graphview:4.2.2'
     compile 'com.cardiomood.android:android-widgets:0.1.1'
+    implementation 'com.squareup.picasso:picasso:2.5.0'
+
 }
 
 // this is added to support the graphView Library

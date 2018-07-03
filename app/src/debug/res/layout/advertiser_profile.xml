@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/basicLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+        <RelativeLayout
+            android:id="@+id/basicInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/icon"
+                android:layout_margin="5dp"
+                android:text="Name"
+                android:textAllCaps="true"
+                android:textScaleX="1.5"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/slogan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/name"
+                android:layout_margin="5dp"
+                android:text="Slogan"
+                android:textScaleX="1.2"/>
+            <TextView
+                android:id="@+id/serviceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/slogan"
+                android:layout_margin="5dp"
+                android:text="ServiceType"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/availibility"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/availibilityTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Availability"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAllCaps="true"
+                android:textScaleX="1.2"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/availibilityValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ex: From sat to thurs 9am:5pm"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/adrs"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/adrsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAllCaps="true"
+                android:textScaleX="1.2"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/adrsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hegaz sq, Cairo, Egypt"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/phone"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/phoneTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAllCaps="true"
+                android:textScaleX="1.2"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/phoneValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01112094412"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/email"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/emailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAllCaps="true"
+                android:textScaleX="1.2"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/emailValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="service@gmail.com"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/licence"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/licenceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Licence"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAllCaps="true"
+                android:textScaleX="1.2"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/licenceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="89812AF3X - 2010"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/location"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/locationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:textAllCaps="true"
+                android:textScaleX="1.2"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/locationLat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30.54896654"
+                android:paddingLeft="3dp"
+                android:paddingRight="0dp"
+                android:textAlignment="center"/>
+            <TextView
+                android:id="@+id/locationLng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30.54896654"
+                android:paddingLeft="3dp"
+                android:paddingRight="0dp"
+                android:textAlignment="center"/>
+            <TextView
+                android:id="@+id/locationAtit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30.54896654"
+                android:paddingLeft="3dp"
+                android:paddingRight="0dp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.a.myapplication.MainActivity;
 import com.example.a.myapplication.OffersActivity;
+import com.example.a.myapplication.SingleAdvertiserAdsActivity;
 import com.example.a.myapplication.database.DatabaseHelper;
 import com.example.a.myapplication.utils.NotificationUtils;
 import com.example.a.myapplication.vo.NotificationVo;
@@ -112,8 +113,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             //TODO:ADD  ADV APP NOTIFICATION HANDLING HERE
 
+            Log.d("HandleAdvNotifData :", "Adv Notification Received");
 
-            resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+            int ownerID = Integer.valueOf(data.get("ownerID"));
+            String ownerName = data.get("ownerName");
+
+            notificationVO.setTitle(ownerName);
+            notificationVO.setMessage(ownerName + " has new advertisements");
+            notificationVO.setNotificationType(notificationType);
+
+            ///// These Attributes are set to NULL as they aren't needed //////
+            notificationVO.setIconUrl("");
+            notificationVO.setAction("");
+            notificationVO.setActionDestination("");
+
+
+            resultIntent = new Intent(getApplicationContext(), SingleAdvertiserAdsActivity.class);
+            resultIntent.putExtra("ownerID", ownerID);
+            resultIntent.putExtra("ownerName", ownerName);
 
             //TODO: THIS INTENT DETERMINES WHERE TO GO WHEN YOU PRESS IT(NOT ITS ACTIONS)
             // TODO:SO YOU CAN CUSTOMIZE IT WITH THE ACTIVITY YOU WANT,PUT EXTRAS TO IT
